@@ -1,0 +1,50 @@
+Create me a more organise and structured of my Presentation, 
+I want to and function and accessible with lightweight and optimised
+
+---
+
+Requirements: 
+
+1. A single page presentation like HTML file 
+2. With simple high contrast black and white design using Eleya or /landing-page-design system 
+3. Enterprise grade video showcase like on https://demos.gsap.com/ 
+4. The current structure for each section :
+** Landing Page + backdrop animation video
+** About Place Of residence, Adress, and short history, Qr for their landing page
+** About me Section: QR code for my portfolio
+** Tools I used
+** Challenges faced and the solutions I discover (Technical | Interpersonal)
+** Closing phase 
+** Q&A Section for other evidences, Images, and demo videos. 
+5. Structured Layout, No Overcrowding
+6. Hover on video play without control
+7. Ensure The performance of the site is enhanced.
+8. The scroll trigger must be horizontal. 
+9. No icon needed 
+10. No shadow drop on cards
+
+--
+
+##Systems and skills:
+Video anmation backdrop for the Landing page
+Eleya design system with square egde and clean UI
+/landing-page-design
+/gsap-core
+/design-review
+/gsap-web
+/performance
+Black bavckground and high contrast text 
+Motion: GSAP
+Font: 
+Header: Clash display,
+Body and other texts: Poppins.
+ 
+--
+
+constraint:
+1. Simplicity, Clean, Redable, from afar.   
+2. No usage of liberaries or cdn that won't work offline, or when . 
+3. The site Must be optimised for fast loading if possible should work offline
+4. The presentation Must be lightweight overall
+5. No generic or verbose statements or texts
+6. Smooth  and Human touch animations alone 

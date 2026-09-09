@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIWES Industrial Training Presentation — Opeyemi</title>
+<meta name="description" content="SIWES Industrial Training Presentation — Systems & Software Engineering">
+<meta name="robots" content="noindex">
+
+<!-- Fonts: Google Fonts fallback preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+
+<style>
+/* ─── LOCAL FONTS FOR 100% OFFLINE SUPPORT ───────────────── */
+@font-face {
+  font-family: 'Clash Display';
+  src: url('./ClashDisplay-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('./Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('./Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* ─── ELEYA DESIGN SYSTEM & RESET ────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important; /* Eleya rule: sharp square edges */
+  box-shadow: none !important; /* Eleya rule: no shadow drops */
+}
+
+:root {
+  --bg-color: #000000;
+  --text-primary: #FFFFFF;
+  --text-muted: rgba(255, 255, 255, 0.55);
+  --text-dim: rgba(255, 255, 255, 0.3);
+  --border-color: rgba(255, 255, 255, 0.14);
+  --border-bright: rgba(255, 255, 255, 0.4);
+  --font-header: 'Clash Display', 'Poppins', system-ui, sans-serif;
+  --font-body: 'Poppins', system-ui, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography helpers */
+.f-clash {
+  font-family: var(--font-header);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.f-poppins {
+  font-family: var(--font-body);
+}
+
+/* Viewport Pin Wrapper */
+#track-wrap {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
+  background: #000000;
+}
+
+/* Horizontal Track */
+#track {
+  display: flex;
+  width: max-content;
+  height: 100dvh;
+  will-change: transform;
+}
+
+/* Individual Section Panel - Strict Containment (Fixes vso_01 - vso_05 overlap) */
+.panel {
+  width: 100vw;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: #000000;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(24px, 5vh, 56px) clamp(32px, 5vw, 72px);
+  isolation: isolate;
+}
+
+.panel-container {
+  width: 100%;
+  max-width: 1120px;
+  max-height: calc(100dvh - 120px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+.panel-container::-webkit-scrollbar { display: none; }
+
+/* Grid Systems */
+.grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 4vw, 48px);
+  width: 100%;
+  align-items: center;
+}
+
+.grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 1.5vw, 24px);
+  width: 100%;
+}
+
+.grid-4col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(12px, 1.5vw, 20px);
+  width: 100%;
+}
+
+/* Eleya Card Component */
+.eleya-card {
+  background: #000000;
+  border: 1px solid var(--border-color);
+  padding: clamp(18px, 2.5vw, 32px);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.eleya-card:hover {
+  border-color: var(--border-bright);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Headings & Badges */
+.section-tag {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: clamp(10px, 1.5vh, 20px);
+  display: block;
+}
+
+.section-title {
+  font-size: clamp(32px, 4.5vw, 56px);
+  line-height: 1.05;
+  color: #ffffff;
+  margin-bottom: clamp(16px, 2vh, 28px);
+  letter-spacing: -0.03em;
+}
+
+.section-desc {
+  font-size: clamp(13px, 1.1vw, 15px);
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 540px;
+}
+
+/* Hero Background GIF (ascii-magic-9.gif) — High Brightness & Vivid Contrast */
+.hero-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-backdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85; /* Bright & fully visible */
+  filter: brightness(1.65) contrast(1.25); /* Enhanced brightness & crispness */
+}
+.hero-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.55) 100%),
+              linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 60%, rgba(0,0,0,0.6) 100%);
+}
+
+/* Grid overlay background */
+.grid-lines-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Top Brand Bar */
+#top-bar {
+  position: fixed;
+  top: 24px;
+  left: 32px;
+  right: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  pointer-events: none;
+}
+#top-bar * { pointer-events: auto; }
+
+.brand-mark {
+  font-family: var(--font-header);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+/* Large Hero Logo Cards (vso_06 specification) */
+.hero-logos-container {
+  display: flex;
+  gap: clamp(16px, 2.5vw, 32px);
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.hero-logo-card {
+  width: clamp(160px, 18vw, 240px);
+  height: clamp(160px, 18vw, 240px);
+  aspect-ratio: 1/1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(18px, 2vw, 28px);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+}
+
+.hero-logo-card:hover {
+  background: rgba(255, 255, 255, 0.12); /* Same grey on hover as navigation buttons */
+  border-color: var(--border-bright); /* Eleya border */
+}
+
+.hero-logo-card img {
+  width: 82%;
+  height: 82%;
+  object-fit: contain;
+  filter: brightness(1.1) contrast(1.05);
+  transition: transform 0.3s ease;
+}
+.hero-logo-card:hover img {
+  transform: scale(1.06);
+}
+
+.hero-logo-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 10px;
+  transition: color 0.3s ease;
+}
+.hero-logo-card:hover .hero-logo-label {
+  color: #ffffff;
+}
+
+.status-pill {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  padding: 6px 14px;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* Bottom Navigation Controls */
+#bottom-nav {
+  position: fixed;
+  bottom: 24px;
+  left: 32px;
+  right: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  padding: 10px 20px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+.nav-btn:hover, .nav-btn.active {
+  color: #ffffff;
+  border-color: var(--border-bright);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-counter {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#progress-track {
+  width: 100px;
+  height: 2px;
+  background: rgba(255,255,255,0.15);
+  position: relative;
+  overflow: hidden;
+}
+#progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: #ffffff;
+  transition: width 0.1s linear;
+}
+
+/* QR Code Block */
+.qr-block {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  background: #050505;
+}
+.qr-box {
+  width: 120px;
+  height: 120px;
+  background: #ffffff;
+  padding: 8px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+}
+.qr-box svg,
+.qr-box img {
+  width: 100%;
+  height: 100%;
+}
+.qr-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.qr-label {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.qr-url {
+  font-size: 13px;
+  color: var(--text-muted);
+  word-break: break-all;
+}
+
+/* QR Enlarge & Modal Styles */
+.qr-block.qr-clickable {
+  cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  position: relative;
+  padding: 20px;
+}
+.qr-block.qr-clickable:hover {
+  border-color: var(--border-bright);
+  background: #0a0a0a;
+}
+.qr-block.qr-clickable:hover .qr-box {
+  outline: 2px solid #ffffff;
+}
+.qr-enlarge-notation {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s ease;
+}
+.qr-enlarge-notation svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.qr-block.qr-clickable:hover .qr-enlarge-notation {
+  color: var(--text-primary);
+}
+
+.qr-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 999999;
+  background: rgba(0, 0, 0, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+.qr-modal-overlay.active {
+  display: flex !important;
+}
+.qr-modal-content {
+  background: #050505;
+  border: 1px solid var(--border-bright);
+  padding: 36px 44px;
+  max-width: 95vw;
+  max-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  box-shadow: 0 0 80px rgba(0,0,0,0.95);
+}
+.qr-modal-img {
+  width: 520px;
+  height: 520px;
+  max-width: 80vw;
+  max-height: 65vh;
+  background: #ffffff;
+  padding: 20px;
+  object-fit: contain;
+  box-shadow: 0 0 30px rgba(255,255,255,0.08);
+}
+.qr-modal-caption {
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.qr-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: #ffffff;
+  font-size: 24px;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.qr-modal-close:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Video Showcase Cards (Enterprise Grade) */
+.showcase-card {
+  border: 1px solid var(--border-color);
+  background: #000000;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s ease;
+}
+.showcase-card:hover {
+  border-color: var(--border-bright);
+}
+
+.showcase-media {
+  width: 100%;
+  aspect-ratio: 16/10;
+  background: #080808;
+  overflow: hidden;
+  position: relative;
+}
+.showcase-media video,
+.showcase-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.65;
+  filter: grayscale(80%);
+  transition: opacity 0.4s ease, filter 0.4s ease;
+  pointer-events: none; /* Allows parent hover handlers to trigger cleanly */
+}
+.showcase-card:hover .showcase-media video,
+.showcase-card:hover .showcase-media img {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+
+.showcase-info {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border-color);
+  background: #050505;
+}
+.showcase-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.showcase-sub {
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+/* GSAP Entry Reveal State */
+.gsap-hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Responsive Scaling for smaller heights */
+@media (max-height: 700px) {
+  .panel { padding: 20px 32px; }
+  .section-title { font-size: clamp(26px, 3.5vw, 40px); margin-bottom: 12px; }
+  .section-tag { margin-bottom: 8px; }
+  .eleya-card { padding: 14px 18px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BRAND BAR -->
+<div id="top-bar">
+  <div class="brand-mark f-clash">SIWES 2026 PRESENTATION</div>
+  <div class="status-pill f-poppins">INDUSTRIAL TRAINING PRESENTATION</div>
+</div>
+
+<!-- MAIN HORIZONTAL SCROLL TRACK WRAPPER -->
+<div id="track-wrap">
+<div id="track">
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL 01: LANDING PAGE + ASCII BACKDROP
+  ═══════════════════════════════════════════════════ -->
+  <section class="panel" id="panel-01" data-nav="01 HERO">
+    <div class="hero-backdrop">
+      <img src="ascii-magic-9.gif" alt="ASCII Animation Backdrop" loading="eager" />
+    </div>
+    <div class="grid-lines-overlay"></div>
+
+    <div class="panel-container">
+      <div class="grid-2col" style="align-items: center; width: 100%;">
+        <!-- Left Column: Heading text shifted left (vso_06 layout) -->
+        <div class="gsap-hidden" style="text-align: left; max-width: 580px;">
+          <span class="section-tag">INDUSTRIAL TRAINING PRESENTATION</span>
+          <h1 class="section-title f-clash" style="margin-left: 0; line-height: 1.05; text-wrap: balance;">
+            Building Resilient Systems & Modern Architecture
+          </h1>
+          <p class="section-desc" style="margin: 0 0 32px 0;">
+            A comprehensive review of software engineering placement, technical discoveries, desktop engines, and full-stack solutions shipped at scale.
+          </p>
+
+          <div style="display: inline-flex; align-items: center; gap: 16px; border: 1px solid var(--border-color); padding: 10px 24px; background: rgba(0,0,0,0.85);">
+            <span style="font-size: 11px; letter-spacing: 0.15em; color: #fff; text-transform: uppercase;">Adeoye Emmanuel Opeyemi</span>
+          </div>
+        </div>
+
+        <!-- Right Column: Two large square logo cards (TAU.png first, Nacos.png second) -->
+        <div class="hero-logos-container gsap-hidden">
+          <div class="hero-logo-card">
+            <img src="TAU.png" alt="TAU Logo" />
+            
+          </div>
+          <div class="hero-logo-card">
+            <img src="Nacos.png" alt="NACOS Logo" />
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL 02: ABOUT PLACE OF RESIDENCE / ORGANIZATION
+  ═══════════════════════════════════════════════════ -->
+  <section class="panel" id="panel-02" data-nav="02 RESIDENCE">
+    <div class="grid-lines-overlay"></div>
+
+    <div class="panel-container">
+      <span class="section-tag gsap-hidden">02 — PLACE OF RESIDENCE / ORGANIZATION</span>
+      
+      <div class="grid-2col">
+        <div class="gsap-hidden">
+          <h2 class="section-title f-clash">Sanfaani Saas</h2>
+          <p class="section-desc" style="margin-bottom: 24px;">
+            Sanfaani is a connected technology ecosystem, built around practical learning, software, tools, mentorship, and builder development.
+          </p>
+
+          <div style="border-left: 2px solid #fff; padding-left: 16px; margin-top: 20px;">
+            <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase;">Physical Address</div>
+            <div style="font-size: 13px; color: #fff; margin-top: 4px;">Kehinde Shaffi, Islamic Village, Ilorin, Kwara State.</div>
+          </div>
+        </div>
+
+        <div class="gsap-hidden" style="display: flex; flex-direction: column; gap: 20px;">
+          <!-- Company Logo Card (White Box Background for Maximum Visibility) -->
+          <div class="eleya-card" style="padding: 24px; overflow: hidden; height: 180px; background: #ffffff; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-bright);">
+            <img src="logo.webp" alt="Sanfaani SaaS Logo" style="max-width: 85%; max-height: 80%; width: auto; height: auto; object-fit: contain; filter: grayscale(100%); transition: filter 0.4s ease, transform 0.4s ease;" onmouseenter="this.style.filter='grayscale(0%)'; this.style.transform='scale(1.05)';" onmouseleave="this.style.filter='grayscale(100%)'; this.style.transform='scale(1)';" />
+          </div>
+
+          <!-- Procedural SVG QR Code for Residence Landing Page -->
+          <div class="qr-block qr-clickable" id="qr-sec2-block" role="button" tabindex="0" title="Click to enlarge QR code">
+            <div class="qr-box">
+              <img src="sanfaaniQR.svg" alt="Sanfaani QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
+            </div>
+            <div class="qr-meta">
+              <span class="qr-label">SCAN FOR LANDING PAGE</span>
+              <span class="qr-url">https://www.sanfaani.net</span>
+              <span class="qr-enlarge-notation">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width: 12px; height: 12px; fill: currentColor; display: inline-block; vertical-align: middle;">
+                  <path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 176C258.7 176 248 186.7 248 200L248 248L200 248C186.7 248 176 258.7 176 272C176 285.3 186.7 296 200 296L248 296L248 344C248 357.3 258.7 368 272 368C285.3 368 296 357.3 296 344L296 296L344 296C357.3 296 368 285.3 368 272C368 258.7 357.3 248 344 248L296 248L296 200C296 186.7 285.3 176 272 176z"/>
+                </svg>
+                (CLICK TO ENLARGE)
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL 03: ABOUT ME SECTION
+  ═══════════════════════════════════════════════════ -->
+  <section class="panel" id="panel-03" data-nav="03 ABOUT">
+    <div class="grid-lines-overlay"></div>
+
+    <div class="panel-container">
+      <span class="section-tag gsap-hidden">03 — ABOUT ME</span>
+
+      <div class="grid-2col">
+        <div class="gsap-hidden">
+          <h2 class="section-title f-clash">Systems Engineer & Builder.</h2>
+          <p class="section-desc" style="margin-bottom: 24px;">
+            Full-stack developer working across web platforms and desktop runtime environments. Focused on clean modular logic, offline-first reliability, and high contrast user interfaces.
+          </p>
+
+          <!-- Highlights row -->
+          <div class="grid-3col" style="margin-top: 24px;">
+            <div class="eleya-card">
+              <div class="f-clash" style="font-size: 28px; color: #fff;">06</div>
+              <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Months Placement</div>
+            </div>
+            <div class="eleya-card">
+              <div class="f-clash" style="font-size: 28px; color: #fff;">03+</div>
+              <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Systems Shipped</div>
+            </div>
+            <div class="eleya-card">
+              <div class="f-clash" style="font-size: 28px; color: #fff;">02</div>
+              <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Core Stacks</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gsap-hidden" style="display: flex; flex-direction: column; gap: 24px;">
+          <div class="eleya-card">
+            <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 12px;">Core Focus & Principles</div>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 13px; color: var(--text-muted);">
+              <li style="border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">— High performance UI rendering and hardware acceleration</li>
+              <li style="border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">— Offline-first data persistence and transactional sync</li>
+              <li>— Minimalist design systems with zero bloat</li>
+            </ul>
+          </div>
+
+          <!-- Procedural SVG QR Code for Portfolio -->
+          <div class="qr-block">
+            <div class="qr-box">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0H40V40H0V0ZM10 10V30H30V10H10Z" fill="#000"/>
+                <path d="M15 15H25V25H15V15Z" fill="#000"/>
+                <path d="M60 0H100V40H60V0ZM70 10V30H90V10H70Z" fill="#000"/>
+                <path d="M75 15H85V25H75V15Z" fill="#000"/>
+                <path d="M0 60H40V100H0V60ZM10 70V90H30V70H10Z" fill="#000"/>
+                <path d="M15 75H25V85H15V75Z" fill="#000"/>
+                <path d="M45 10H55V20H45V10ZM45 30H55V40H45V30ZM50 50H60V60H50V50ZM70 50H80V60H70V50ZM80 60H90V70H80V60ZM60 70H70V80H60V70ZM90 70H100V80H90V70ZM50 80H60V90H50V80ZM70 80H80V90H70V80ZM80 90H90V100H80V90Z" fill="#000"/>
+              </svg>
+            </div>
+            <div class="qr-meta">
+              <span class="qr-label">SCAN FOR PORTFOLIO</span>
+              <span class="qr-url">[ https://portfolio-url.dev ]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL 04: TOOLS I USED
+  ═══════════════════════════════════════════════════ -->
+  <section class="panel" id="panel-04" data-nav="04 TOOLS">
+    <div class="grid-lines-overlay"></div>
+
+    <div class="panel-container">
+      <span class="section-tag gsap-hidden">04 — TECH STACK & INSTRUMENTS</span>
+      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 24px;">Instruments of the Work.</h2>
+
+      <div class="grid-3col gsap-hidden">
+        <div class="eleya-card">
+          <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">React + TypeScript</div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Frontend interfaces, component architecture, and type-safe state management.</div>
+        </div>
+        <div class="eleya-card">
+          <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">Node.js / Express</div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">RESTful API endpoints, request validation, and backend service integration.</div>
+        </div>
+        <div class="eleya-card">
+          <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">C++17 / Qt</div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Desktop application development, custom event loops, and memory profiling.</div>
+        </div>
+        <div class="eleya-card">
+          <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">SQLite</div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Embedded relational database storage for offline-first desktop engines.</div>
+        </div>
+        <div class="eleya-card">
+          <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">Python</div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Automation scripts, data parsing, and build helper pipelines.</div>
+        </div>
+        <div class="eleya-card">
+          <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">GSAP & Motion</div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Hardware-accelerated horizontal timelines and ScrollTrigger pinning.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL 05: CHALLENGES FACED & SOLUTIONS
+  ═══════════════════════════════════════════════════ -->
+  <section class="panel" id="panel-05" data-nav="05 CHALLENGES">
+    <div class="grid-lines-overlay"></div>
+
+    <div class="panel-container">
+      <span class="section-tag gsap-hidden">05 — CHALLENGES & SOLUTIONS</span>
+      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 24px;">Engineering & Operational Trade-offs.</h2>
+
+      <div class="grid-2col gsap-hidden">
+        <!-- Technical Column -->
+        <div class="eleya-card">
+          <div style="font-size: 10px; letter-spacing: 0.18em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Technical Challenges</div>
+
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Offline Data Sync in C++/Qt</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Built local SQLite write queues with conflict resolution on reconnect — guaranteeing zero data loss.</div>
+            </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 12px;">
+              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Async State Race Conditions</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Restructured API fetch layers with cancellation tokens and deterministic state gates.</div>
+            </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 12px;">
+              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Low-Spec Hardware Performance</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Profiled Qt render loops to eliminate unnecessary redraws, cutting CPU usage by 60%.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interpersonal Column -->
+        <div class="eleya-card">
+          <div style="font-size: 10px; letter-spacing: 0.18em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Interpersonal & Process</div>
+
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Communicating Technical Trade-offs</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Framed architectural choices in terms of user experience and timeline predictability.</div>
+            </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 12px;">
+              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Navigating Partial Requirements</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Established habit of writing quick 1-page specs to clarify ambiguities before coding.</div>
+            </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 12px;">
+              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Cross-Functional Collaboration</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Maintained transparent progress tracking with team members to deliver predictable milestones.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL 06: CLOSING PHASE
+  ═══════════════════════════════════════════════════ -->
+  <section class="panel" id="panel-06" data-nav="06 CLOSING">
+    <div class="grid-lines-overlay"></div>
+
+    <div class="panel-container" style="text-align: center; align-items: center;">
+      <span class="section-tag gsap-hidden">06 — CLOSING THOUGHTS</span>
+      
+      <div class="gsap-hidden" style="max-width: 720px; margin: 0 auto;">
+        <blockquote class="f-clash" style="font-size: clamp(24px, 3.2vw, 42px); line-height: 1.2; color: #ffffff; margin-bottom: 24px;">
+          "The man who moves a mountain begins by carrying away small stones."
+        </blockquote>
+        <div style="font-size: 11px; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 40px;">— Confucius</div>
+
+        <div style="width: 1px; height: 36px; background: var(--border-bright); margin: 0 auto 36px;"></div>
+
+        <h3 class="f-clash" style="font-size: 22px; color: #fff; margin-bottom: 8px;">Opeyemi</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 32px;">Software Engineering Student · SIWES Placement 2024</p>
+
+        <div style="display: flex; justify-content: center; gap: 24px;">
+          <a href="#" style="font-size: 11px; letter-spacing: 0.15em; color: #fff; text-decoration: none; border-bottom: 1px solid var(--border-bright); padding-bottom: 2px;">PORTFOLIO</a>
+          <a href="#" style="font-size: 11px; letter-spacing: 0.15em; color: #fff; text-decoration: none; border-bottom: 1px solid var(--border-bright); padding-bottom: 2px;">GITHUB</a>
+          <a href="#" style="font-size: 11px; letter-spacing: 0.15em; color: #fff; text-decoration: none; border-bottom: 1px solid var(--border-bright); padding-bottom: 2px;">CONTACT</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL 07: Q&A SECTION — ENTERPRISE VIDEO SHOWCASE
+  ═══════════════════════════════════════════════════ -->
+  <section class="panel" id="panel-07" data-nav="07 Q&A">
+    <div class="grid-lines-overlay"></div>
+
+    <div class="panel-container">
+      <span class="section-tag gsap-hidden">07 — EVIDENCES & DEMO SHOWCASE</span>
+      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 20px;">Show the work. Ask questions.</h2>
+
+      <div class="grid-4col gsap-hidden" style="margin-bottom: 20px;">
+        <!-- Showcase Video 1 (Hover to Play without controls) -->
+        <div class="showcase-card" onmouseenter="let v=this.querySelector('video'); if(v) v.play();" onmouseleave="let v=this.querySelector('video'); if(v) v.pause();">
+          <div class="showcase-media">
+            <video src="ascii-magic-8.mp4" muted loop playsinline preload="auto"></video>
+          </div>
+          <div class="showcase-info">
+            <div class="showcase-title">Desktop Engine Demo</div>
+            <div class="showcase-sub">ASCII Video Processing</div>
+          </div>
+        </div>
+
+        <!-- Showcase Image 2 -->
+        <div class="showcase-card">
+          <div class="showcase-media">
+            <img src="Sanfaani_service.png" alt="Sanfaani Service" />
+          </div>
+          <div class="showcase-info">
+            <div class="showcase-title">Workplace Service UI</div>
+            <div class="showcase-sub">System Interface</div>
+          </div>
+        </div>
+
+        <!-- Showcase Image 3 -->
+        <div class="showcase-card">
+          <div class="showcase-media">
+            <img src="1x_1280x717.png" alt="System Evidence 1" />
+          </div>
+          <div class="showcase-info">
+            <div class="showcase-title">Analytics Evidence</div>
+            <div class="showcase-sub">Performance Profiling</div>
+          </div>
+        </div>
+
+        <!-- Showcase Image 4 -->
+        <div class="showcase-card">
+          <div class="showcase-media">
+            <img src="2x_2560x1434.png" alt="System Evidence 2" />
+          </div>
+          <div class="showcase-info">
+            <div class="showcase-title">Production Build</div>
+            <div class="showcase-sub">Deployment Evidence</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q&A Context Row -->
+      <div class="grid-3col gsap-hidden">
+        <div class="eleya-card" style="padding: 16px;">
+          <strong style="display: block; font-size: 13px; color: #fff; margin-bottom: 4px;">What was built</strong>
+          <span style="font-size: 11px; color: var(--text-muted);">Production-grade desktop asset manager and full-stack web API — both shipped.</span>
+        </div>
+        <div class="eleya-card" style="padding: 16px;">
+          <strong style="display: block; font-size: 13px; color: #fff; margin-bottom: 4px;">What was learned</strong>
+          <span style="font-size: 11px; color: var(--text-muted);">Systems thinking transfers across stacks. Offline-first constraint forces clarity.</span>
+        </div>
+        <div class="eleya-card" style="padding: 16px;">
+          <strong style="display: block; font-size: 13px; color: #fff; margin-bottom: 4px;">Open Floor / Q&A</strong>
+          <span style="font-size: 11px; color: var(--text-muted);">Ready to answer questions, review source code, and demonstrate system evidence.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /#track -->
+</div><!-- /#track-wrap -->
+
+
+<!-- BOTTOM NAVIGATION BAR -->
+<div id="bottom-nav">
+  <div class="nav-links" id="nav-links-container">
+    <button class="nav-btn active" data-index="0">01 HERO</button>
+    <button class="nav-btn" data-index="1">02 RESIDENCE</button>
+    <button class="nav-btn" data-index="2">03 ABOUT</button>
+    <button class="nav-btn" data-index="3">04 TOOLS</button>
+    <button class="nav-btn" data-index="4">05 CHALLENGES</button>
+    <button class="nav-btn" data-index="5">06 CLOSING</button>
+    <button class="nav-btn" data-index="6">07 Q&A</button>
+  </div>
+
+  <div class="nav-counter">
+    <div id="progress-track"><div id="progress-bar"></div></div>
+    <span id="section-counter-text" class="f-clash">01 / 07</span>
+  </div>
+</div>
+
+<!-- QR Enlargement Modal Overlay (Topmost fixed container) -->
+<div id="qr-modal" class="qr-modal-overlay">
+  <div class="qr-modal-content">
+    <button type="button" class="qr-modal-close" id="qr-modal-close-btn" aria-label="Close enlarged QR code">&times;</button>
+    <img id="qr-modal-img" src="sanfaaniQR.svg" alt="Enlarged QR Code" class="qr-modal-img" />
+    <div id="qr-modal-title" class="qr-modal-caption" style="font-weight: 600;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width: 14px; height: 14px; fill: currentColor;">
+        <path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 176C258.7 176 248 186.7 248 200L248 248L200 248C186.7 248 176 258.7 176 272C176 285.3 186.7 296 200 296L248 296L248 344C248 357.3 258.7 368 272 368C285.3 368 296 357.3 296 344L296 296L344 296C357.3 296 368 285.3 368 272C368 258.7 357.3 248 344 248L296 248L296 200C296 186.7 285.3 176 272 176z"/>
+      </svg>
+      <span class="qr-modal-title-text">Sanfaani SaaS — Landing Page</span>
+    </div>
+    <div id="qr-modal-url" style="font-size: 11px; color: var(--text-dim); word-break: break-all;">https://www.sanfaani.net</div>
+    <div style="font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px;">Click outside or press ESC to close</div>
+  </div>
+</div>
+
+<!-- ─── SCRIPT LIBRARIES (LOCAL + CDN FALLBACK) ─── -->
+<script src="gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  // QR Enlargement Lightbox Handlers
+  window.openQrModal = function(src, title, url) {
+    const modal = document.getElementById('qr-modal');
+    if (!modal) return;
+    const modalImg = document.getElementById('qr-modal-img');
+    const modalTitle = document.getElementById('qr-modal-title');
+    const modalUrl = document.getElementById('qr-modal-url');
+    if (modalImg && src) modalImg.src = src;
+    if (modalTitle && title) {
+      const titleSpan = modalTitle.querySelector('.qr-modal-title-text');
+      if (titleSpan) titleSpan.textContent = title;
+      else modalTitle.textContent = title;
+    }
+    if (modalUrl && url) modalUrl.textContent = url;
+    modal.style.display = 'flex';
+    modal.classList.add('active');
+  };
+
+  window.closeQrModal = function() {
+    const modal = document.getElementById('qr-modal');
+    if (modal) {
+      modal.style.display = 'none';
+      modal.classList.remove('active');
+    }
+  };
+
+  // Direct click listener for Section 2 QR Code block
+  const sec2QrBlock = document.getElementById('qr-sec2-block');
+  if (sec2QrBlock) {
+    sec2QrBlock.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openQrModal('sanfaaniQR.svg', 'Sanfaani SaaS — Landing Page', 'https://www.sanfaani.net');
+    });
+  }
+
+  // Close modal when clicking backdrop
+  const qrModal = document.getElementById('qr-modal');
+  if (qrModal) {
+    qrModal.addEventListener('click', function(e) {
+      if (e.target === qrModal) {
+        closeQrModal();
+      }
+    });
+  }
+
+  // Close modal when clicking close button
+  const qrModalCloseBtn = document.getElementById('qr-modal-close-btn');
+  if (qrModalCloseBtn) {
+    qrModalCloseBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      closeQrModal();
+    });
+  }
+
+  // Elements
+  const track = document.getElementById('track');
+  const panels = gsap.utils.toArray('.panel');
+  const progressBar = document.getElementById('progress-bar');
+  const sectionCounterText = document.getElementById('section-counter-text');
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const trackWrap = document.getElementById('track-wrap');
+  const totalPanels = panels.length;
+
+  let currentIndex = 0;
+  let isAnimating = false;
+
+  // Primary Direct Section Navigation Engine
+  function goToSection(index, duration) {
+    if (typeof duration === 'undefined') duration = 0.8;
+    currentIndex = Math.max(0, Math.min(totalPanels - 1, index));
+
+    const panelWidth = window.innerWidth;
+    const targetX = -currentIndex * panelWidth;
+
+    isAnimating = true;
+
+    // Direct GSAP Horizontal Track Translation
+    gsap.to(track, {
+      x: targetX,
+      duration: duration,
+      ease: 'power2.out',
+      overwrite: 'auto',
+      onUpdate: function() {
+        // Calculate live progress percentage
+        const currentX = Math.abs(gsap.getProperty(track, 'x'));
+        const maxDistance = (totalPanels - 1) * panelWidth;
+        const progress = maxDistance > 0 ? (currentX / maxDistance) : 0;
+        if (progressBar) {
+          progressBar.style.width = (progress * 100) + '%';
+        }
+      },
+      onComplete: function() {
+        isAnimating = false;
+      }
+    });
+
+    // Update Counter & Active Buttons
+    if (sectionCounterText) {
+      sectionCounterText.textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(totalPanels).padStart(2, '0');
+    }
+
+    navBtns.forEach((btn, i) => {
+      if (i === currentIndex) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    // Per-Panel Reveal Animation
+    const activePanel = panels[currentIndex];
+    if (activePanel) {
+      const els = activePanel.querySelectorAll('.gsap-hidden');
+      if (els.length) {
+        gsap.to(els, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.06,
+          duration: 0.6,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      }
+    }
+  }
+
+  // 1. Initial State Setup
+  goToSection(0, 0);
+
+  // 2. Mouse Wheel & Trackpad Listener (Debounced slide navigation)
+  let wheelTimer = null;
+  window.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (Math.abs(delta) < 8) return; // filter tiny trackpad noise
+
+    if (wheelTimer) return;
+
+    if (delta > 0) {
+      if (currentIndex < totalPanels - 1) {
+        goToSection(currentIndex + 1);
+      }
+    } else {
+      if (currentIndex > 0) {
+        goToSection(currentIndex - 1);
+      }
+    }
+
+    wheelTimer = setTimeout(function() {
+      wheelTimer = null;
+    }, 450);
+  }, { passive: false });
+
+  // 3. Navigation Buttons Click Handler
+  navBtns.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const idx = parseInt(btn.getAttribute('data-index'), 10);
+      goToSection(idx, 1.0);
+    });
+  });
+
+  // 4. Keyboard Arrow Navigation & QR Modal Dismissal
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('qr-modal');
+      if (modal && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        return;
+      }
+    }
+
+    if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      if (currentIndex < totalPanels - 1) goToSection(currentIndex + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      if (currentIndex > 0) goToSection(currentIndex - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      goToSection(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      goToSection(totalPanels - 1);
+    }
+  });
+
+  // 5. Mouse Drag Navigation (Click and Drag Track)
+  let isDragging = false;
+  let startX = 0;
+  let startTrackX = 0;
+
+  if (trackWrap) {
+    trackWrap.addEventListener('mousedown', function(e) {
+      if (e.target.closest('button, a, video, .showcase-card, input, .qr-clickable, .qr-modal-overlay')) return;
+      isDragging = true;
+      startX = e.clientX;
+      startTrackX = -currentIndex * window.innerWidth;
+      trackWrap.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      const deltaX = e.clientX - startX;
+      gsap.set(track, { x: startTrackX + deltaX });
+    });
+
+    window.addEventListener('mouseup', function(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      trackWrap.style.cursor = 'grab';
+
+      const deltaX = e.clientX - startX;
+      const threshold = window.innerWidth * 0.12; // 12% drag threshold
+
+      if (deltaX < -threshold && currentIndex < totalPanels - 1) {
+        goToSection(currentIndex + 1);
+      } else if (deltaX > threshold && currentIndex > 0) {
+        goToSection(currentIndex - 1);
+      } else {
+        goToSection(currentIndex);
+      }
+    });
+  }
+
+  // 6. Mobile Touch Swipe Handler
+  let touchStartX = 0;
+  window.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      touchStartX = e.touches[0].clientX;
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchend', function(e) {
+    if (e.changedTouches.length === 1) {
+      const deltaX = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(deltaX) > 40) {
+        if (deltaX < 0 && currentIndex < totalPanels - 1) {
+          goToSection(currentIndex + 1);
+        } else if (deltaX > 0 && currentIndex > 0) {
+          goToSection(currentIndex - 1);
+        }
+      }
+    }
+  }, { passive: true });
+
+  // 7. Window Resize Handler
+  window.addEventListener('resize', function() {
+    goToSection(currentIndex, 0);
+  });
+
+  // Reduced Motion Support
+  const mm = gsap.matchMedia();
+  mm.add('(prefers-reduced-motion: reduce)', function() {
+    gsap.globalTimeline.timeScale(0.01);
+    document.querySelectorAll('.gsap-hidden').forEach(function(el) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>

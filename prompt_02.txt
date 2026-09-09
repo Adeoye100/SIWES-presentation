@@ -1,0 +1,119 @@
+/grill-me Ask me any question repeatedly until your curiosity is satisfied, don't get creative, ask me for clarity sake.
+
+Execute Each of these tasks on improving this presentation based on this instruction 
+
+----
+
+"Create me a more organise and structured of my Presentation, 
+I want to and function and accessible with lightweight and optimised
+
+---
+
+Requirements: 
+
+1. A single page presentation like HTML file 
+2. With simple high contrast black and white design using Eleya or /landing-page-design system 
+3. Enterprise grade video showcase like on https://demos.gsap.com/ 
+4. The current structure for each section :
+** Landing Page + backdrop animation video
+** About Place Of residence, Adress, and short history, Qr for their landing page
+** About me Section: QR code for my portfolio
+** Tools I used
+** Challenges faced and the solutions I discover (Technical | Interpersonal)
+** Closing phase 
+** Q&A Section for other evidences, Images, and demo videos. 
+5. Structured Layout, No Overcrowding
+6. Hover on video play without control
+7. Ensure The performance of the site is enhanced.
+8. The scroll trigger must be horizontal. 
+9. No icon needed 
+10. No shadow drop on cards
+
+--
+
+##Systems and skills:
+Video anmation backdrop for the Landing page
+Eleya design system with square egde and clean UI
+/landing-page-design
+/gsap-core
+/design-review
+/gsap-web
+/performance
+Black bavckground and high contrast text 
+Motion: GSAP
+Font: 
+Header: Clash display,
+Body and other texts: Poppins.
+ 
+--
+
+constraint:
+1. Simplicity, Clean, Redable, from afar.   
+2. No usage of liberaries or cdn that won't work offline, or when . 
+3. The site Must be optimised for fast loading if possible should work offline
+4. The presentation Must be lightweight overall
+5. No generic or verbose statements or texts
+6. Smooth  and Human touch animations alone" 
+ 
+----
+
+Replace the Landing page background with this gif animation video in this folder director name ascii-magic-9.gif with subtle, high quality, visible, and minimality.  
+
+----
+
+The section should be perfectly separated from each other (they're overlapping), correct the visual overlap as seen in vso_01 to 05.
+
+----
+
+The current horizontal scroll only support using arrow keys, 
+ensure it supported scrolling with mouse and mouse clicking 
+using gsap library. 
+
+----
+
+Resources:
+
+/**
+* @license
+*
+* Font Family: Clash Display
+* Designed by: Indian Type Foundry
+* URL: https://www.fontshare.com/fonts/clash-display
+* © 2026 Indian Type Foundry
+*
+* Clash Display Extralight 
+* Clash Display Medium 
+* Clash Display Bold 
+
+*
+*/
+@font-face {
+  font-family: 'ClashDisplay-Extralight';
+  src: url('../fonts/ClashDisplay-Extralight.woff2') format('woff2'),
+       url('../fonts/ClashDisplay-Extralight.woff') format('woff'),
+       url('../fonts/ClashDisplay-Extralight.ttf') format('truetype');
+  font-weight: 200;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashDisplay-Medium';
+  src: url('../fonts/ClashDisplay-Medium.woff2') format('woff2'),
+       url('../fonts/ClashDisplay-Medium.woff') format('woff'),
+       url('../fonts/ClashDisplay-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashDisplay-Bold';
+  src: url('../fonts/ClashDisplay-Bold.woff2') format('woff2'),
+       url('../fonts/ClashDisplay-Bold.woff') format('woff'),
+       url('../fonts/ClashDisplay-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+
+
