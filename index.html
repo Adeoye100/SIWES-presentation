@@ -583,12 +583,90 @@ html, body {
   transform: translateY(20px);
 }
 
-/* Responsive Scaling for smaller heights */
+/* Overall Responsive Scaling & Breakpoints */
+@media (max-width: 900px) {
+  .grid-2col {
+    grid-template-columns: 1fr;
+    gap: clamp(16px, 3vw, 28px);
+  }
+  .hero-logos-container {
+    justify-content: center;
+    width: 100%;
+    margin-top: 16px;
+  }
+  .hero-logo-card {
+    width: clamp(130px, 35vw, 180px);
+    height: clamp(130px, 35vw, 180px);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-3col, .grid-4col {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .panel {
+    padding: clamp(16px, 4vh, 32px) clamp(16px, 4vw, 24px);
+  }
+  .section-title {
+    font-size: clamp(24px, 5.5vw, 36px);
+    margin-bottom: 12px;
+  }
+  .section-desc {
+    font-size: 13px;
+  }
+  #top-bar {
+    top: 12px;
+    left: 16px;
+    right: 16px;
+  }
+  .brand-mark {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+  .status-pill {
+    font-size: 9px;
+    padding: 4px 10px;
+  }
+  #bottom-nav {
+    padding: 10px 16px;
+  }
+  .nav-links {
+    overflow-x: auto;
+    max-width: 100%;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+  .qr-modal-content {
+    padding: 24px 20px;
+    max-width: 92vw;
+    gap: 14px;
+  }
+  .qr-modal-img {
+    width: 280px;
+    height: 280px;
+    max-width: 80vw;
+    max-height: 48vh;
+    padding: 12px;
+  }
+  .qr-box {
+    width: 90px;
+    height: 90px;
+  }
+  .qr-block.qr-clickable {
+    padding: 14px;
+  }
+}
+
 @media (max-height: 700px) {
-  .panel { padding: 20px 32px; }
-  .section-title { font-size: clamp(26px, 3.5vw, 40px); margin-bottom: 12px; }
-  .section-tag { margin-bottom: 8px; }
-  .eleya-card { padding: 14px 18px; }
+  .panel { padding: 16px 24px; }
+  .section-title { font-size: clamp(24px, 3.5vw, 36px); margin-bottom: 10px; }
+  .section-tag { margin-bottom: 6px; }
+  .eleya-card { padding: 14px 16px; }
+  .qr-box { width: 90px; height: 90px; }
 }
 </style>
 </head>
@@ -631,15 +709,32 @@ html, body {
           </div>
         </div>
 
-        <!-- Right Column: Two large square logo cards (TAU.png first, Nacos.png second) -->
-        <div class="hero-logos-container gsap-hidden">
-          <div class="hero-logo-card">
-            <img src="TAU.png" alt="TAU Logo" />
-            
+        <!-- Right Column: Logos & Presentation Share QR Code (01_presenation_share.svg -> https://siwes-presentation-five.vercel.app/) -->
+        <div class="hero-logos-container gsap-hidden" style="display: flex; flex-direction: column; gap: 16px; align-items: flex-end;">
+          <div style="display: flex; gap: clamp(12px, 2vw, 24px);">
+            <div class="hero-logo-card">
+              <img src="TAU.png" alt="TAU Logo" />
+            </div>
+            <div class="hero-logo-card">
+              <img src="Nacos.png" alt="NACOS Logo" />
+            </div>
           </div>
-          <div class="hero-logo-card">
-            <img src="Nacos.png" alt="NACOS Logo" />
-            
+
+          <!-- Landing Page Presentation Share QR Code -->
+          <div class="qr-block qr-clickable" id="qr-hero-block" role="button" tabindex="0" title="Click to enlarge QR code" style="width: 100%; max-width: 380px;">
+            <div class="qr-box">
+              <img src="01_presenation_share.svg" alt="Presentation Share QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
+            </div>
+            <div class="qr-meta">
+              <span class="qr-label">SCAN TO VIEW PRESENTATION</span>
+              <span class="qr-url">https://siwes-presentation-five.vercel.app/</span>
+              <span class="qr-enlarge-notation">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width: 12px; height: 12px; fill: currentColor; display: inline-block; vertical-align: middle;">
+                  <path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 176C258.7 176 248 186.7 248 200L248 248L200 248C186.7 248 176 258.7 176 272C176 285.3 186.7 296 200 296L248 296L248 344C248 357.3 258.7 368 272 368C285.3 368 296 357.3 296 344L296 296L344 296C357.3 296 368 285.3 368 272C368 258.7 357.3 248 344 248L296 248L296 200C296 186.7 285.3 176 272 176z"/>
+                </svg>
+                (CLICK TO ENLARGE)
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -675,13 +770,13 @@ html, body {
             <img src="logo.webp" alt="Sanfaani SaaS Logo" style="max-width: 85%; max-height: 80%; width: auto; height: auto; object-fit: contain; filter: grayscale(100%); transition: filter 0.4s ease, transform 0.4s ease;" onmouseenter="this.style.filter='grayscale(0%)'; this.style.transform='scale(1.05)';" onmouseleave="this.style.filter='grayscale(100%)'; this.style.transform='scale(1)';" />
           </div>
 
-          <!-- Procedural SVG QR Code for Residence Landing Page -->
+          <!-- SVG QR Code for Residence Placement (02_placement.svg -> https://www.sanfaani.net) -->
           <div class="qr-block qr-clickable" id="qr-sec2-block" role="button" tabindex="0" title="Click to enlarge QR code">
             <div class="qr-box">
-              <img src="sanfaaniQR.svg" alt="Sanfaani QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
+              <img src="02_placement.svg" alt="Sanfaani Placement QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
             </div>
             <div class="qr-meta">
-              <span class="qr-label">SCAN FOR LANDING PAGE</span>
+              <span class="qr-label">SCAN FOR PLACEMENT / RESIDENCE</span>
               <span class="qr-url">https://www.sanfaani.net</span>
               <span class="qr-enlarge-notation">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width: 12px; height: 12px; fill: currentColor; display: inline-block; vertical-align: middle;">
@@ -740,22 +835,20 @@ html, body {
             </ul>
           </div>
 
-          <!-- Procedural SVG QR Code for Portfolio -->
-          <div class="qr-block">
+          <!-- Portfolio QR Code (baseqr.svg) -->
+          <div class="qr-block qr-clickable" id="qr-sec3-block" role="button" tabindex="0" title="Click to enlarge QR code">
             <div class="qr-box">
-              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0H40V40H0V0ZM10 10V30H30V10H10Z" fill="#000"/>
-                <path d="M15 15H25V25H15V15Z" fill="#000"/>
-                <path d="M60 0H100V40H60V0ZM70 10V30H90V10H70Z" fill="#000"/>
-                <path d="M75 15H85V25H75V15Z" fill="#000"/>
-                <path d="M0 60H40V100H0V60ZM10 70V90H30V70H10Z" fill="#000"/>
-                <path d="M15 75H25V85H15V75Z" fill="#000"/>
-                <path d="M45 10H55V20H45V10ZM45 30H55V40H45V30ZM50 50H60V60H50V50ZM70 50H80V60H70V50ZM80 60H90V70H80V60ZM60 70H70V80H60V70ZM90 70H100V80H90V70ZM50 80H60V90H50V80ZM70 80H80V90H70V80ZM80 90H90V100H80V90Z" fill="#000"/>
-              </svg>
+              <img src="baseqr.svg" alt="Portfolio QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
             </div>
             <div class="qr-meta">
               <span class="qr-label">SCAN FOR PORTFOLIO</span>
-              <span class="qr-url">[ https://portfolio-url.dev ]</span>
+              <span class="qr-url">https://portfolio-url.dev</span>
+              <span class="qr-enlarge-notation">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width: 14px; height: 14px; fill: currentColor; display: inline-block; vertical-align: middle;">
+                  <path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 176C258.7 176 248 186.7 248 200L248 248L200 248C186.7 248 176 258.7 176 272C176 285.3 186.7 296 200 296L248 296L248 344C248 357.3 258.7 368 272 368C285.3 368 296 357.3 296 344L296 296L344 296C357.3 296 368 285.3 368 272C368 258.7 357.3 248 344 248L296 248L296 200C296 186.7 285.3 176 272 176z"/>
+                </svg>
+                (CLICK TO ENLARGE)
+              </span>
             </div>
           </div>
         </div>
@@ -1035,12 +1128,30 @@ html, body {
     }
   };
 
-  // Direct click listener for Section 2 QR Code block
+  // Direct click listener for Landing Page Hero QR Code block (01_presenation_share.svg)
+  const heroQrBlock = document.getElementById('qr-hero-block');
+  if (heroQrBlock) {
+    heroQrBlock.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openQrModal('01_presenation_share.svg', 'SIWES Presentation — Live Web Share', 'https://siwes-presentation-five.vercel.app/');
+    });
+  }
+
+  // Direct click listener for Section 2 QR Code block (02_placement.svg)
   const sec2QrBlock = document.getElementById('qr-sec2-block');
   if (sec2QrBlock) {
     sec2QrBlock.addEventListener('click', function(e) {
       e.stopPropagation();
-      openQrModal('sanfaaniQR.svg', 'Sanfaani SaaS — Landing Page', 'https://www.sanfaani.net');
+      openQrModal('02_placement.svg', 'Sanfaani SaaS — Place of Residence', 'https://www.sanfaani.net');
+    });
+  }
+
+  // Direct click listener for Section 3 QR Code block (baseqr.svg)
+  const sec3QrBlock = document.getElementById('qr-sec3-block');
+  if (sec3QrBlock) {
+    sec3QrBlock.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openQrModal('baseqr.svg', 'Developer Portfolio & Landing Page', 'https://portfolio-url.dev');
     });
   }
 
