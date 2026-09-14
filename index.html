@@ -1158,6 +1158,52 @@ html, body {
 }
 
 }
+  /* --- NEW PANELS CSS --- */
+  #panel-gallery { background: #000; display: flex; flex-direction: column; justify-content: center; padding: 64px 72px; } 
+  .gallery-wrap { width: 100%; display: flex; flex-direction: column; gap: 40px; } 
+  .gallery-header { flex-shrink: 0; } 
+  .gallery { position: relative; width: 100%; height: 600px; overflow: hidden; margin-top: 20px; } 
+  .cards { position: absolute; width: 22rem; height: 39rem; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 0; margin: 0; list-style: none; } 
+  .cards li { position: absolute; top: 0; left: 0; width: 22rem; aspect-ratio: 9/16; background-size: cover; background-repeat: no-repeat; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); } 
+  .gallery-actions { position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); display: flex; gap: 16px; z-index: 10; } 
+  .gallery-actions button { background: none; border: 1px solid rgba(255,255,255,0.18); color: #fff; padding: 8px 20px; font-family: 'Poppins', sans-serif; font-size: 12px; letter-spacing: 0.1em; cursor: pointer; transition: background 0.3s ease; } 
+  .gallery-actions button:hover { background: rgba(255,255,255,0.06); } 
+  .drag-proxy { visibility: hidden; position: absolute; }
+
+  #panel-workflow { background: #080808; } 
+  .workflow-desc { font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.8; max-width: 380px; margin-bottom: 36px; font-weight: 400; } 
+  .workflow-method { padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.12); display: flex; flex-direction: row; gap: 16px; align-items: center; justify-content: space-between; } 
+  .workflow-method > div { display: flex; flex-direction: column; gap: 6px; }
+  .kanban-board { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.15); height: 100%; max-height: 380px; } 
+  .kanban-col { background: #000; padding: 24px 16px; display: flex; flex-direction: column; gap: 10px; } 
+  .kanban-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 12px; font-family: 'Poppins', sans-serif; font-weight: 600; } 
+  .kanban-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: 12px 14px; font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.5; border-radius: 4px; }
+
+  /* New Graphs */
+  .pie-progress { stroke-dasharray: 87.96; stroke-dashoffset: 87.96; animation: pieFill 2s ease-out forwards 0.5s; }
+  @keyframes pieFill { to { stroke-dashoffset: 22; } }
+  .kb-bar { transform-origin: bottom; transform: scaleY(0); animation: kbGrow 1s ease-out forwards; }
+  .kb-bar:nth-child(1) { animation-delay: 0.2s; }
+  .kb-bar:nth-child(2) { animation-delay: 0.4s; }
+  .kb-bar:nth-child(3) { animation-delay: 0.6s; }
+  .kb-bar:nth-child(4) { animation-delay: 0.8s; }
+  @keyframes kbGrow { to { transform: scaleY(1); } }
+
+  /* Two Column Layout */
+  .two-col { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; width: 100%; height: 100%; align-items: center; padding: 0 40px; }
+  .col-l { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+  .col-r { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+  .detail-label { font-size: 12px; letter-spacing: 0.15em; color: rgba(255,255,255,0.6); text-transform: uppercase; font-weight: 600; }
+  .detail-value { font-size: 14px; color: #fff; font-weight: 400; }
+
+  /* New Accordion */
+  .accordion { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+  .acc-item { border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 12px; }
+  .acc-trigger { background: transparent; border: none; color: #fff; width: 100%; text-align: left; display: flex; align-items: center; gap: 16px; padding: 16px 0; cursor: pointer; font-family: 'Poppins', sans-serif; }
+  .acc-num { font-size: 10px; color: var(--text-dim); font-family: 'Courier New', Courier, monospace; }
+  .acc-title { flex-grow: 1; font-size: 15px; font-weight: 500; }
+  .acc-arrow { font-size: 20px; color: var(--text-dim); transition: transform 0.3s; }
+  .acc-body { padding-left: 32px; padding-bottom: 16px; font-size: 13px; color: var(--text-muted); line-height: 1.7; }
 </style>
 </head>
 
@@ -1176,7 +1222,7 @@ html, body {
   <!-- ═══════════════════════════════════════════════════
        PANEL 01: LANDING PAGE + ASCII BACKDROP
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-01" data-nav="01 HERO">
+  <section class="panel" id="panel-01" data-index="0" data-nav="01 HERO">
     <div class="hero-backdrop">
       <img src="ascii-magic-9.gif" alt="ASCII Animation Backdrop" loading="eager" />
     </div>
@@ -1235,7 +1281,7 @@ html, body {
   <!-- ═══════════════════════════════════════════════════
        PANEL 02: ABOUT PLACE OF RESIDENCE / ORGANIZATION
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-02" data-nav="02 RESIDENCE">
+  <section class="panel" id="panel-02" data-index="1" data-nav="02 RESIDENCE">
     <div class="grid-lines-overlay"></div>
 
     <div class="panel-container">
@@ -1285,7 +1331,7 @@ html, body {
   <!-- ═══════════════════════════════════════════════════
        PANEL 03: GROWTH PROFILE
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-03" data-nav="03 GROWTH">
+  <section class="panel" id="panel-03" data-index="2" data-nav="03 GROWTH">
     <div class="grid-lines-overlay"></div>
 
     <div class="panel-container">
@@ -1296,7 +1342,7 @@ html, body {
         <div class="gsap-hidden">
           <h2 class="section-title f-clash">From Familiar Tools to Engineering Systems</h2>
           <p class="section-desc" style="margin-bottom: 20px;">
-            I started with basic HTML, CSS, and JavaScript, then moved into full-stack web and desktop application development.
+            I started with basic HTML, CSS, and JavaScript, then moved into full-stack web application development.
           </p>
 
           <div class="growth-tab-buttons" role="tablist" aria-label="Growth Profile Timeline">
@@ -1461,12 +1507,17 @@ html, body {
   <!-- ═══════════════════════════════════════════════════
        PANEL 04: PRIMARY TOOL (WEBSTORM)
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-04" data-nav="04 WEBSTORM">
+  <section class="panel" id="panel-04" data-index="3" data-nav="04 WEBSTORM">
     <div class="grid-lines-overlay"></div>
 
     <div class="panel-container">
-      <span class="section-tag gsap-hidden">04 | PRIMARY DEVELOPMENT ENVIRONMENT</span>
-      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 12px;">WebStorm: My Primary Development Environment</h2>
+      <div class="gsap-hidden" style="display: flex; align-items: center; gap: 20px; margin-bottom: 24px;">
+        <img src="ws.png" alt="WebStorm Icon" style="width: 64px; height: 64px; border-radius: 12px; object-fit: contain; background: #000;" onerror="this.style.display='none';" />
+        <div>
+          <span class="section-tag" style="margin-bottom: 8px; display: block;">04 | PRIMARY DEVELOPMENT ENVIRONMENT</span>
+          <h2 class="section-title f-clash" style="margin-bottom: 0;">WebStorm: My Primary Development Environment</h2>
+        </div>
+      </div>
       <p class="section-desc gsap-hidden" style="margin-bottom: 24px;">
         I used JetBrains WebStorm as my main IDE for writing code, navigating large projects, debugging, and managing Git workflows during my placement.
       </p>
@@ -1499,77 +1550,36 @@ html, body {
     </div>
   </section>
 
-
   <!-- ═══════════════════════════════════════════════════
-       PANEL 05: SKILLS APPLIED (8 COMPETENCY CARDS)
+       PANEL 05: PHOTO GALLERY (SEAMLESS LOOP)
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-05" data-nav="05 SKILLS">
-    <div class="grid-lines-overlay"></div>
-
-    <div class="panel-container">
-      <span class="section-tag gsap-hidden">05 | APPLIED COMPETENCIES</span>
-      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 8px;">Skills & Technical Capabilities</h2>
-      <p class="section-desc gsap-hidden" style="margin-bottom: 20px;">
-        Technical skills practiced across web applications, desktop engines, and database systems.
-      </p>
-
-      <div class="grid-4col gsap-hidden">
-        <div class="eleya-card">
-          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">01. DESKTOP RUNTIMES</div>
-          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Desktop Application Development</div>
-          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">C++17, Qt Framework, custom event loops, and native desktop UI.</div>
-        </div>
-
-        <div class="eleya-card">
-          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">02. WEB SYSTEMS</div>
-          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Full-Stack Web Development</div>
-          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">React, TypeScript, Node.js, Express, and REST API design.</div>
-        </div>
-
-        <div class="eleya-card">
-          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">03. DATA ARCHITECTURE</div>
-          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Database & Schema Design</div>
-          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">SQLite embedded database, SQL schema design, and data transactions.</div>
-        </div>
-
-        <div class="eleya-card">
-          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">04. SYSTEM RELIABILITY</div>
-          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Offline Data Support</div>
-          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Local write queues and offline data synchronization on reconnect.</div>
-        </div>
-
-        <div class="eleya-card">
-          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">05. UI & MOTION</div>
-          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">UI & Animation Architecture</div>
-          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Consistent design layouts and GSAP hardware-accelerated animations.</div>
-        </div>
-
-        <div class="eleya-card">
-          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">06. PERFORMANCE</div>
-          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Performance & Profiling</div>
-          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Reducing CPU and memory usage, optimizing render loops, and fixing frame drops.</div>
-        </div>
-
-        <div class="eleya-card">
-          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">07. DEVOPS & VCS</div>
-          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Version Control & Deployment</div>
-          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Git branching, clear commit logs, and production build setups.</div>
-        </div>
-
-        <div class="eleya-card">
-          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">08. DOCUMENTATION</div>
-          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Technical Documentation</div>
-          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Writing clear API docs, system setup notes, and user guides.</div>
+  <section class="panel" id="panel-gallery" data-index="4" data-nav="05 GALLERY">
+    <div class="gallery-wrap">
+      <div class="gallery-header">
+        <p class="section-num">05 — Photo Gallery</p>
+        <h2 class="panel-heading f-clash">Evidence of the work.</h2>
+      </div>
+      <div class="gallery">
+        <ul class="cards">
+          <li style="background-image: url(Sanfaani_service_00.png)"></li>
+          <li style="background-image: url(nexos_ui_01.svg)"></li>
+          <li style="background-image: url(1x_1280x717.png)"></li>
+          <li style="background-image: url(2x_2560x1434.png)"></li>
+          <li style="background-image: url(Sanfaani_service.png)"></li>
+        </ul>
+        <div class="gallery-actions">
+          <button class="prev-card">←</button>
+          <button class="next-card">→</button>
         </div>
       </div>
+      <div class="drag-proxy"></div>
     </div>
   </section>
-
 
   <!-- ═══════════════════════════════════════════════════
        PANEL 06: PROJECT GALLERY (SANFAANISERVICE & NEXOS)
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-06" data-nav="06 PROJECTS">
+  <section class="panel" id="panel-06" data-index="5" data-nav="06 PROJECTS">
     <div class="grid-lines-overlay"></div>
 
     <div class="panel-container">
@@ -1606,22 +1616,21 @@ html, body {
         <!-- Project 2: Nexos -->
         <div class="eleya-card project-card" style="display: flex; flex-direction: column; gap: 14px; padding: 18px;">
           <div class="project-media-wrap" style="position: relative; width: 100%; aspect-ratio: 16/9; background: #080808; border: 1px solid var(--border-color); overflow: hidden;">
-            <img src="nexos_ui_01.svg" alt="Nexos Desktop Asset Engine Screenshot" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease, filter 0.4s ease;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-            <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 12px; color: var(--text-dim); text-transform: uppercase; border: 1px dashed var(--border-color);">
-              [ NEXOS DESKTOP ENGINE PREVIEW ]
+            <div style="display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 12px; color: var(--text-dim); text-transform: uppercase; border: 1px dashed var(--border-color);">
+              [ PLATFORM INTERFACE PREVIEW ]
             </div>
           </div>
 
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
               <h3 class="f-clash" style="font-size: 18px; color: #fff;">Nexos</h3>
-              <span class="status-pill" style="font-size: 9px; padding: 2px 8px;">DESKTOP ASSET ENGINE</span>
+              <span class="status-pill" style="font-size: 9px; padding: 2px 8px;">PRODUCTIVITY PLATFORM</span>
             </div>
             <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px;">
-              A desktop media tool built to process and convert media files efficiently with low RAM usage.
+              A web-based project-management and task-tracking application for organising work, managing progress, and keeping teams aligned.
             </p>
             <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 8px;">
-              <span style="font-size: 11px; color: var(--text-dim);"><strong style="color: var(--text-muted);">Stack:</strong> C++17, Qt Framework, SQLite, GSAP.</span>
+              <span style="font-size: 11px; color: var(--text-dim);"><strong style="color: var(--text-muted);">Stack:</strong> React, TypeScript, Node.js, Express, REST APIs.</span>
             </div>
           </div>
         </div>
@@ -1629,80 +1638,132 @@ html, body {
     </div>
   </section>
 
-
   <!-- ═══════════════════════════════════════════════════
-       PANEL 07: CHALLENGES & PROCESS (ACCORDION)
+       PANEL 07: WORKFLOW
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-07" data-nav="07 CHALLENGES">
-    <div class="grid-lines-overlay"></div>
+  <section class="panel" id="panel-workflow" data-index="6" data-nav="07 WORKFLOW">
+    <div class="two-col">
+      <div class="col-l">
+        <p class="section-num">07 — Workflow</p>
+        <h2 class="panel-heading f-clash">How the work<br>was managed.</h2>
+        <p class="workflow-desc">
+          Every task moved through a defined process.
+          No guessing. No random coding. Structure first.
+        </p>
+        <div class="workflow-method">
+          <div>
+            <span class="detail-label">Methodology</span>
+            <span class="detail-value">Agile — iterative delivery in short cycles</span>
+          </div>
+          <svg width="32" height="32" viewBox="0 0 32 32" style="transform: rotate(-90deg); margin-right: 8px;">
+            <circle cx="16" cy="16" r="14" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4"></circle>
+            <circle class="pie-progress" cx="16" cy="16" r="14" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="4"></circle>
+          </svg>
+        </div>
+        <div class="workflow-method">
+          <div>
+            <span class="detail-label">Board System</span>
+            <span class="detail-value">Kanban — visual task states: Backlog → In Progress → Review → Done</span>
+          </div>
+          <div style="display: flex; gap: 3px; align-items: flex-end; height: 24px; margin-right: 8px;">
+            <div class="kb-bar" style="width: 5px; height: 12px; background: rgba(255,255,255,0.4); border-radius: 1px;"></div>
+            <div class="kb-bar" style="width: 5px; height: 20px; background: rgba(255,255,255,0.8); border-radius: 1px;"></div>
+            <div class="kb-bar" style="width: 5px; height: 8px; background: rgba(255,255,255,0.5); border-radius: 1px;"></div>
+            <div class="kb-bar" style="width: 5px; height: 24px; background: rgba(255,255,255,1); border-radius: 1px;"></div>
+          </div>
+        </div>
+        <div class="workflow-method">
+          <div>
+            <span class="detail-label">Task Unit</span>
+            <span class="detail-value">Tickets — each feature, bug, and improvement tracked as a ticket</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-r">
+        <p class="section-num">Kanban States</p>
+        <div class="kanban-board">
+          <div class="kanban-col">
+            <p class="kanban-label">Backlog</p>
+            <div class="kanban-card">Define feature scope</div>
+            <div class="kanban-card">Write ticket description</div>
+          </div>
+          <div class="kanban-col">
+            <p class="kanban-label">In Progress</p>
+            <div class="kanban-card">Implement & iterate</div>
+            <div class="kanban-card">Test locally</div>
+          </div>
+          <div class="kanban-col">
+            <p class="kanban-label">Review</p>
+            <div class="kanban-card">Peer check</div>
+            <div class="kanban-card">Fix feedback</div>
+          </div>
+          <div class="kanban-col">
+            <p class="kanban-label">Done</p>
+            <div class="kanban-card">Merge & deploy</div>
+            <div class="kanban-card">Update docs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ═══════════════════════════════════════════════════
+       PANEL 08: CHALLENGES (ACCORDION)
+  ═══════════════════════════════════════════════════ -->
+  <section class="panel" id="panel-challenges" data-index="7" data-nav="08 CHALLENGES">
+    <div class="two-col">
+      <div class="col-l">
+        <p class="section-num">08 — Challenges</p>
+        <h2 class="panel-heading f-clash">Three problems.<br>Three lessons.</h2>
+        <p style="font-size:13px;color:rgba(255,255,255,0.35); line-height:1.8;max-width:340px;margin-top:0;">
+          Real engineering is not the absence of problems.
+          It is knowing how to move through them.
+        </p>
+      </div>
+      <div class="col-r" style="gap:0;justify-content:center;">
+        <div class="accordion">
 
-    <div class="panel-container">
-      <span class="section-tag gsap-hidden">07 | TECHNICAL CHALLENGES & PROCESS</span>
-      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 8px;">Challenges & Technical Solutions</h2>
-      <p class="section-desc gsap-hidden" style="margin-bottom: 20px;">
-        Real engineering problems faced during development and how I solved them.
-      </p>
-
-      <div class="grid-2col gsap-hidden" style="align-items: start;">
-        <!-- Left Column: Technical Accordion -->
-        <div>
-          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px;">Technical Problems & Fixes</div>
-          
-          <div class="accordion-group" id="challenges-accordion">
-            <!-- Item 1 -->
-            <div class="accordion-item is-open">
-              <button type="button" class="accordion-header" aria-expanded="true" aria-controls="ch-body-1" id="ch-header-1">
-                <span>01. Offline Data Sync in C++/Qt</span>
-                <span class="accordion-icon">+</span>
-              </button>
-              <div id="ch-body-1" class="accordion-body" role="region" aria-labelledby="ch-header-1">
-                <strong style="color: #fff; display: block; margin-top: 8px; margin-bottom: 4px;">Challenge:</strong>
-                Preventing data loss when the desktop app loses internet connection while saving data.
-                <strong style="color: #fff; display: block; margin-top: 8px; margin-bottom: 4px;">Solution:</strong>
-                Created local SQLite write queues that store data offline and sync to the server when reconnected.
-              </div>
-            </div>
-
-            <!-- Item 2 -->
-            <div class="accordion-item">
-              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="ch-body-2" id="ch-header-2">
-                <span>02. Async State Race Conditions</span>
-                <span class="accordion-icon">+</span>
-              </button>
-              <div id="ch-body-2" class="accordion-body" role="region" aria-labelledby="ch-header-2">
-                <strong style="color: #fff; display: block; margin-top: 8px; margin-bottom: 4px;">Challenge:</strong>
-                Managing multiple fast API requests without UI state errors or memory leaks.
-                <strong style="color: #fff; display: block; margin-top: 8px; margin-bottom: 4px;">Solution:</strong>
-                Used AbortController cancellation signals and structured state machine logic to drop stale responses.
-              </div>
-            </div>
-
-            <!-- Item 3 -->
-            <div class="accordion-item">
-              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="ch-body-3" id="ch-header-3">
-                <span>03. Database Query Performance & Indexing</span>
-                <span class="accordion-icon">+</span>
-              </button>
-              <div id="ch-body-3" class="accordion-body" role="region" aria-labelledby="ch-header-3">
-                <strong style="color: #fff; display: block; margin-top: 8px; margin-bottom: 4px;">Challenge:</strong>
-        <!-- Right Column: Interpersonal & Process Column -->
-        <div class="eleya-card" style="padding: 20px;">
-          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Workplace & Process Skills</div>
-
-          <div style="display: flex; flex-direction: column; gap: 14px;">
-            <div>
-              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Communicating Technical Choices</div>
-              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Explained technical decisions in plain terms of user experience, memory use, and project timelines.</div>
-            </div>
-            <div style="border-top: 1px solid var(--border-color); padding-top: 10px;">
-              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Handling Unclear Requirements</div>
-              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Wrote quick 1-page summaries to confirm details with team leads before writing code.</div>
-            </div>
-            <div style="border-top: 1px solid var(--border-color); padding-top: 10px;">
-              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Team Collaboration</div>
-              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Kept progress visible with regular updates to ensure tasks were completed on time.</div>
+          <div class="acc-item">
+            <button class="acc-trigger" aria-expanded="false">
+              <span class="acc-num">01</span>
+              <span class="acc-title">Connecting Frontend to Backend</span>
+              <span class="acc-arrow">+</span>
+            </button>
+            <div class="acc-body" hidden>
+              <p>API endpoints returned inconsistent data shapes. 
+              I learned to inspect the request, the payload, and the 
+              server response systematically — not randomly. 
+              The fix was structured: read the contract, then read the code.</p>
             </div>
           </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger" aria-expanded="false">
+              <span class="acc-num">02</span>
+              <span class="acc-title">Maintaining Visual Consistency</span>
+              <span class="acc-arrow">+</span>
+            </button>
+            <div class="acc-body" hidden>
+              <p>UI components drifted across pages as the codebase grew. 
+              I addressed it with shared component files and defined 
+              spacing and color tokens. Reusability is not a shortcut — 
+              it is a discipline.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger" aria-expanded="false">
+              <span class="acc-num">03</span>
+              <span class="acc-title">Working With Incomplete Requirements</span>
+              <span class="acc-arrow">+</span>
+            </button>
+            <div class="acc-body" hidden>
+              <p>Features arrived half-specified. Coding first produced 
+              the wrong result every time. I built the habit of writing 
+              a one-page summary: who is the user, what do they expect, 
+              what does success look like — before any code was written.</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -1710,97 +1771,56 @@ html, body {
 
 
   <!-- ═══════════════════════════════════════════════════
-       PANEL 08: CRITICAL REFLECTION & Q&A
+       PANEL 09: CONCLUSION & REFLECTION
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-08" data-nav="08 REFLECTION">
+  <section class="panel" id="panel-09" data-index="8" data-nav="09 CONCLUSION">
     <div class="grid-lines-overlay"></div>
 
-    <div class="panel-container">
-      <span class="section-tag gsap-hidden">08 | CRITICAL REFLECTION</span>
-      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 8px;">Key Learnings & Self-Reflection</h2>
-      <p class="section-desc gsap-hidden" style="margin-bottom: 20px;">
-        Core takeaways from real-world software engineering.
-      </p>
+    <div class="panel-container" style="text-align: center; align-items: center; max-width: 900px; padding: 0 20px;">
+      <span class="section-tag gsap-hidden">09 | CONCLUSION & REFLECTION</span>
 
-      <div class="grid-2col gsap-hidden" style="align-items: start;">
-        <!-- Left Column: Reflection Accordion -->
-        <div>
-          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px;">Reflection Q&A</div>
-
-          <div class="accordion-group" id="reflection-accordion">
-            <!-- Item 1 -->
-            <div class="accordion-item is-open">
-              <button type="button" class="accordion-header" aria-expanded="true" aria-controls="rf-body-1" id="rf-header-1">
-                <span>01. Most Significant Technical Breakthrough?</span>
-                <span class="accordion-icon">+</span>
-              </button>
-              <div id="rf-body-1" class="accordion-body" role="region" aria-labelledby="rf-header-1">
-                Moving from just building frontend UI components to thinking about data flow, memory usage, and background persistence first.
-              </div>
-            </div>
-
-            <!-- Item 2 -->
-            <div class="accordion-item">
-              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="rf-body-2" id="rf-header-2">
-                <span>02. Real-World Requirements vs Theory?</span>
-                <span class="accordion-icon">+</span>
-              </button>
-              <div id="rf-body-2" class="accordion-body" role="region" aria-labelledby="rf-header-2">
-                Real-world work showed that code must handle offline modes and low-end hardware cleanly. Error handling and reliability matter just as much as writing neat functions.
-              </div>
-            </div>
-
-            <!-- Item 3 -->
-            <div class="accordion-item">
-              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="rf-body-3" id="rf-header-3">
-                <span>03. Long-Term Career Trajectory Impact?</span>
-                <span class="accordion-icon">+</span>
-              </button>
-              <div id="rf-body-3" class="accordion-body" role="region" aria-labelledby="rf-header-3">
-                It focused my career goals on systems engineering, desktop and web hybrid applications, and building reliable tools for actual users.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Column: Defense Summary Card & Open Floor -->
-        <div style="display: flex; flex-direction: column; gap: 16px;">
-          <div class="eleya-card" style="padding: 20px; border-left: 2px solid #ffffff;">
-            <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px;">Core Engineering Rule</div>
-            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.6;">
-              Every design choice is based on performance testing, type checking, and clear fallback plans when offline.
-            </div>
-          </div>
-
-          <div class="eleya-card" style="padding: 20px;">
-            <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px;">Open Floor for Questions</div>
-            <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">Questions & Discussion</div>
-            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
-              Ready to answer questions, review source code, or demonstrate system features.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════
-       PANEL 09: CONCLUSION
-  ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-09" data-nav="09 CONCLUSION">
-    <div class="grid-lines-overlay"></div>
-
-    <div class="panel-container" style="text-align: center; align-items: center;">
-      <span class="section-tag gsap-hidden">09 | CONCLUSION</span>
-
-      <div class="gsap-hidden" style="max-width: 720px; margin: 0 auto;">
+      <div class="gsap-hidden" style="width: 100%;">
         <h2 class="section-title f-clash" style="font-size: clamp(28px, 4vw, 48px); margin-bottom: 16px;">
           Building Better Software Systems
         </h2>
         <p class="section-desc" style="margin: 0 auto 32px auto; max-width: 600px;">
           The SIWES placement turned classroom theory into practical engineering experience. I now focus on building reliable software with clean structure and user-centered design.
         </p>
+
+        <!-- Absorbed Reflection Accordion -->
+        <div style="text-align: left; margin-bottom: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); padding: 24px; border-radius: 8px;">
+          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px;">Reflection Q&A</div>
+          
+          <div class="accordion-group" id="reflection-accordion">
+            <div class="accordion-item is-open">
+              <button type="button" class="accordion-header" aria-expanded="true" aria-controls="rf-body-1" id="rf-header-1">
+                <span>01. Most Significant Technical Breakthrough?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div id="rf-body-1" class="accordion-body" role="region" aria-labelledby="rf-header-1">
+                Moving from just building isolated frontend UI components to thinking about full-stack data flow, API performance, and seamless user experiences.
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="rf-body-2" id="rf-header-2">
+                <span>02. Real-World Requirements vs Theory?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div id="rf-body-2" class="accordion-body" role="region" aria-labelledby="rf-header-2">
+                Real-world work showed that code must handle edge cases cleanly and provide clear feedback. Error handling, structured process, and reliability matter just as much as writing neat functions.
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="rf-body-3" id="rf-header-3">
+                <span>03. Long-Term Career Trajectory Impact?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div id="rf-body-3" class="accordion-body" role="region" aria-labelledby="rf-header-3">
+                It focused my career goals on web systems engineering and building reliable, scalable platforms for actual users.
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- Summary Metrics Row -->
         <div class="grid-3col" style="margin-bottom: 36px; text-align: center;">
@@ -1841,10 +1861,10 @@ html, body {
     <button class="nav-btn" data-index="1">02 RESIDENCE</button>
     <button class="nav-btn" data-index="2">03 GROWTH</button>
     <button class="nav-btn" data-index="3">04 WEBSTORM</button>
-    <button class="nav-btn" data-index="4">05 SKILLS</button>
+    <button class="nav-btn" data-index="4">05 GALLERY</button>
     <button class="nav-btn" data-index="5">06 PROJECTS</button>
-    <button class="nav-btn" data-index="6">07 CHALLENGES</button>
-    <button class="nav-btn" data-index="7">08 REFLECTION</button>
+    <button class="nav-btn" data-index="6">07 WORKFLOW</button>
+    <button class="nav-btn" data-index="7">08 CHALLENGES</button>
     <button class="nav-btn" data-index="8">09 CONCLUSION</button>
   </div>
 
@@ -1913,6 +1933,8 @@ html, body {
 <!-- ─── SCRIPT LIBRARIES (LOCAL + CDN FALLBACK) ─── -->
 <script src="gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
 
 <script>
 (function() {
@@ -2015,23 +2037,23 @@ html, body {
       ]
     },
     'nexos': {
-      title: 'Nexos Desktop Asset Engine',
-      subtitle: 'DESKTOP ASSET ENGINE | IMAGE GALLERY',
+      title: 'Nexos Productivity Platform',
+      subtitle: 'WEB APPLICATION | IMAGE GALLERY',
       slides: [
         {
           src: 'nexos_ui_01.svg',
-          title: '01. Desktop Asset Manager Interface',
-          caption: 'Native C++/Qt workspace interface managing media directories, queue status, and background processing tasks.'
+          title: '01. Kanban Board Interface',
+          caption: 'React/TypeScript workspace interface managing tasks, sprint progress, and team assignments.'
         },
         {
           src: 'nexos_engine_02.svg',
-          title: '02. C++17 Multi-Threaded Render Pipeline',
-          caption: 'SIMD vectorization and OpenGL hardware acceleration loop yielding 60 FPS stable playback and low CPU usage.'
+          title: '02. State Management & Data Flow',
+          caption: 'Redux store visualization handling real-time task updates and optimistic UI rendering.'
         },
         {
           src: 'nexos_database_03.svg',
-          title: '03. SQLite Offline Queue Architecture',
-          caption: 'Local write-ahead log queue ensuring zero data loss and automated conflict resolution upon reconnect.'
+          title: '03. API & Database Schema',
+          caption: 'Node.js/Express backend integration with scalable MongoDB schema for user activity tracking.'
         }
       ]
     }
@@ -2448,6 +2470,80 @@ html, body {
       el.style.transform = 'none';
     });
   });
+
+  // --- NEW ACCORDION LOGIC ---
+  document.querySelectorAll('.acc-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.acc-item');
+      const body = item.querySelector('.acc-body');
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.acc-trigger').forEach(t => {
+        t.setAttribute('aria-expanded', 'false');
+        t.querySelector('.acc-arrow').textContent = '+';
+        t.closest('.acc-item').querySelector('.acc-body').hidden = true;
+      });
+      if (!isOpen) {
+        trigger.setAttribute('aria-expanded', 'true');
+        trigger.querySelector('.acc-arrow').textContent = '×';
+        body.hidden = false;
+        if (typeof gsap !== 'undefined') {
+          gsap.fromTo(body, { opacity: 0, y: -8 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' });
+        }
+      }
+    });
+  });
+
+  // --- SEAMLESS LOOP LOGIC ---
+  if (typeof gsap !== 'undefined') {
+    const cards = gsap.utils.toArray('.cards li');
+    if (cards.length > 0) {
+      function buildSeamlessLoop(items, spacing, animateFunc) {
+        let rawSequence = gsap.timeline({paused: true}),
+            seamlessLoop = gsap.timeline({
+              paused: true,
+              repeat: -1,
+              onRepeat() {
+                this._time === this._dur && (this._tTime += this._dur - 0.01);
+              },
+              onReverseComplete() {
+                this.totalTime(this.rawTime() + this.duration() * 100);
+              }
+            }),
+            cycleDuration = spacing * items.length,
+            dur;
+        
+        items.concat(items).concat(items).forEach((item, i) => {
+          let anim = animateFunc(items[i % items.length]);
+          rawSequence.add(anim, i * spacing);
+          dur || (dur = anim.duration());
+        });
+
+        seamlessLoop.fromTo(rawSequence, {
+          time: cycleDuration + dur / 2
+        }, {
+          time: "+=" + cycleDuration,
+          duration: cycleDuration,
+          ease: "none"
+        });
+        return seamlessLoop;
+      }
+
+      gsap.set(cards, { xPercent: 400, opacity: 0, scale: 0 });
+
+      const loop = buildSeamlessLoop(cards, 0.15, item => {
+        return gsap.timeline()
+          .to(item, {xPercent: 0, opacity: 1, scale: 1, duration: 0.5, ease: "power1.inOut"})
+          .to(item, {xPercent: -400, opacity: 0, scale: 0, duration: 0.5, ease: "power1.inOut"});
+      });
+
+      loop.time(0.15 * cards.length + 0.5);
+
+      const nextBtn = document.querySelector('.next-card');
+      const prevBtn = document.querySelector('.prev-card');
+      if (nextBtn) nextBtn.addEventListener('click', () => gsap.to(loop, {time: "+=0.15", ease: "power1.inOut"}));
+      if (prevBtn) prevBtn.addEventListener('click', () => gsap.to(loop, {time: "-=0.15", ease: "power1.inOut"}));
+    }
+  }
 
 })();
 </script>
