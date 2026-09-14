@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="100%" height="100%">
+  <rect width="1280" height="720" fill="#050505"/>
+  <rect x="1" y="1" width="1278" height="718" fill="none" stroke="#333333" stroke-width="2"/>
+  
+  <!-- Header Bar -->
+  <rect x="24" y="24" width="1232" height="56" fill="#0c0c0c" stroke="#222222" stroke-width="1"/>
+  <text x="48" y="58" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ffffff" letter-spacing="2">SANFAANISERVICE — SYSTEM ANALYTICS &amp; API METRICS</text>
+  <rect x="1110" y="38" width="122" height="28" fill="#151515" stroke="#444444" stroke-width="1"/>
+  <text x="1126" y="56" font-family="sans-serif" font-size="10" fill="#00ffcc" letter-spacing="1">● API ONLINE</text>
+
+  <!-- Metric Card 1 -->
+  <rect x="24" y="96" width="392" height="110" fill="#0a0a0a" stroke="#222222" stroke-width="1"/>
+  <text x="44" y="126" font-family="sans-serif" font-size="11" fill="#888888" letter-spacing="1">TOTAL REQUESTS PROCESSED</text>
+  <text x="44" y="168" font-family="sans-serif" font-size="32" font-weight="bold" fill="#ffffff">1,482,900</text>
+  <text x="240" y="168" font-family="sans-serif" font-size="12" fill="#00ffcc">+14.2% this week</text>
+
+  <!-- Metric Card 2 -->
+  <rect x="444" y="96" width="392" height="110" fill="#0a0a0a" stroke="#222222" stroke-width="1"/>
+  <text x="464" y="126" font-family="sans-serif" font-size="11" fill="#888888" letter-spacing="1">AVERAGE RESPONSE LATENCY</text>
+  <text x="464" y="168" font-family="sans-serif" font-size="32" font-weight="bold" fill="#ffffff">24ms</text>
+  <text x="620" y="168" font-family="sans-serif" font-size="12" fill="#00ffcc">-6ms optimization</text>
+
+  <!-- Metric Card 3 -->
+  <rect x="864" y="96" width="392" height="110" fill="#0a0a0a" stroke="#222222" stroke-width="1"/>
+  <text x="884" y="126" font-family="sans-serif" font-size="11" fill="#888888" letter-spacing="1">ACTIVE SAAS TENANTS</text>
+  <text x="884" y="168" font-family="sans-serif" font-size="32" font-weight="bold" fill="#ffffff">128</text>
+  <text x="1020" y="168" font-family="sans-serif" font-size="12" fill="#ffffff">100% Uptime SLA</text>
+
+  <!-- Main Chart Area -->
+  <rect x="24" y="224" width="812" height="468" fill="#0a0a0a" stroke="#222222" stroke-width="1"/>
+  <text x="48" y="258" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ffffff" letter-spacing="1">HOURLY API THROUGHPUT &amp; LOAD (24 HOURS)</text>
+  
+  <!-- Grid Lines -->
+  <line x1="48" y1="300" x2="812" y2="300" stroke="#1c1c1c" stroke-width="1"/>
+  <line x1="48" y1="380" x2="812" y2="380" stroke="#1c1c1c" stroke-width="1"/>
+  <line x1="48" y1="460" x2="812" y2="460" stroke="#1c1c1c" stroke-width="1"/>
+  <line x1="48" y1="540" x2="812" y2="540" stroke="#1c1c1c" stroke-width="1"/>
+  <line x1="48" y1="620" x2="812" y2="620" stroke="#222222" stroke-width="1"/>
+
+  <!-- Graph Polyline -->
+  <polyline points="48,580 100,560 160,510 220,530 280,440 340,390 400,420 460,350 520,310 580,340 640,290 700,320 760,270 812,280" fill="none" stroke="#ffffff" stroke-width="3"/>
+  
+  <!-- Area Fill -->
+  <polygon points="48,580 100,560 160,510 220,530 280,440 340,390 400,420 460,350 520,310 580,340 640,290 700,320 760,270 812,280 812,620 48,620" fill="#ffffff" opacity="0.05"/>
+
+  <!-- Right Sidebar: Endpoint Stats -->
+  <rect x="864" y="224" width="392" height="468" fill="#0a0a0a" stroke="#222222" stroke-width="1"/>
+  <text x="888" y="258" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ffffff" letter-spacing="1">ENDPOINT PERFORMANCE</text>
+
+  <rect x="888" y="284" width="344" height="74" fill="#111111" stroke="#222222" stroke-width="1"/>
+  <text x="904" y="310" font-family="monospace" font-size="12" fill="#ffffff">POST /api/v1/auth/session</text>
+  <text x="904" y="334" font-family="sans-serif" font-size="11" fill="#888888">18ms avg · 99.9% success</text>
+
+  <rect x="888" y="374" width="344" height="74" fill="#111111" stroke="#222222" stroke-width="1"/>
+  <text x="904" y="400" font-family="monospace" font-size="12" fill="#ffffff">GET /api/v1/tenants/analytics</text>
+  <text x="904" y="424" font-family="sans-serif" font-size="11" fill="#888888">32ms avg · Cache Hit 94%</text>
+
+  <rect x="888" y="464" width="344" height="74" fill="#111111" stroke="#222222" stroke-width="1"/>
+  <text x="904" y="490" font-family="monospace" font-size="12" fill="#ffffff">POST /api/v1/services/sync</text>
+  <text x="904" y="514" font-family="sans-serif" font-size="11" fill="#888888">21ms avg · Transactions 100%</text>
+</svg>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="100%" height="100%">
+  <rect width="1280" height="720" fill="#050505"/>
+  <rect x="1" y="1" width="1278" height="718" fill="none" stroke="#333333" stroke-width="2"/>
+  
+  <!-- Header Bar -->
+  <rect x="24" y="24" width="1232" height="56" fill="#0c0c0c" stroke="#222222" stroke-width="1"/>
+  <text x="48" y="58" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ffffff" letter-spacing="2">NEXOS ENGINE — C++17 MULTI-THREADED RENDER PIPELINE</text>
+  <rect x="1100" y="38" width="132" height="28" fill="#151515" stroke="#444444" stroke-width="1"/>
+  <text x="1116" y="56" font-family="sans-serif" font-size="10" fill="#00ffcc" letter-spacing="1">● 60 FPS STABLE</text>
+
+  <!-- Flowchart Container -->
+  <!-- Step 1: Input Media Source -->
+  <rect x="60" y="220" width="220" height="140" fill="#0a0a0a" stroke="#ffffff" stroke-width="2"/>
+  <text x="80" y="260" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ffffff">01. MEDIA INPUT</text>
+  <text x="80" y="290" font-family="sans-serif" font-size="11" fill="#888888">Raw Video / GIF Stream</text>
+  <text x="80" y="315" font-family="sans-serif" font-size="11" fill="#888888">Memory Mapped File I/O</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="280" y1="290" x2="360" y2="290" stroke="#ffffff" stroke-width="2"/>
+  <polygon points="360,290 350,284 350,296" fill="#ffffff"/>
+
+  <!-- Step 2: C++17 SIMD Vectorizer -->
+  <rect x="360" y="220" width="260" height="140" fill="#0a0a0a" stroke="#ffffff" stroke-width="2"/>
+  <text x="380" y="260" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ffffff">02. C++17 VECTORIZER</text>
+  <text x="380" y="290" font-family="sans-serif" font-size="11" fill="#888888">AVX2 / SIMD Acceleration</text>
+  <text x="380" y="315" font-family="sans-serif" font-size="11" fill="#888888">Luminance to ASCII Mapping</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="620" y1="290" x2="700" y2="290" stroke="#ffffff" stroke-width="2"/>
+  <polygon points="700,290 690,284 690,296" fill="#ffffff"/>
+
+  <!-- Step 3: Qt OpenGL Render Loop -->
+  <rect x="700" y="220" width="250" height="140" fill="#0a0a0a" stroke="#ffffff" stroke-width="2"/>
+  <text x="720" y="260" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ffffff">03. QT OPENGL RENDER</text>
+  <text x="720" y="290" font-family="sans-serif" font-size="11" fill="#888888">Hardware Texture Buffer</text>
+  <text x="720" y="315" font-family="sans-serif" font-size="11" fill="#888888">Custom Event Loop</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="950" y1="290" x2="1030" y2="290" stroke="#ffffff" stroke-width="2"/>
+  <polygon points="1030,290 1020,284 1020,296" fill="#ffffff"/>
+
+  <!-- Step 4: Display Output -->
+  <rect x="1030" y="220" width="190" height="140" fill="#0a0a0a" stroke="#00ffcc" stroke-width="2"/>
+  <text x="1050" y="260" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ffffff">04. VIEWPORT</text>
+  <text x="1050" y="290" font-family="sans-serif" font-size="11" fill="#00ffcc">Zero Frame Drop</text>
+  <text x="1050" y="315" font-family="sans-serif" font-size="11" fill="#888888">Instant Repaint</text>
+
+  <!-- Performance Summary Card -->
+  <rect x="60" y="420" width="1160" height="240" fill="#080808" stroke="#222222" stroke-width="1"/>
+  <text x="90" y="460" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ffffff">HARDWARE BENCHMARK &amp; PROFILING RESULTS</text>
+
+  <rect x="90" y="490" width="340" height="140" fill="#111111" stroke="#222222" stroke-width="1"/>
+  <text x="110" y="525" font-family="sans-serif" font-size="12" fill="#888888">CPU UTILIZATION REDUCTION</text>
+  <text x="110" y="570" font-family="sans-serif" font-size="36" font-weight="bold" fill="#ffffff">-60%</text>
+  <text x="110" y="605" font-family="sans-serif" font-size="11" fill="#00ffcc">Background worker threads offload</text>
+
+  <rect x="470" y="490" width="340" height="140" fill="#111111" stroke="#222222" stroke-width="1"/>
+  <text x="490" y="525" font-family="sans-serif" font-size="12" fill="#888888">MEMORY FOOTPRINT</text>
+  <text x="490" y="570" font-family="sans-serif" font-size="36" font-weight="bold" fill="#ffffff">42 MB</text>
+  <text x="490" y="605" font-family="sans-serif" font-size="11" fill="#ffffff">Zero heap fragmentation</text>
+
+  <rect x="850" y="490" width="340" height="140" fill="#111111" stroke="#222222" stroke-width="1"/>
+  <text x="870" y="525" font-family="sans-serif" font-size="12" fill="#888888">THROUGHPUT CAPACITY</text>
+  <text x="870" y="570" font-family="sans-serif" font-size="36" font-weight="bold" fill="#ffffff">120 FPS</text>
+  <text x="870" y="605" font-family="sans-serif" font-size="11" fill="#00ffcc">Maximum hardware render cap</text>
+</svg>

@@ -3,14 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIWES Industrial Training Presentation — Opeyemi</title>
-<meta name="description" content="SIWES Industrial Training Presentation — Systems & Software Engineering">
+<title>SIWES Industrial Training Presentation: Opeyemi</title>
+<meta name="description" content="SIWES Industrial Training Presentation: Systems & Software Engineering">
 <meta name="robots" content="noindex">
 
 <!-- Fonts: Google Fonts fallback preconnect -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+
+<!-- Swiper CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <style>
 /* ─── LOCAL FONTS FOR 100% OFFLINE SUPPORT ───────────────── */
@@ -190,7 +194,7 @@ html, body {
   max-width: 540px;
 }
 
-/* Hero Background GIF (ascii-magic-9.gif) — High Brightness & Vivid Contrast */
+/* Hero Background GIF (ascii-magic-9.gif): High Brightness & Vivid Contrast */
 .hero-backdrop {
   position: absolute;
   inset: 0;
@@ -577,6 +581,149 @@ html, body {
   margin-top: 4px;
 }
 
+/* ─── RADIAL SKILL INDICATORS & GROWTH TABS ─── */
+.growth-tab-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.growth-tab-btn {
+  background: #050505;
+  border: 1px solid var(--border-color);
+  color: var(--text-dim);
+  font-family: var(--font-header);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.growth-tab-btn:hover {
+  border-color: var(--border-bright);
+  color: #ffffff;
+}
+.growth-tab-btn.is-active {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.growth-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+.radial-card {
+  background: #050505;
+  border: 1px solid var(--border-color);
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.radial-wrapper {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+}
+.radial-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.radial-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 3.5;
+}
+.radial-progress {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3.5;
+  stroke-linecap: square;
+}
+.radial-value {
+  position: absolute;
+  font-family: var(--font-header);
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+}
+.radial-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+}
+
+/* ─── ACCORDION SYSTEM (CHALLENGES & CRITICAL REFLECTION) ─── */
+.accordion-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.accordion-item {
+  border: 1px solid var(--border-color);
+  background: #050505;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  overflow: hidden;
+}
+.accordion-item.is-open {
+  border-color: var(--border-bright);
+  background: #090909;
+}
+.accordion-header {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  padding: 14px 18px;
+  font-family: var(--font-header);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.accordion-header:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.accordion-header:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -2px;
+}
+.accordion-icon {
+  font-size: 16px;
+  font-weight: 400;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+.accordion-item.is-open .accordion-icon {
+  transform: rotate(45deg);
+}
+.accordion-body {
+  display: none;
+  padding: 0 18px 16px 18px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.accordion-item.is-open .accordion-body {
+  display: block;
+}
+
 /* GSAP Entry Reveal State */
 .gsap-hidden {
   opacity: 0;
@@ -629,16 +776,28 @@ html, body {
     padding: 4px 10px;
   }
   #bottom-nav {
-    padding: 10px 16px;
+    padding: 8px 14px;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    gap: 12px;
   }
   .nav-links {
-    overflow-x: auto;
-    max-width: 100%;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
+    display: flex;
+    overflow: hidden;
+    max-width: fit-content;
   }
-  .nav-links::-webkit-scrollbar {
-    display: none;
+  .nav-btn {
+    display: none !important;
+  }
+  .nav-btn.active {
+    display: inline-flex !important;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+  #progress-track {
+    width: 60px;
   }
   .qr-modal-content {
     padding: 24px 20px;
@@ -665,8 +824,339 @@ html, body {
   .panel { padding: 16px 24px; }
   .section-title { font-size: clamp(24px, 3.5vw, 36px); margin-bottom: 10px; }
   .section-tag { margin-bottom: 6px; }
-  .eleya-card { padding: 14px 16px; }
-  .qr-box { width: 90px; height: 90px; }
+/* ─── PROJECT GALLERY LIGHTBOX MODAL & SWIPABLE SLIDER ─── */
+.project-card {
+  cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.project-card:hover {
+  border-color: var(--border-bright);
+  background: rgba(255, 255, 255, 0.03);
+}
+.project-card:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 4px;
+}
+
+.project-media-wrap {
+  position: relative;
+  cursor: pointer;
+}
+
+.project-media-wrap:hover img {
+  transform: scale(1.04);
+  filter: brightness(1.1);
+}
+
+.project-media-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.project-media-wrap:hover .project-media-overlay {
+  opacity: 1;
+}
+
+.project-gallery-badge {
+  font-family: var(--font-header);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 9999px !important;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.25s ease;
+}
+
+.project-media-wrap:hover .project-gallery-badge {
+  background: #ffffff;
+  color: #000000;
+  transform: scale(1.05);
+}
+
+/* Stylized Card Gallery Button */
+.btn-card-gallery {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-bright);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 9999px !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.btn-card-gallery:hover {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25);
+}
+
+.btn-card-gallery:hover img {
+  filter: invert(0) !important;
+}
+
+.btn-card-gallery:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.btn-card-gallery:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Swiper Landscape Gallery Modal Styles (Eleya Lightbox Pop-up) */
+.gallery-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.gallery-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.gallery-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: #000000;
+}
+
+.gallery-modal-content {
+  position: relative;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  max-height: none;
+  background: #000000;
+  border: none;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: none;
+  transform: scale(0.95);
+  transition: transform 0.35s ease;
+  border-radius: 0 !important;
+}
+
+.gallery-modal-overlay.active .gallery-modal-content {
+  transform: scale(1);
+}
+
+.gallery-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+.gallery-modal-title {
+  font-size: 20px;
+  color: #ffffff;
+  margin: 0;
+  font-family: var(--font-header);
+}
+
+.gallery-modal-subtitle {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.gallery-modal-close {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  width: 44px;
+  height: 44px;
+  border-radius: 0 !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  opacity: 0.7;
+}
+
+.gallery-modal-close:hover {
+  background: transparent;
+  color: #ffffff;
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+.gallery-modal-close:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.gallery-modal-body {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiper {
+  width: 100%;
+  height: clamp(300px, 65vh, 700px); /* Increased height for better landscape presentation */
+  padding: 0;
+  position: relative;
+  border-radius: 0 !important;
+  background: transparent;
+  border: none;
+}
+
+.swiper-slide {
+  border-radius: 0 !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-bright) transparent;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 0 !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  width: 44px;
+  height: 44px;
+  border-radius: 0 !important;
+  background: transparent;
+  border: none;
+  color: #000000;
+  box-shadow: none;
+  transition: opacity 0.25s ease;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.swiper-button-prev {
+  left: 12px;
+}
+
+.swiper-button-next {
+  right: 12px;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 32px;
+  font-weight: 200;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: transparent;
+  color: #333333;
+  border: none;
+  opacity: 0.7;
+  transform: translateY(-50%);
+}
+
+.swiper-button-next:focus-visible,
+.swiper-button-prev:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+
+.swiper-scrollbar {
+  background: var(--border-color);
+  height: 4px;
+}
+
+.swiper-scrollbar-drag {
+  background: #ffffff;
+}
+
+.gallery-modal-footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.gallery-slide-caption {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.gallery-slide-counter {
+  font-family: var(--font-header);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-modal-overlay,
+  .gallery-modal-content,
+  .btn-card-gallery,
+  .swiper-button-next,
+  .swiper-button-prev,
+  .gallery-modal-close,
+  .project-media-wrap img,
+  .project-gallery-badge {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
 }
 </style>
 </head>
@@ -701,7 +1191,7 @@ html, body {
             Building Resilient Systems & Modern Architecture
           </h1>
           <p class="section-desc" style="margin: 0 0 32px 0;">
-            A comprehensive review of software engineering placement, technical discoveries, desktop engines, and full-stack solutions shipped at scale.
+            A comprehensive review of software engineering placement, technical discoveries, and full-stack solutions shipped at scale.
           </p>
 
           <div style="display: inline-flex; align-items: center; gap: 16px; border: 1px solid var(--border-color); padding: 10px 24px; background: rgba(0,0,0,0.85);">
@@ -749,7 +1239,7 @@ html, body {
     <div class="grid-lines-overlay"></div>
 
     <div class="panel-container">
-      <span class="section-tag gsap-hidden">02 — PLACE OF RESIDENCE / ORGANIZATION</span>
+      <span class="section-tag gsap-hidden">02 | PLACE OF RESIDENCE / ORGANIZATION</span>
       
       <div class="grid-2col">
         <div class="gsap-hidden">
@@ -793,62 +1283,173 @@ html, body {
 
 
   <!-- ═══════════════════════════════════════════════════
-       PANEL 03: ABOUT ME SECTION
+       PANEL 03: GROWTH PROFILE
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-03" data-nav="03 ABOUT">
+  <section class="panel" id="panel-03" data-nav="03 GROWTH">
     <div class="grid-lines-overlay"></div>
 
     <div class="panel-container">
-      <span class="section-tag gsap-hidden">03 — ABOUT ME</span>
+      <span class="section-tag gsap-hidden">03 | GROWTH PROFILE</span>
 
-      <div class="grid-2col">
+      <div class="grid-2col" style="align-items: start;">
+        <!-- Left Side: Heading, Description & Tab Toggle -->
         <div class="gsap-hidden">
-          <h2 class="section-title f-clash">Systems Engineer & Builder.</h2>
-          <p class="section-desc" style="margin-bottom: 24px;">
-            Full-stack developer working across web platforms and desktop runtime environments. Focused on clean modular logic, offline-first reliability, and high contrast user interfaces.
+          <h2 class="section-title f-clash">From Familiar Tools to Engineering Systems</h2>
+          <p class="section-desc" style="margin-bottom: 20px;">
+            I started with basic HTML, CSS, and JavaScript, then moved into full-stack web and desktop application development.
           </p>
 
-          <!-- Highlights row -->
-          <div class="grid-3col" style="margin-top: 24px;">
-            <div class="eleya-card">
-              <div class="f-clash" style="font-size: 28px; color: #fff;">06</div>
-              <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Months Placement</div>
-            </div>
-            <div class="eleya-card">
-              <div class="f-clash" style="font-size: 28px; color: #fff;">03+</div>
-              <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Systems Shipped</div>
-            </div>
-            <div class="eleya-card">
-              <div class="f-clash" style="font-size: 28px; color: #fff;">02</div>
-              <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Core Stacks</div>
+          <div class="growth-tab-buttons" role="tablist" aria-label="Growth Profile Timeline">
+            <button type="button" class="growth-tab-btn is-active" id="tab-before-btn" role="tab" aria-selected="true" aria-controls="growth-grid-before" onclick="switchGrowthTab('before')">[ BEFORE PLACEMENT ]</button>
+            <button type="button" class="growth-tab-btn" id="tab-after-btn" role="tab" aria-selected="false" aria-controls="growth-grid-after" onclick="switchGrowthTab('after')">[ AFTER PLACEMENT ]</button>
+          </div>
+
+          <!-- Highlight Card -->
+          <div class="eleya-card" style="margin-top: 16px; padding: 18px; border-left: 2px solid #ffffff;">
+            <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">Main Shift</div>
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+              Moved from building isolated UI screens to building complete data flows and Web Application.
             </div>
           </div>
         </div>
 
-        <div class="gsap-hidden" style="display: flex; flex-direction: column; gap: 24px;">
-          <div class="eleya-card">
-            <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 12px;">Core Focus & Principles</div>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 13px; color: var(--text-muted);">
-              <li style="border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">— High performance UI rendering and hardware acceleration</li>
-              <li style="border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">— Offline-first data persistence and transactional sync</li>
-              <li>— Minimalist design systems with zero bloat</li>
-            </ul>
-          </div>
-
-          <!-- Portfolio QR Code (baseqr.svg) -->
-          <div class="qr-block qr-clickable" id="qr-sec3-block" role="button" tabindex="0" title="Click to enlarge QR code">
-            <div class="qr-box">
-              <img src="baseqr.svg" alt="Portfolio QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
-            </div>
-            <div class="qr-meta">
-              <span class="qr-label">SCAN FOR PORTFOLIO</span>
-              <span class="qr-url">https://portfolio-url.dev</span>
-              <span class="qr-enlarge-notation">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width: 14px; height: 14px; fill: currentColor; display: inline-block; vertical-align: middle;">
-                  <path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 176C258.7 176 248 186.7 248 200L248 248L200 248C186.7 248 176 258.7 176 272C176 285.3 186.7 296 200 296L248 296L248 344C248 357.3 258.7 368 272 368C285.3 368 296 357.3 296 344L296 296L344 296C357.3 296 368 285.3 368 272C368 258.7 357.3 248 344 248L296 248L296 200C296 186.7 285.3 176 272 176z"/>
+        <!-- Right Side: Radial Skill Indicators Grid -->
+        <div class="gsap-hidden">
+          <!-- BEFORE GRID (6 Radial Cards) -->
+          <div class="growth-grid" id="growth-grid-before" role="tabpanel" aria-labelledby="tab-before-btn">
+            <div class="radial-card">
+              <div class="radial-wrapper" data-pct="85">
+                <svg class="radial-svg" viewBox="0 0 36 36">
+                  <circle class="radial-bg" cx="18" cy="18" r="16" />
+                  <circle class="radial-progress" cx="18" cy="18" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53" />
                 </svg>
-                (CLICK TO ENLARGE)
-              </span>
+                <span class="radial-value">85%</span>
+              </div>
+              <span class="radial-label">HTML / CSS</span>
+            </div>
+
+            <div class="radial-card">
+              <div class="radial-wrapper" data-pct="75">
+                <svg class="radial-svg" viewBox="0 0 36 36">
+                  <circle class="radial-bg" cx="18" cy="18" r="16" />
+                  <circle class="radial-progress" cx="18" cy="18" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53" />
+                </svg>
+                <span class="radial-value">75%</span>
+              </div>
+              <span class="radial-label">JavaScript</span>
+            </div>
+
+            <div class="radial-card">
+              <div class="radial-wrapper" data-pct="65">
+                <svg class="radial-svg" viewBox="0 0 36 36">
+                  <circle class="radial-bg" cx="18" cy="18" r="16" />
+                  <circle class="radial-progress" cx="18" cy="18" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53" />
+                </svg>
+                <span class="radial-value">65%</span>
+              </div>
+              <span class="radial-label">React Basics</span>
+            </div>
+
+            <div class="radial-card">
+              <div class="radial-wrapper" data-pct="60">
+                <svg class="radial-svg" viewBox="0 0 36 36">
+                  <circle class="radial-bg" cx="18" cy="18" r="16" />
+                  <circle class="radial-progress" cx="18" cy="18" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53" />
+                </svg>
+                <span class="radial-value">60%</span>
+              </div>
+              <span class="radial-label">Git Flow</span>
+            </div>
+
+            <div class="radial-card">
+              <div class="radial-wrapper" data-pct="50">
+                <svg class="radial-svg" viewBox="0 0 36 36">
+                  <circle class="radial-bg" cx="18" cy="18" r="16" />
+                  <circle class="radial-progress" cx="18" cy="18" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53" />
+                </svg>
+                <span class="radial-value">50%</span>
+              </div>
+              <span class="radial-label">Debugging</span>
+            </div>
+          </div>
+
+          <!-- AFTER GRID (6 Radial Cards) -->
+          <div class="growth-grid" id="growth-grid-after" role="tabpanel" aria-labelledby="tab-after-btn" style="display: none;">
+            <div class="radial-card">
+              <div class="radial-wrapper" data-pct="95">
+                <svg class="radial-svg" viewBox="0 0 36 36">
+                  <circle class="radial-bg" cx="18" cy="18" r="16" />
+                  <circle class="radial-progress" cx="18" cy="18" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53" />
+                </svg>
+                <span class="radial-value">95%</span>
+              </div>
+              <span class="radial-label">HTML / CSS</span>
+            </div>
+
+            <div class="radial-card">
+              <div class="radial-wrapper" data-pct="90">
+                <svg class="radial-svg" viewBox="0 0 36 36">
+                  <circle class="radial-bg" cx="18" cy="18" r="16" />
+                  <circle class="radial-progress" cx="18" cy="18" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53" />
+                </svg>
+                <span class="radial-value">90%</span>
+              </div>
+              <span class="radial-label">JS / TS</span>
+            </div>
+
+            <div class="radial-card">
+              <div class="radial-wrapper" data-pct="88">
+                <svg class="radial-svg" viewBox="0 0 36 36">
+                  <circle class="radial-bg" cx="18" cy="18" r="16" />
+                  <circle class="radial-progress" cx="18" cy="18" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53" />
+                </svg>
+                <span class="radial-value">88%</span>
+              </div>
+              <span class="radial-label">React</span>
+            </div>
+
+            <div class="radial-card">
+              <div class="radial-wrapper" data-pct="82">
+                <svg class="radial-svg" viewBox="0 0 36 36">
+                  <circle class="radial-bg" cx="18" cy="18" r="16" />
+                  <circle class="radial-progress" cx="18" cy="18" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53" />
+                </svg>
+                <span class="radial-value">82%</span>
+              </div>
+              <span class="radial-label">Node & Express</span>
+            </div>
+
+            <div class="radial-card">
+              <div class="radial-wrapper" data-pct="78">
+                <svg class="radial-svg" viewBox="0 0 36 36">
+                  <circle class="radial-bg" cx="18" cy="18" r="16" />
+                  <circle class="radial-progress" cx="18" cy="18" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53" />
+                </svg>
+                <span class="radial-value">78%</span>
+              </div>
+              <span class="radial-label">MongoDB</span>
+            </div>
+
+            <div class="radial-card">
+              <div class="radial-wrapper" data-pct="75">
+                <svg class="radial-svg" viewBox="0 0 36 36">
+                  <circle class="radial-bg" cx="18" cy="18" r="16" />
+                  <circle class="radial-progress" cx="18" cy="18" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53" />
+                </svg>
+                <span class="radial-value">75%</span>
+              </div>
+              <span class="radial-label">Profiling</span>
+            </div>
+
+            <div class="radial-card">
+              <div class="radial-wrapper" data-pct="85">
+                <svg class="radial-svg" viewBox="0 0 36 36">
+                  <circle class="radial-bg" cx="18" cy="18" r="16" />
+                  <circle class="radial-progress" cx="18" cy="18" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53" />
+                </svg>
+                <span class="radial-value">85%</span>
+              </div>
+              <span class="radial-label">Git & CI/CD</span>
             </div>
           </div>
         </div>
@@ -858,39 +1459,41 @@ html, body {
 
 
   <!-- ═══════════════════════════════════════════════════
-       PANEL 04: TOOLS I USED
+       PANEL 04: PRIMARY TOOL (WEBSTORM)
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-04" data-nav="04 TOOLS">
+  <section class="panel" id="panel-04" data-nav="04 WEBSTORM">
     <div class="grid-lines-overlay"></div>
 
     <div class="panel-container">
-      <span class="section-tag gsap-hidden">04 — TECH STACK & INSTRUMENTS</span>
-      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 24px;">Instruments of the Work.</h2>
+      <span class="section-tag gsap-hidden">04 | PRIMARY DEVELOPMENT ENVIRONMENT</span>
+      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 12px;">WebStorm: My Primary Development Environment</h2>
+      <p class="section-desc gsap-hidden" style="margin-bottom: 24px;">
+        I used JetBrains WebStorm as my main IDE for writing code, navigating large projects, debugging, and managing Git workflows during my placement.
+      </p>
 
-      <div class="grid-3col gsap-hidden">
+      <div class="grid-4col gsap-hidden" style="margin-bottom: 20px;">
         <div class="eleya-card">
-          <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">React + TypeScript</div>
-          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Frontend interfaces, component architecture, and type-safe state management.</div>
+          <div class="f-clash" style="font-size: 15px; color: #fff; margin-bottom: 8px;">Code Completion & Refactoring</div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Auto-completion, symbol search, and quick refactoring across project files.</div>
         </div>
         <div class="eleya-card">
-          <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">Node.js / Express</div>
-          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">RESTful API endpoints, request validation, and backend service integration.</div>
+          <div class="f-clash" style="font-size: 15px; color: #fff; margin-bottom: 8px;">Integrated Terminal</div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Runs build scripts, package managers, and dev servers directly inside the IDE.</div>
         </div>
         <div class="eleya-card">
-          <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">C++17 / Qt</div>
-          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Desktop application development, custom event loops, and memory profiling.</div>
+          <div class="f-clash" style="font-size: 15px; color: #fff; margin-bottom: 8px;">Git Integration</div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Side-by-side file diffs, branch management, and conflict resolution built in.</div>
         </div>
         <div class="eleya-card">
-          <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">SQLite</div>
-          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Embedded relational database storage for offline-first desktop engines.</div>
+          <div class="f-clash" style="font-size: 15px; color: #fff; margin-bottom: 8px;">Debugging & Diagnostics</div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Breakpoints, call stack checks, variable inspection, and instant linter feedback.</div>
         </div>
-        <div class="eleya-card">
-          <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">Python</div>
-          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Automation scripts, data parsing, and build helper pipelines.</div>
-        </div>
-        <div class="eleya-card">
-          <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">GSAP & Motion</div>
-          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Hardware-accelerated horizontal timelines and ScrollTrigger pinning.</div>
+      </div>
+
+      <div class="eleya-card gsap-hidden" style="border-left: 2px solid #ffffff; padding: 18px;">
+        <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">Workflow Impact</div>
+        <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+          Working in a single IDE saved time on daily tasks and made code changes safer to ship.
         </div>
       </div>
     </div>
@@ -898,52 +1501,127 @@ html, body {
 
 
   <!-- ═══════════════════════════════════════════════════
-       PANEL 05: CHALLENGES FACED & SOLUTIONS
+       PANEL 05: SKILLS APPLIED (8 COMPETENCY CARDS)
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-05" data-nav="05 CHALLENGES">
+  <section class="panel" id="panel-05" data-nav="05 SKILLS">
     <div class="grid-lines-overlay"></div>
 
     <div class="panel-container">
-      <span class="section-tag gsap-hidden">05 — CHALLENGES & SOLUTIONS</span>
-      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 24px;">Engineering & Operational Trade-offs.</h2>
+      <span class="section-tag gsap-hidden">05 | APPLIED COMPETENCIES</span>
+      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 8px;">Skills & Technical Capabilities</h2>
+      <p class="section-desc gsap-hidden" style="margin-bottom: 20px;">
+        Technical skills practiced across web applications, desktop engines, and database systems.
+      </p>
+
+      <div class="grid-4col gsap-hidden">
+        <div class="eleya-card">
+          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">01. DESKTOP RUNTIMES</div>
+          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Desktop Application Development</div>
+          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">C++17, Qt Framework, custom event loops, and native desktop UI.</div>
+        </div>
+
+        <div class="eleya-card">
+          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">02. WEB SYSTEMS</div>
+          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Full-Stack Web Development</div>
+          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">React, TypeScript, Node.js, Express, and REST API design.</div>
+        </div>
+
+        <div class="eleya-card">
+          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">03. DATA ARCHITECTURE</div>
+          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Database & Schema Design</div>
+          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">SQLite embedded database, SQL schema design, and data transactions.</div>
+        </div>
+
+        <div class="eleya-card">
+          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">04. SYSTEM RELIABILITY</div>
+          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Offline Data Support</div>
+          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Local write queues and offline data synchronization on reconnect.</div>
+        </div>
+
+        <div class="eleya-card">
+          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">05. UI & MOTION</div>
+          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">UI & Animation Architecture</div>
+          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Consistent design layouts and GSAP hardware-accelerated animations.</div>
+        </div>
+
+        <div class="eleya-card">
+          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">06. PERFORMANCE</div>
+          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Performance & Profiling</div>
+          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Reducing CPU and memory usage, optimizing render loops, and fixing frame drops.</div>
+        </div>
+
+        <div class="eleya-card">
+          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">07. DEVOPS & VCS</div>
+          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Version Control & Deployment</div>
+          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Git branching, clear commit logs, and production build setups.</div>
+        </div>
+
+        <div class="eleya-card">
+          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">08. DOCUMENTATION</div>
+          <div class="f-clash" style="font-size: 14px; color: #fff; margin-bottom: 6px;">Technical Documentation</div>
+          <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Writing clear API docs, system setup notes, and user guides.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL 06: PROJECT GALLERY (SANFAANISERVICE & NEXOS)
+  ═══════════════════════════════════════════════════ -->
+  <section class="panel" id="panel-06" data-nav="06 PROJECTS">
+    <div class="grid-lines-overlay"></div>
+
+    <div class="panel-container">
+      <span class="section-tag gsap-hidden">06 | FEATURED PROJECTS</span>
+      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 8px;">Featured Projects</h2>
+      <p class="section-desc gsap-hidden" style="margin-bottom: 20px;">
+        Key projects developed and delivered during my placement.
+      </p>
 
       <div class="grid-2col gsap-hidden">
-        <!-- Technical Column -->
-        <div class="eleya-card">
-          <div style="font-size: 10px; letter-spacing: 0.18em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Technical Challenges</div>
+        <!-- Project 1: SanfaaniService -->
+        <div class="eleya-card project-card" style="display: flex; flex-direction: column; gap: 14px; padding: 18px;">
+          <div class="project-media-wrap" style="position: relative; width: 100%; aspect-ratio: 16/9; background: #080808; border: 1px solid var(--border-color); overflow: hidden;">
+            <img src="Sanfaani_service_00.png" alt="SanfaaniService Screenshot" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease, filter 0.4s ease;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 12px; color: var(--text-dim); text-transform: uppercase; border: 1px dashed var(--border-color);">
+              [ SANFAANISERVICE INTERFACE PREVIEW ]
+            </div>
+          </div>
 
-          <div style="display: flex; flex-direction: column; gap: 16px;">
-            <div>
-              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Offline Data Sync in C++/Qt</div>
-              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Built local SQLite write queues with conflict resolution on reconnect — guaranteeing zero data loss.</div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <h3 class="f-clash" style="font-size: 18px; color: #fff;">SanfaaniService</h3>
+              <span class="status-pill" style="font-size: 9px; padding: 2px 8px;">ENTERPRISE SAAS PLATFORM</span>
             </div>
-            <div style="border-top: 1px solid var(--border-color); padding-top: 12px;">
-              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Async State Race Conditions</div>
-              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Restructured API fetch layers with cancellation tokens and deterministic state gates.</div>
-            </div>
-            <div style="border-top: 1px solid var(--border-color); padding-top: 12px;">
-              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Low-Spec Hardware Performance</div>
-              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Profiled Qt render loops to eliminate unnecessary redraws, cutting CPU usage by 60%.</div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px;">
+              A web platform for client onboarding, service tracking, and dashboard analytics.
+            </p>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 8px;">
+              <span style="font-size: 11px; color: var(--text-dim);"><strong style="color: var(--text-muted);">Stack:</strong> React, TypeScript, Node.js, Express, REST APIs.</span>
             </div>
           </div>
         </div>
 
-        <!-- Interpersonal Column -->
-        <div class="eleya-card">
-          <div style="font-size: 10px; letter-spacing: 0.18em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Interpersonal & Process</div>
+        <!-- Project 2: Nexos -->
+        <div class="eleya-card project-card" style="display: flex; flex-direction: column; gap: 14px; padding: 18px;">
+          <div class="project-media-wrap" style="position: relative; width: 100%; aspect-ratio: 16/9; background: #080808; border: 1px solid var(--border-color); overflow: hidden;">
+            <img src="nexos_ui_01.svg" alt="Nexos Desktop Asset Engine Screenshot" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease, filter 0.4s ease;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 12px; color: var(--text-dim); text-transform: uppercase; border: 1px dashed var(--border-color);">
+              [ NEXOS DESKTOP ENGINE PREVIEW ]
+            </div>
+          </div>
 
-          <div style="display: flex; flex-direction: column; gap: 16px;">
-            <div>
-              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Communicating Technical Trade-offs</div>
-              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Framed architectural choices in terms of user experience and timeline predictability.</div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <h3 class="f-clash" style="font-size: 18px; color: #fff;">Nexos</h3>
+              <span class="status-pill" style="font-size: 9px; padding: 2px 8px;">DESKTOP ASSET ENGINE</span>
             </div>
-            <div style="border-top: 1px solid var(--border-color); padding-top: 12px;">
-              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Navigating Partial Requirements</div>
-              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Established habit of writing quick 1-page specs to clarify ambiguities before coding.</div>
-            </div>
-            <div style="border-top: 1px solid var(--border-color); padding-top: 12px;">
-              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Cross-Functional Collaboration</div>
-              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Maintained transparent progress tracking with team members to deliver predictable milestones.</div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px;">
+              A desktop media tool built to process and convert media files efficiently with low RAM usage.
+            </p>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 8px;">
+              <span style="font-size: 11px; color: var(--text-dim);"><strong style="color: var(--text-muted);">Stack:</strong> C++17, Qt Framework, SQLite, GSAP.</span>
             </div>
           </div>
         </div>
@@ -953,104 +1631,200 @@ html, body {
 
 
   <!-- ═══════════════════════════════════════════════════
-       PANEL 06: CLOSING PHASE
+       PANEL 07: CHALLENGES & PROCESS (ACCORDION)
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-06" data-nav="06 CLOSING">
+  <section class="panel" id="panel-07" data-nav="07 CHALLENGES">
+    <div class="grid-lines-overlay"></div>
+
+    <div class="panel-container">
+      <span class="section-tag gsap-hidden">07 | TECHNICAL CHALLENGES & PROCESS</span>
+      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 8px;">Challenges & Technical Solutions</h2>
+      <p class="section-desc gsap-hidden" style="margin-bottom: 20px;">
+        Real engineering problems faced during development and how I solved them.
+      </p>
+
+      <div class="grid-2col gsap-hidden" style="align-items: start;">
+        <!-- Left Column: Technical Accordion -->
+        <div>
+          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px;">Technical Problems & Fixes</div>
+          
+          <div class="accordion-group" id="challenges-accordion">
+            <!-- Item 1 -->
+            <div class="accordion-item is-open">
+              <button type="button" class="accordion-header" aria-expanded="true" aria-controls="ch-body-1" id="ch-header-1">
+                <span>01. Offline Data Sync in C++/Qt</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div id="ch-body-1" class="accordion-body" role="region" aria-labelledby="ch-header-1">
+                <strong style="color: #fff; display: block; margin-top: 8px; margin-bottom: 4px;">Challenge:</strong>
+                Preventing data loss when the desktop app loses internet connection while saving data.
+                <strong style="color: #fff; display: block; margin-top: 8px; margin-bottom: 4px;">Solution:</strong>
+                Created local SQLite write queues that store data offline and sync to the server when reconnected.
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="accordion-item">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="ch-body-2" id="ch-header-2">
+                <span>02. Async State Race Conditions</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div id="ch-body-2" class="accordion-body" role="region" aria-labelledby="ch-header-2">
+                <strong style="color: #fff; display: block; margin-top: 8px; margin-bottom: 4px;">Challenge:</strong>
+                Managing multiple fast API requests without UI state errors or memory leaks.
+                <strong style="color: #fff; display: block; margin-top: 8px; margin-bottom: 4px;">Solution:</strong>
+                Used AbortController cancellation signals and structured state machine logic to drop stale responses.
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="accordion-item">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="ch-body-3" id="ch-header-3">
+                <span>03. Database Query Performance & Indexing</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div id="ch-body-3" class="accordion-body" role="region" aria-labelledby="ch-header-3">
+                <strong style="color: #fff; display: block; margin-top: 8px; margin-bottom: 4px;">Challenge:</strong>
+        <!-- Right Column: Interpersonal & Process Column -->
+        <div class="eleya-card" style="padding: 20px;">
+          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Workplace & Process Skills</div>
+
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Communicating Technical Choices</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Explained technical decisions in plain terms of user experience, memory use, and project timelines.</div>
+            </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 10px;">
+              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Handling Unclear Requirements</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Wrote quick 1-page summaries to confirm details with team leads before writing code.</div>
+            </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 10px;">
+              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">Team Collaboration</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Kept progress visible with regular updates to ensure tasks were completed on time.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL 08: CRITICAL REFLECTION & Q&A
+  ═══════════════════════════════════════════════════ -->
+  <section class="panel" id="panel-08" data-nav="08 REFLECTION">
+    <div class="grid-lines-overlay"></div>
+
+    <div class="panel-container">
+      <span class="section-tag gsap-hidden">08 | CRITICAL REFLECTION</span>
+      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 8px;">Key Learnings & Self-Reflection</h2>
+      <p class="section-desc gsap-hidden" style="margin-bottom: 20px;">
+        Core takeaways from real-world software engineering.
+      </p>
+
+      <div class="grid-2col gsap-hidden" style="align-items: start;">
+        <!-- Left Column: Reflection Accordion -->
+        <div>
+          <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px;">Reflection Q&A</div>
+
+          <div class="accordion-group" id="reflection-accordion">
+            <!-- Item 1 -->
+            <div class="accordion-item is-open">
+              <button type="button" class="accordion-header" aria-expanded="true" aria-controls="rf-body-1" id="rf-header-1">
+                <span>01. Most Significant Technical Breakthrough?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div id="rf-body-1" class="accordion-body" role="region" aria-labelledby="rf-header-1">
+                Moving from just building frontend UI components to thinking about data flow, memory usage, and background persistence first.
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="accordion-item">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="rf-body-2" id="rf-header-2">
+                <span>02. Real-World Requirements vs Theory?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div id="rf-body-2" class="accordion-body" role="region" aria-labelledby="rf-header-2">
+                Real-world work showed that code must handle offline modes and low-end hardware cleanly. Error handling and reliability matter just as much as writing neat functions.
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="accordion-item">
+              <button type="button" class="accordion-header" aria-expanded="false" aria-controls="rf-body-3" id="rf-header-3">
+                <span>03. Long-Term Career Trajectory Impact?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div id="rf-body-3" class="accordion-body" role="region" aria-labelledby="rf-header-3">
+                It focused my career goals on systems engineering, desktop and web hybrid applications, and building reliable tools for actual users.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Defense Summary Card & Open Floor -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div class="eleya-card" style="padding: 20px; border-left: 2px solid #ffffff;">
+            <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px;">Core Engineering Rule</div>
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.6;">
+              Every design choice is based on performance testing, type checking, and clear fallback plans when offline.
+            </div>
+          </div>
+
+          <div class="eleya-card" style="padding: 20px;">
+            <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px;">Open Floor for Questions</div>
+            <div class="f-clash" style="font-size: 16px; color: #fff; margin-bottom: 6px;">Questions & Discussion</div>
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+              Ready to answer questions, review source code, or demonstrate system features.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL 09: CONCLUSION
+  ═══════════════════════════════════════════════════ -->
+  <section class="panel" id="panel-09" data-nav="09 CONCLUSION">
     <div class="grid-lines-overlay"></div>
 
     <div class="panel-container" style="text-align: center; align-items: center;">
-      <span class="section-tag gsap-hidden">06 — CLOSING THOUGHTS</span>
-      
+      <span class="section-tag gsap-hidden">09 | CONCLUSION</span>
+
       <div class="gsap-hidden" style="max-width: 720px; margin: 0 auto;">
-        <blockquote class="f-clash" style="font-size: clamp(24px, 3.2vw, 42px); line-height: 1.2; color: #ffffff; margin-bottom: 24px;">
-          "The man who moves a mountain begins by carrying away small stones."
-        </blockquote>
-        <div style="font-size: 11px; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 40px;">— Confucius</div>
+        <h2 class="section-title f-clash" style="font-size: clamp(28px, 4vw, 48px); margin-bottom: 16px;">
+          Building Better Software Systems
+        </h2>
+        <p class="section-desc" style="margin: 0 auto 32px auto; max-width: 600px;">
+          The SIWES placement turned classroom theory into practical engineering experience. I now focus on building reliable software with clean structure and user-centered design.
+        </p>
 
-        <div style="width: 1px; height: 36px; background: var(--border-bright); margin: 0 auto 36px;"></div>
-
-        <h3 class="f-clash" style="font-size: 22px; color: #fff; margin-bottom: 8px;">Opeyemi</h3>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 32px;">Software Engineering Student · SIWES Placement 2024</p>
-
-        <div style="display: flex; justify-content: center; gap: 24px;">
-          <a href="#" style="font-size: 11px; letter-spacing: 0.15em; color: #fff; text-decoration: none; border-bottom: 1px solid var(--border-bright); padding-bottom: 2px;">PORTFOLIO</a>
-          <a href="#" style="font-size: 11px; letter-spacing: 0.15em; color: #fff; text-decoration: none; border-bottom: 1px solid var(--border-bright); padding-bottom: 2px;">GITHUB</a>
-          <a href="#" style="font-size: 11px; letter-spacing: 0.15em; color: #fff; text-decoration: none; border-bottom: 1px solid var(--border-bright); padding-bottom: 2px;">CONTACT</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════
-       PANEL 07: Q&A SECTION — ENTERPRISE VIDEO SHOWCASE
-  ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-07" data-nav="07 Q&A">
-    <div class="grid-lines-overlay"></div>
-
-    <div class="panel-container">
-      <span class="section-tag gsap-hidden">07 — EVIDENCES & DEMO SHOWCASE</span>
-      <h2 class="section-title f-clash gsap-hidden" style="margin-bottom: 20px;">Show the work. Ask questions.</h2>
-
-      <div class="grid-4col gsap-hidden" style="margin-bottom: 20px;">
-        <!-- Showcase Video 1 (Hover to Play without controls) -->
-        <div class="showcase-card" onmouseenter="let v=this.querySelector('video'); if(v) v.play();" onmouseleave="let v=this.querySelector('video'); if(v) v.pause();">
-          <div class="showcase-media">
-            <video src="ascii-magic-8.mp4" muted loop playsinline preload="auto"></video>
+        <!-- Summary Metrics Row -->
+        <div class="grid-3col" style="margin-bottom: 36px; text-align: center;">
+          <div class="eleya-card">
+            <div class="f-clash" style="font-size: 28px; color: #fff;">06</div>
+            <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Months Completed</div>
           </div>
-          <div class="showcase-info">
-            <div class="showcase-title">Desktop Engine Demo</div>
-            <div class="showcase-sub">ASCII Video Processing</div>
+          <div class="eleya-card">
+            <div class="f-clash" style="font-size: 28px; color: #fff;">02</div>
+            <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Stacks Practiced</div>
+          </div>
+          <div class="eleya-card">
+            <div class="f-clash" style="font-size: 28px; color: #fff;">02</div>
+            <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Core Projects</div>
           </div>
         </div>
 
-        <!-- Showcase Image 2 -->
-        <div class="showcase-card">
-          <div class="showcase-media">
-            <img src="Sanfaani_service.png" alt="Sanfaani Service" />
-          </div>
-          <div class="showcase-info">
-            <div class="showcase-title">Workplace Service UI</div>
-            <div class="showcase-sub">System Interface</div>
-          </div>
-        </div>
+        <div style="width: 1px; height: 32px; background: var(--border-bright); margin: 0 auto 28px;"></div>
 
-        <!-- Showcase Image 3 -->
-        <div class="showcase-card">
-          <div class="showcase-media">
-            <img src="1x_1280x717.png" alt="System Evidence 1" />
-          </div>
-          <div class="showcase-info">
-            <div class="showcase-title">Analytics Evidence</div>
-            <div class="showcase-sub">Performance Profiling</div>
-          </div>
-        </div>
+        <div class="f-clash" style="font-size: 20px; color: #fff; margin-bottom: 4px;">Adeoye Emmanuel Opeyemi</div>
+        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 24px;">Systems & Software Engineering · SIWES 2026</div>
 
-        <!-- Showcase Image 4 -->
-        <div class="showcase-card">
-          <div class="showcase-media">
-            <img src="2x_2560x1434.png" alt="System Evidence 2" />
-          </div>
-          <div class="showcase-info">
-            <div class="showcase-title">Production Build</div>
-            <div class="showcase-sub">Deployment Evidence</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Q&A Context Row -->
-      <div class="grid-3col gsap-hidden">
-        <div class="eleya-card" style="padding: 16px;">
-          <strong style="display: block; font-size: 13px; color: #fff; margin-bottom: 4px;">What was built</strong>
-          <span style="font-size: 11px; color: var(--text-muted);">Production-grade desktop asset manager and full-stack web API — both shipped.</span>
-        </div>
-        <div class="eleya-card" style="padding: 16px;">
-          <strong style="display: block; font-size: 13px; color: #fff; margin-bottom: 4px;">What was learned</strong>
-          <span style="font-size: 11px; color: var(--text-muted);">Systems thinking transfers across stacks. Offline-first constraint forces clarity.</span>
-        </div>
-        <div class="eleya-card" style="padding: 16px;">
-          <strong style="display: block; font-size: 13px; color: #fff; margin-bottom: 4px;">Open Floor / Q&A</strong>
-          <span style="font-size: 11px; color: var(--text-muted);">Ready to answer questions, review source code, and demonstrate system evidence.</span>
+        <div style="display: flex; justify-content: center; gap: 24px; align-items: center;">
+          <span style="font-size: 11px; letter-spacing: 0.15em; color: var(--text-muted);">THANK YOU FOR YOUR TIME & ATTENTION</span>
         </div>
       </div>
     </div>
@@ -1065,16 +1839,18 @@ html, body {
   <div class="nav-links" id="nav-links-container">
     <button class="nav-btn active" data-index="0">01 HERO</button>
     <button class="nav-btn" data-index="1">02 RESIDENCE</button>
-    <button class="nav-btn" data-index="2">03 ABOUT</button>
-    <button class="nav-btn" data-index="3">04 TOOLS</button>
-    <button class="nav-btn" data-index="4">05 CHALLENGES</button>
-    <button class="nav-btn" data-index="5">06 CLOSING</button>
-    <button class="nav-btn" data-index="6">07 Q&A</button>
+    <button class="nav-btn" data-index="2">03 GROWTH</button>
+    <button class="nav-btn" data-index="3">04 WEBSTORM</button>
+    <button class="nav-btn" data-index="4">05 SKILLS</button>
+    <button class="nav-btn" data-index="5">06 PROJECTS</button>
+    <button class="nav-btn" data-index="6">07 CHALLENGES</button>
+    <button class="nav-btn" data-index="7">08 REFLECTION</button>
+    <button class="nav-btn" data-index="8">09 CONCLUSION</button>
   </div>
 
   <div class="nav-counter">
     <div id="progress-track"><div id="progress-bar"></div></div>
-    <span id="section-counter-text" class="f-clash">01 / 07</span>
+    <span id="section-counter-text" class="f-clash">01 / 09</span>
   </div>
 </div>
 
@@ -1087,10 +1863,50 @@ html, body {
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width: 14px; height: 14px; fill: currentColor;">
         <path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 176C258.7 176 248 186.7 248 200L248 248L200 248C186.7 248 176 258.7 176 272C176 285.3 186.7 296 200 296L248 296L248 344C248 357.3 258.7 368 272 368C285.3 368 296 357.3 296 344L296 296L344 296C357.3 296 368 285.3 368 272C368 258.7 357.3 248 344 248L296 248L296 200C296 186.7 285.3 176 272 176z"/>
       </svg>
-      <span class="qr-modal-title-text">Sanfaani SaaS — Landing Page</span>
+      <span class="qr-modal-title-text">Sanfaani SaaS: Landing Page</span>
     </div>
     <div id="qr-modal-url" style="font-size: 11px; color: var(--text-dim); word-break: break-all;">https://www.sanfaani.net</div>
     <div style="font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px;">Click outside or press ESC to close</div>
+  </div>
+</div>
+
+<!-- PROJECT GALLERY SWIPABLE LIGHTBOX MODAL -->
+<div id="project-gallery-modal" class="gallery-modal-overlay" role="dialog" aria-modal="true" aria-label="Project Image Gallery">
+  <div class="gallery-modal-backdrop" id="gallery-modal-backdrop"></div>
+  <div class="gallery-modal-content">
+    <!-- Modal Header -->
+    <div class="gallery-modal-header">
+      <div>
+        <h3 id="gallery-title-text" class="gallery-modal-title f-clash">Project Title</h3>
+        <div id="gallery-subtitle-text" class="gallery-modal-subtitle">Project Subtitle</div>
+      </div>
+      <button type="button" class="gallery-modal-close" id="gallery-modal-close-btn" aria-label="Close project gallery lightbox">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Swiper Container Body -->
+    <div class="gallery-modal-body">
+      <div class="swiper">
+        <div class="swiper-wrapper" id="swiper-wrapper">
+          <!-- Dynamically populated slides -->
+        </div>
+        <!-- Swiper Navigation Controls -->
+        <button type="button" class="swiper-button-prev" aria-label="Previous slide"></button>
+        <button type="button" class="swiper-button-next" aria-label="Next slide"></button>
+        <!-- Swiper Scrollbar -->
+        <div class="swiper-scrollbar"></div>
+      </div>
+    </div>
+
+    <!-- Modal Footer: Caption & Counter -->
+    <div class="gallery-modal-footer">
+      <div id="gallery-slide-caption" class="gallery-slide-caption">Slide Caption</div>
+      <div id="gallery-slide-counter" class="gallery-slide-counter">Slide 1 of 3</div>
+    </div>
   </div>
 </div>
 
@@ -1101,6 +1917,241 @@ html, body {
 <script>
 (function() {
   'use strict';
+
+  // Growth Profile Radial Percentage Animation
+  function animateRadialProgress(container) {
+    if (!container) return;
+    const wrappers = container.querySelectorAll('.radial-wrapper');
+    wrappers.forEach(function(wrap) {
+      const pct = parseInt(wrap.getAttribute('data-pct'), 10) || 0;
+      const circle = wrap.querySelector('.radial-progress');
+      if (circle) {
+        const circumference = 100.53;
+        const offset = circumference - (circumference * pct / 100);
+        if (typeof gsap !== 'undefined') {
+          gsap.to(circle, {
+            strokeDashoffset: offset,
+            duration: 0.8,
+            ease: 'power2.out'
+          });
+        } else {
+          circle.style.strokeDashoffset = offset;
+        }
+      }
+    });
+  }
+
+  // Growth Profile Tab Switcher
+  window.switchGrowthTab = function(tab) {
+    const btnBefore = document.getElementById('tab-before-btn');
+    const btnAfter = document.getElementById('tab-after-btn');
+    const gridBefore = document.getElementById('growth-grid-before');
+    const gridAfter = document.getElementById('growth-grid-after');
+
+    if (tab === 'before') {
+      if (btnBefore) { btnBefore.classList.add('is-active'); btnBefore.setAttribute('aria-selected', 'true'); }
+      if (btnAfter) { btnAfter.classList.remove('is-active'); btnAfter.setAttribute('aria-selected', 'false'); }
+      if (gridBefore) gridBefore.style.display = 'grid';
+      if (gridAfter) gridAfter.style.display = 'none';
+      animateRadialProgress(gridBefore);
+    } else {
+      if (btnAfter) { btnAfter.classList.add('is-active'); btnAfter.setAttribute('aria-selected', 'true'); }
+      if (btnBefore) { btnBefore.classList.remove('is-active'); btnBefore.setAttribute('aria-selected', 'false'); }
+      if (gridAfter) gridAfter.style.display = 'grid';
+      if (gridBefore) gridBefore.style.display = 'none';
+      animateRadialProgress(gridAfter);
+    }
+  };
+
+  // Accessible Accordion Toggle System
+  function setupAccordions() {
+    const accordionGroups = document.querySelectorAll('.accordion-group');
+    accordionGroups.forEach(function(group) {
+      const items = group.querySelectorAll('.accordion-item');
+      items.forEach(function(item) {
+        const header = item.querySelector('.accordion-header');
+        if (!header) return;
+
+        header.addEventListener('click', function(e) {
+          e.stopPropagation(); // Prevent GSAP track drag & slide navigation
+          const isOpen = item.classList.contains('is-open');
+
+          items.forEach(function(otherItem) {
+            otherItem.classList.remove('is-open');
+            const otherHeader = otherItem.querySelector('.accordion-header');
+            if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+          });
+
+          if (!isOpen) {
+            item.classList.add('is-open');
+            header.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    });
+  }
+
+  // ─── PROJECT GALLERY LIGHTBOX & SWIPABLE SLIDER ───
+  const projectGalleries = {
+    'sanfaani': {
+      title: 'SanfaaniService',
+      subtitle: 'ENTERPRISE SAAS PLATFORM | IMAGE GALLERY',
+      slides: [
+        {
+          src: 'Sanfaani_service_00.png',
+          title: '01. Client Dashboard & Workflow Overview',
+          caption: 'Main enterprise web dashboard showing client onboarding status, active service requests, and real-time activity metrics.'
+        },
+        {
+          src: 'Sanfaani_service_01.png',
+          title: '02. Service Management & Detailed Tracking',
+          caption: 'Detailed view of client requests, service progress timelines, and operational status logs.'
+        },
+        {
+          src: 'sanfaani_service_02.svg',
+          title: '03. System Analytics & API Latency Monitor',
+          caption: 'Backend REST API endpoint metrics, request throughput graphs, and automated database latency tracking.'
+        }
+      ]
+    },
+    'nexos': {
+      title: 'Nexos Desktop Asset Engine',
+      subtitle: 'DESKTOP ASSET ENGINE | IMAGE GALLERY',
+      slides: [
+        {
+          src: 'nexos_ui_01.svg',
+          title: '01. Desktop Asset Manager Interface',
+          caption: 'Native C++/Qt workspace interface managing media directories, queue status, and background processing tasks.'
+        },
+        {
+          src: 'nexos_engine_02.svg',
+          title: '02. C++17 Multi-Threaded Render Pipeline',
+          caption: 'SIMD vectorization and OpenGL hardware acceleration loop yielding 60 FPS stable playback and low CPU usage.'
+        },
+        {
+          src: 'nexos_database_03.svg',
+          title: '03. SQLite Offline Queue Architecture',
+          caption: 'Local write-ahead log queue ensuring zero data loss and automated conflict resolution upon reconnect.'
+        }
+      ]
+    }
+  };
+
+  let swiperInstance = null;
+
+  window.openProjectGallery = function(key) {
+    const galleryData = projectGalleries[key];
+    if (!galleryData) return;
+
+    const modal = document.getElementById('project-gallery-modal');
+    const titleEl = document.getElementById('gallery-title-text');
+    const subtitleEl = document.getElementById('gallery-subtitle-text');
+    const wrapperEl = document.getElementById('swiper-wrapper');
+    const captionEl = document.getElementById('gallery-slide-caption');
+    const counterEl = document.getElementById('gallery-slide-counter');
+
+    if (titleEl) titleEl.textContent = galleryData.title;
+    if (subtitleEl) subtitleEl.textContent = galleryData.subtitle;
+
+    let displaySlides = galleryData.slides;
+
+    if (wrapperEl) {
+      wrapperEl.innerHTML = displaySlides.map(function(slide) {
+        return '<div class="swiper-slide">' +
+          '<img src="' + slide.src + '" alt="' + slide.title + '" onerror="this.onerror=null; this.src=\'Sanfaani_service_00.png\';" />' +
+        '</div>';
+      }).join('');
+    }
+
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    if (swiperInstance) {
+      swiperInstance.destroy(true, true);
+      swiperInstance = null;
+    }
+
+    // Initialize Swiper for clean landscape presentation view
+    swiperInstance = new Swiper('.swiper', {
+      snapToSlideEdge: true,
+      autoHeight: true,
+      roundLengths: true,
+      rewind: true,
+      passiveListeners: false,
+      parallax: true,
+      effect: "cards",
+      freeMode: {
+        enabled: true
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+        hideOnClick: true
+      },
+      autoplay: {
+        pauseOnMouseEnter: true
+      },
+      keyboard: true
+    });
+
+    function updateCaptionAndCounter() {
+      if (!galleryData || !galleryData.slides.length || !swiperInstance) return;
+      const total = galleryData.slides.length;
+      const realIndex = (swiperInstance.realIndex % total);
+      const slide = galleryData.slides[realIndex];
+
+      if (captionEl && slide) {
+        captionEl.innerHTML = '<strong style="color: #fff; display: block; margin-bottom: 2px;">' + slide.title + '</strong>' + slide.caption;
+      }
+      if (counterEl) {
+        counterEl.textContent = 'Slide ' + (realIndex + 1) + ' of ' + total;
+      }
+    }
+
+    updateCaptionAndCounter();
+    swiperInstance.on('slideChange', updateCaptionAndCounter);
+    swiperInstance.on('scroll', updateCaptionAndCounter);
+  };
+
+  window.closeProjectGallery = function() {
+    const modal = document.getElementById('project-gallery-modal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    if (swiperInstance) {
+      swiperInstance.destroy(true, true);
+      swiperInstance = null;
+    }
+  };
+
+  const galleryModalCloseBtn = document.getElementById('gallery-modal-close-btn');
+  if (galleryModalCloseBtn) {
+    galleryModalCloseBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      closeProjectGallery();
+    });
+  }
+
+  const galleryModalBackdrop = document.getElementById('gallery-modal-backdrop');
+  if (galleryModalBackdrop) {
+    galleryModalBackdrop.addEventListener('click', function(e) {
+      e.stopPropagation();
+      closeProjectGallery();
+    });
+  }
+
+  const projectGalleryModal = document.getElementById('project-gallery-modal');
+  if (projectGalleryModal) {
+    projectGalleryModal.addEventListener('click', function(e) {
+      if (e.target === projectGalleryModal) {
+        closeProjectGallery();
+      }
+    });
+  }
 
   // QR Enlargement Lightbox Handlers
   window.openQrModal = function(src, title, url) {
@@ -1133,7 +2184,7 @@ html, body {
   if (heroQrBlock) {
     heroQrBlock.addEventListener('click', function(e) {
       e.stopPropagation();
-      openQrModal('01_presenation_share.svg', 'SIWES Presentation — Live Web Share', 'https://siwes-presentation-five.vercel.app/');
+      openQrModal('01_presenation_share.svg', 'SIWES Presentation: Live Web Share', 'https://siwes-presentation-five.vercel.app/');
     });
   }
 
@@ -1142,16 +2193,7 @@ html, body {
   if (sec2QrBlock) {
     sec2QrBlock.addEventListener('click', function(e) {
       e.stopPropagation();
-      openQrModal('02_placement.svg', 'Sanfaani SaaS — Place of Residence', 'https://www.sanfaani.net');
-    });
-  }
-
-  // Direct click listener for Section 3 QR Code block (baseqr.svg)
-  const sec3QrBlock = document.getElementById('qr-sec3-block');
-  if (sec3QrBlock) {
-    sec3QrBlock.addEventListener('click', function(e) {
-      e.stopPropagation();
-      openQrModal('baseqr.svg', 'Developer Portfolio & Landing Page', 'https://portfolio-url.dev');
+      openQrModal('02_placement.svg', 'Sanfaani SaaS: Place of Residence', 'https://www.sanfaani.net');
     });
   }
 
@@ -1174,7 +2216,7 @@ html, body {
     });
   }
 
-  // Elements
+  // Elements & Navigation State
   const track = document.getElementById('track');
   const panels = gsap.utils.toArray('.panel');
   const progressBar = document.getElementById('progress-bar');
@@ -1203,7 +2245,6 @@ html, body {
       ease: 'power2.out',
       overwrite: 'auto',
       onUpdate: function() {
-        // Calculate live progress percentage
         const currentX = Math.abs(gsap.getProperty(track, 'x'));
         const maxDistance = (totalPanels - 1) * panelWidth;
         const progress = maxDistance > 0 ? (currentX / maxDistance) : 0;
@@ -1229,7 +2270,7 @@ html, body {
       }
     });
 
-    // Per-Panel Reveal Animation
+    // Per-Panel Reveal Animation & Radial Circles Trigger
     const activePanel = panels[currentIndex];
     if (activePanel) {
       const els = activePanel.querySelectorAll('.gsap-hidden');
@@ -1243,8 +2284,17 @@ html, body {
           overwrite: 'auto'
         });
       }
+      if (activePanel.id === 'panel-03') {
+        const gridBefore = document.getElementById('growth-grid-before');
+        const gridAfter = document.getElementById('growth-grid-after');
+        const activeGrid = (gridBefore && gridBefore.style.display !== 'none') ? gridBefore : gridAfter;
+        animateRadialProgress(activeGrid);
+      }
     }
   }
+
+  // Initialize Accordions
+  setupAccordions();
 
   // 1. Initial State Setup
   goToSection(0, 0);
@@ -1254,7 +2304,7 @@ html, body {
   window.addEventListener('wheel', function(e) {
     e.preventDefault();
     const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    if (Math.abs(delta) < 8) return; // filter tiny trackpad noise
+    if (Math.abs(delta) < 8) return;
 
     if (wheelTimer) return;
 
@@ -1282,8 +2332,24 @@ html, body {
     });
   });
 
-  // 4. Keyboard Arrow Navigation & QR Modal Dismissal
+  // 4. Keyboard Arrow Navigation & Modal Dismissal
   window.addEventListener('keydown', function(e) {
+    const projModal = document.getElementById('project-gallery-modal');
+    if (projModal && projModal.classList.contains('active')) {
+      if (e.key === 'Escape') {
+        closeProjectGallery();
+        return;
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        if (swiperInstance) swiperInstance.slideNext();
+        return;
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        if (swiperInstance) swiperInstance.slidePrev();
+        return;
+      }
+    }
+
     if (e.key === 'Escape') {
       const modal = document.getElementById('qr-modal');
       if (modal && modal.classList.contains('active')) {
@@ -1316,7 +2382,7 @@ html, body {
 
   if (trackWrap) {
     trackWrap.addEventListener('mousedown', function(e) {
-      if (e.target.closest('button, a, video, .showcase-card, input, .qr-clickable, .qr-modal-overlay')) return;
+      if (e.target.closest('button, a, video, .showcase-card, input, .qr-clickable, .qr-modal-overlay, .gallery-modal-overlay, .project-card, .accordion-header, .growth-tab-btn')) return;
       isDragging = true;
       startX = e.clientX;
       startTrackX = -currentIndex * window.innerWidth;
@@ -1335,7 +2401,7 @@ html, body {
       trackWrap.style.cursor = 'grab';
 
       const deltaX = e.clientX - startX;
-      const threshold = window.innerWidth * 0.12; // 12% drag threshold
+      const threshold = window.innerWidth * 0.12;
 
       if (deltaX < -threshold && currentIndex < totalPanels - 1) {
         goToSection(currentIndex + 1);
@@ -1388,3 +2454,4 @@ html, body {
 
 </body>
 </html>
+
