@@ -1159,44 +1159,44 @@ html, body {
 }
   /* --- NEW PANELS CSS --- */
 /* ── SHELL ───────────────────────────────────────── */
+/* Force the main panel to take full dimensions */
 #panel-gallery {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
   background: #000;
   overflow: hidden;
 }
+
+/* Force the shell to fill the panel */
 .gal-shell {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  width: 100%;
   height: 100%;
-  padding: 48px 72px 0 72px;
-  overflow: hidden;
+  padding: 48px 72px 0 72px; /* 72px left/right inset */
 }
 
-/* ── HEADER OVERLAY ────────────────────────────── */
+/* ── HEADER ──────────────────────────────────────── */
 .gal-hdr {
-  position: absolute;
-  top: 32px;
-  left: 32px;
-  z-index: 10;
-  pointer-events: none;
-}
-.gal-hdr .panel-heading {
-  margin-top: 4px;
+  flex-shrink: 0;
+  margin-bottom: 20px;
 }
 /* Remove any old counter from header */
 .gallery-counter { display: none; }
 
 /* ── STAGE ───────────────────────────────────────── */
+/* Force the stage to be massive and 16:9 */
 .gal-stage {
   position: relative;
-  /* 16:9 — fill available width, height = width * 9/16 */
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  /* If panel is too short, shrink to fit */
-  max-height: calc(100vh - 220px);
+  width: 100%;           /* Stretch edge-to-edge inside the 72px padding */
+  flex-grow: 1;          /* Fill all remaining vertical space */
+  min-height: 50vh;      /* Prevent collapsing */
+  margin-top: 24px;      /* Space below the header */
+  margin-bottom: 56px;   /* Space above the dot track / nav bar */
   overflow: hidden;
-  flex-shrink: 0;
-  border-radius: 8px; /* Optional slight rounding for cleanliness */
+  aspect-ratio: 16 / 9;
 }
 
 /* ── SLIDES ──────────────────────────────────────── */
@@ -1211,15 +1211,18 @@ html, body {
 }
 
 /* ── IMAGE ───────────────────────────────────────── */
+/* Force the image wrapper and image to fill the massive stage */
 .gal-img {
   position: absolute;
   inset: 0;
-  overflow: hidden;    /* critical: clips the parallax shift */
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 .gal-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;   /* 16:9 fills the frame — no letterboxing */
+  object-fit: cover;     /* Fills the container perfectly without squishing */
   object-position: center;
   display: block;
   user-select: none;
@@ -1227,10 +1230,10 @@ html, body {
   will-change: transform;
 }
 
-/* ── SLIDE NUMBER — bottom-right, inside image ──────── */
+/* ── SLIDE NUMBER — top-right, inside image ──────── */
 .gal-num {
   position: absolute;
-  bottom: 24px;
+  top: 24px;
   right: 28px;
   font-size: clamp(64px, 8vw, 112px);
   font-family: 'Clash Display', 'DM Sans', system-ui, sans-serif;
@@ -1706,14 +1709,14 @@ html, body {
 <section class="panel" id="panel-gallery" data-index="4">
   <div class="gal-shell">
 
+    <!-- Header -->
+    <div class="gal-hdr">
+      <p class="section-num g0">05 — Photo Gallery</p>
+      <h2 class="panel-heading f-clash g0">Evidence of the work.</h2>
+    </div>
+
     <!-- Stage: 16:9 landscape image frame -->
     <div class="gal-stage" id="gal-stage">
-
-      <!-- Header overlaid on image -->
-      <div class="gal-hdr">
-        <p class="section-num g0">05 — Photo Gallery</p>
-        <h2 class="panel-heading f-clash g0">Evidence of the work.</h2>
-      </div>
 
       <!-- SLIDE ITEMS -->
       <div class="gal-slide active" data-index="0">
@@ -1783,20 +1786,6 @@ html, body {
           <span class="gal-tag">SanfaaniService — Detail</span>
           <p class="gal-desc">Service module — real requests tracked
           from submission to completion in one view.</p>
-        </div>
-      </div>
-
-      <div class="gal-slide" data-index="5">
-        <div class="gal-img">
-          <img src="GI_06.jpg"
-               alt="System architecture overview"
-               draggable="false">
-        </div>
-        <div class="gal-num">06</div>
-        <div class="gal-caption">
-          <span class="gal-tag">System Architecture</span>
-          <p class="gal-desc">System design and workflow mapping — visualizing 
-          data structures and deployment pipelines for scalable performance.</p>
         </div>
       </div>
 
