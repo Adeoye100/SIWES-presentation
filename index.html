@@ -1156,177 +1156,168 @@ html, body {
     animation: none !important;
   }
 }
-
 }
   /* --- NEW PANELS CSS --- */
-/* ── GALLERY PANEL SHELL ─────────────────────────── */
+/* ── SHELL ───────────────────────────────────────── */
 #panel-gallery {
   background: #000;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
   overflow: hidden;
 }
-
-.gallery-shell {
+.gal-shell {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   height: 100%;
   padding: 48px 72px 0 72px;
-  gap: 0;
   overflow: hidden;
 }
 
-/* ── HEADER ROW ──────────────────────────────────── */
-.gallery-hdr {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-shrink: 0;
-  margin-bottom: 24px;
+/* ── HEADER OVERLAY ────────────────────────────── */
+.gal-hdr {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  z-index: 10;
+  pointer-events: none;
 }
-.gallery-hdr-left {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.gal-hdr .panel-heading {
+  margin-top: 4px;
 }
-.gallery-counter {
-  font-family: 'Poppins', sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: rgba(255,255,255,0.25);
-  text-transform: uppercase;
-  padding-bottom: 4px;
-}
-#gal-current {
-  color: rgba(255,255,255,0.7);
-  font-weight: 500;
-}
+/* Remove any old counter from header */
+.gallery-counter { display: none; }
 
-/* ── STAGE: full remaining height ───────────────── */
-.gallery-stage {
+/* ── STAGE ───────────────────────────────────────── */
+.gal-stage {
   position: relative;
-  flex: 1;
+  /* 16:9 — fill available width, height = width * 9/16 */
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  /* If panel is too short, shrink to fit */
+  max-height: calc(100vh - 220px);
   overflow: hidden;
-  /* bottom padding = nav bar height so image clears it */
-  margin-bottom: 56px;
+  flex-shrink: 0;
+  border-radius: 8px; /* Optional slight rounding for cleanliness */
 }
 
 /* ── SLIDES ──────────────────────────────────────── */
 .gal-slide {
   position: absolute;
   inset: 0;
-  display: flex;
-  flex-direction: column;
   visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
+  /* Do NOT set opacity here — GSAP owns it */
 }
 .gal-slide.active {
   visibility: visible;
-  opacity: 1;
-  pointer-events: auto;
 }
 
-/* ── IMAGE WRAPPER: fills stage minus caption ─────── */
-.gal-img-wrap {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* ── IMAGE ───────────────────────────────────────── */
+.gal-img {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;    /* critical: clips the parallax shift */
 }
-.gal-img-wrap img {
-  width: 420px;
-  height: 236px;
-  object-fit: cover;   /* fill the 420x236 rectangle */
+.gal-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* 16:9 fills the frame — no letterboxing */
   object-position: center;
   display: block;
   user-select: none;
   -webkit-user-drag: none;
-  border-radius: 8px;
+  will-change: transform;
 }
 
-/* ── CAPTION: always visible below image ─────────── */
+/* ── SLIDE NUMBER — bottom-right, inside image ──────── */
+.gal-num {
+  position: absolute;
+  bottom: 24px;
+  right: 28px;
+  font-size: clamp(64px, 8vw, 112px);
+  font-family: 'Clash Display', 'DM Sans', system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  color: rgba(255,255,255,0.10);
+  line-height: 1;
+  z-index: 4;
+  pointer-events: none;
+  /* GSAP will animate this on slide change */
+  will-change: transform, opacity;
+}
+
+/* ── CAPTION — bottom-left, ON the image ─────────── */
 .gal-caption {
-  flex-shrink: 0;
-  padding: 16px 0 12px 0;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.gal-tag {
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.25);
-  font-family: 'Poppins', sans-serif;
-}
-.gal-desc {
-  font-size: 12px;
-  color: rgba(255,255,255,0.45);
-  line-height: 1.65;
-  max-width: 640px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 300;
-}
-
-/* ── DOT TRACK ───────────────────────────────────── */
-.gal-dots {
   position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;
-  height: 56px;            /* matches stage margin-bottom */
+  width: 52%;
+  padding: 32px 28px 24px 24px;
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.85) 0%,
+    rgba(0,0,0,0.5) 65%,
+    rgba(0,0,0,0) 100%
+  );
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.gal-tag {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+  font-family: 'Poppins', sans-serif;
+}
+.gal-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.65;
+  max-width: 300px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  text-wrap: pretty;
+}
+
+/* ── CLICK ZONES — invisible prev/next ───────────── */
+.gal-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 5;
+  cursor: pointer;
+  /* Invisible by default */
+}
+.gal-zone-prev { left: 0; }
+.gal-zone-next { right: 0; }
+
+/* ── DOT TRACK ───────────────────────────────────── */
+.gal-dots {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  flex: 1;
+  /* fills remaining space between image and nav bar */
 }
 .gal-dot {
   width: 4px;
   height: 4px;
-  background: rgba(255,255,255,0.18);
-  cursor: pointer;
+  background: rgba(255,255,255,0.16);
   border: none;
   padding: 0;
+  cursor: pointer;
   transition: background 0.35s ease, transform 0.35s ease;
   flex-shrink: 0;
 }
 .gal-dot.active {
   background: #fff;
-  transform: scale(1.5);
+  transform: scale(1.7);
 }
 .gal-dot:hover:not(.active) {
   background: rgba(255,255,255,0.4);
-}
-
-/* ── ARROW KEY HINT ──────────────────────────────── */
-.gal-keyhint {
-  position: absolute;
-  bottom: 62px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.22);
-  font-family: 'Poppins', sans-serif;
-  pointer-events: none;
-  white-space: nowrap;
-}
-.gal-keyhint kbd {
-  font-family: 'Poppins', sans-serif;
-  font-size: 10px;
-  border: 1px solid rgba(255,255,255,0.15);
-  padding: 2px 7px;
-  letter-spacing: 0.05em;
-  background: none;
-  color: rgba(255,255,255,0.3);
 }
 
   #panel-workflow { background: #080808; } 
@@ -1712,115 +1703,119 @@ html, body {
   <!-- ═══════════════════════════════════════════════════
        PANEL 05: PHOTO GALLERY (SEAMLESS LOOP)
   ═══════════════════════════════════════════════════ -->
-  <section class="panel" id="panel-gallery" data-index="4">
-  <div class="gallery-shell">
+<section class="panel" id="panel-gallery" data-index="4">
+  <div class="gal-shell">
 
-    <!-- Header row -->
-    <div class="gallery-hdr">
-      <div class="gallery-hdr-left">
+    <!-- Stage: 16:9 landscape image frame -->
+    <div class="gal-stage" id="gal-stage">
+
+      <!-- Header overlaid on image -->
+      <div class="gal-hdr">
         <p class="section-num g0">05 — Photo Gallery</p>
         <h2 class="panel-heading f-clash g0">Evidence of the work.</h2>
       </div>
-      <!-- Slide counter: "01 / 05" -->
-      <div class="gallery-counter g0">
-        <span id="gal-current">01</span>
-        <span class="gal-sep"> / </span>
-        <span id="gal-total">05</span>
-      </div>
-    </div>
 
-    <!-- Full-frame image viewer -->
-    <div class="gallery-stage" id="gallery-stage">
-
-      <!-- Slide items — add real image paths here -->
+      <!-- SLIDE ITEMS -->
       <div class="gal-slide active" data-index="0">
-        <div class="gal-img-wrap">
-          <img src="Sanfaani_service_00.png" 
-               alt="SanfaaniService dashboard interface" 
+        <div class="gal-img">
+          <img src="GI_01.jpg"
+               alt="SanfaaniService — Dashboard overview"
                draggable="false">
         </div>
+        <div class="gal-num">01</div>
         <div class="gal-caption">
           <span class="gal-tag">SanfaaniService</span>
-          <p class="gal-desc">
-            Dashboard overview — client onboarding, service status, 
-            and analytics. Built with React and TypeScript.
-          </p>
+          <p class="gal-desc">Dashboard — client onboarding,
+          service tracking, and live analytics.</p>
         </div>
       </div>
 
       <div class="gal-slide" data-index="1">
-        <div class="gal-img-wrap">
-          <img src="nexos_ui_01.svg" 
-               alt="Nexos platform interface" 
+        <div class="gal-img">
+          <img src="GI_02.jpg"
+               alt="Nexos — Project management platform"
                draggable="false">
         </div>
+        <div class="gal-num">02</div>
         <div class="gal-caption">
           <span class="gal-tag">Nexos</span>
-          <p class="gal-desc">
-            Project and task management interface — organising 
-            work, tracking progress, and keeping teams aligned.
-          </p>
+          <p class="gal-desc">Task and project management —
+          organising work and keeping teams aligned.</p>
         </div>
       </div>
 
       <div class="gal-slide" data-index="2">
-        <div class="gal-img-wrap">
-          <img src="1x_1280x717.png" 
-               alt="Workplace environment" 
+        <div class="gal-img">
+          <img src="GI_03.jpg"
+               alt="Sanfaani workspace environment"
                draggable="false">
         </div>
+        <div class="gal-num">03</div>
         <div class="gal-caption">
           <span class="gal-tag">Workplace</span>
-          <p class="gal-desc">
-            Physical workspace at Sanfaani SaaS, Ilorin — 
-            where the daily engineering work took place.
-          </p>
+          <p class="gal-desc">Physical workspace — Sanfaani SaaS,
+          Ilorin. Where the daily engineering took place.</p>
         </div>
       </div>
 
       <div class="gal-slide" data-index="3">
-        <div class="gal-img-wrap">
-          <img src="2x_2560x1434.png" 
-               alt="Development environment" 
+        <div class="gal-img">
+          <img src="GI_04.jpg"
+               alt="WebStorm development environment"
                draggable="false">
         </div>
+        <div class="gal-num">04</div>
         <div class="gal-caption">
           <span class="gal-tag">Dev Environment</span>
-          <p class="gal-desc">
-            WebStorm workspace in active use — TypeScript 
-            project open, Git diff visible, terminal running.
-          </p>
+          <p class="gal-desc">WebStorm — TypeScript project open,
+          Git diff visible, terminal active.</p>
         </div>
       </div>
 
       <div class="gal-slide" data-index="4">
-        <div class="gal-img-wrap">
-          <img src="Sanfaani_service.png" 
-               alt="SanfaaniService secondary view" 
+        <div class="gal-img">
+          <img src="GI_05.jpg"
+               alt="SanfaaniService — Service tracking detail"
                draggable="false">
         </div>
+        <div class="gal-num">05</div>
         <div class="gal-caption">
           <span class="gal-tag">SanfaaniService — Detail</span>
-          <p class="gal-desc">
-            Service tracking module — real customer data flows 
-            from request to completion, tracked in one view.
-          </p>
+          <p class="gal-desc">Service module — real requests tracked
+          from submission to completion in one view.</p>
         </div>
       </div>
 
-    </div><!-- /gallery-stage -->
+      <div class="gal-slide" data-index="5">
+        <div class="gal-img">
+          <img src="GI_06.jpg"
+               alt="System architecture overview"
+               draggable="false">
+        </div>
+        <div class="gal-num">06</div>
+        <div class="gal-caption">
+          <span class="gal-tag">System Architecture</span>
+          <p class="gal-desc">System design and workflow mapping — visualizing 
+          data structures and deployment pipelines for scalable performance.</p>
+        </div>
+      </div>
 
-    <!-- Arrow key hint — appears for 3s then fades -->
-    <div class="gal-keyhint" id="gal-keyhint">
-      <kbd>←</kbd> <span>Arrow keys to navigate</span> <kbd>→</kbd>
-    </div>
+      <!-- Left click zone (prev) -->
+      <div class="gal-zone gal-zone-prev" id="gal-prev-zone"
+           role="button" aria-label="Previous image" tabindex="0">
+      </div>
 
-    <!-- Dot track — one dot per slide -->
-    <div class="gal-dots" id="gal-dots">
-      <!-- Generated by JS -->
-    </div>
+      <!-- Right click zone (next) -->
+      <div class="gal-zone gal-zone-next" id="gal-next-zone"
+           role="button" aria-label="Next image" tabindex="0">
+      </div>
 
-  </div><!-- /gallery-shell -->
+    </div><!-- /gal-stage -->
+
+    <!-- Dot navigation -->
+    <div class="gal-dots" id="gal-dots"></div>
+
+  </div><!-- /gal-shell -->
 </section>
 
   <!-- ═══════════════════════════════════════════════════
@@ -2749,26 +2744,23 @@ html, body {
    Navigation: Arrow keys (← →), dot clicks
    ══════════════════════════════════════════════════ */
 (function initGallery() {
+  'use strict';
 
-  const slides     = Array.from(document.querySelectorAll('.gal-slide'));
-  const dotsWrap   = document.getElementById('gal-dots');
-  const currentEl  = document.getElementById('gal-current');
-  const totalEl    = document.getElementById('gal-total');
-  const hintEl     = document.getElementById('gal-keyhint');
-  const TOTAL      = slides.length;
-  let   activeIdx  = 0;
-  let   galBusy    = false;
+  const slides    = Array.from(document.querySelectorAll('.gal-slide'));
+  const dotsWrap  = document.getElementById('gal-dots');
+  const prevZone  = document.getElementById('gal-prev-zone');
+  const nextZone  = document.getElementById('gal-next-zone');
+  const TOTAL     = slides.length;
+  let   activeIdx = 0;
+  let   galBusy   = false;
 
   if (!slides.length) return;
-
-  /* ── Set total count ─────────────────────────── */
-  totalEl.textContent = String(TOTAL).padStart(2, '0');
 
   /* ── Build dots ──────────────────────────────── */
   slides.forEach((_, i) => {
     const dot = document.createElement('button');
     dot.className = 'gal-dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('aria-label', 'Go to image ' + (i + 1));
+    dot.setAttribute('aria-label', 'Image ' + (i + 1) + ' of ' + TOTAL);
     dot.addEventListener('click', () => goToSlide(i));
     dotsWrap.appendChild(dot);
   });
@@ -2777,72 +2769,114 @@ html, body {
     return Array.from(dotsWrap.querySelectorAll('.gal-dot'));
   }
 
-  /* ── GSAP slide transition ───────────────────── */
-  function goToSlide(nextIdx, direction) {
+  /* ── TRANSITION: card-lift + parallax ─────────
+     Reference: vsi_02.png (NFT card hover effect).
+     - Outgoing slide: scale down slightly, fade out
+     - Incoming image: starts scale(1.04) + yPercent offset,
+       animates to scale(1) + yPercent(0) — parallax reveal.
+     - Slide number: counts up/down with a yPercent flip.
+     - Caption: fades in from slight y offset.
+  ──────────────────────────────────────────────── */
+  function goToSlide(nextIdx, dir) {
     if (galBusy || nextIdx === activeIdx) return;
     if (nextIdx < 0 || nextIdx >= TOTAL) return;
     galBusy = true;
 
-    const dir     = direction ?? (nextIdx > activeIdx ? 1 : -1);
-    const current = slides[activeIdx];
-    const next    = slides[nextIdx];
-    const img     = next.querySelector('.gal-img-wrap');
-    const caption = next.querySelector('.gal-caption');
+    const direction = dir ?? (nextIdx > activeIdx ? 1 : -1);
+    const outSlide  = slides[activeIdx];
+    const inSlide   = slides[nextIdx];
+    const inImg     = inSlide.querySelector('.gal-img img');
+    const inNum     = inSlide.querySelector('.gal-num');
+    const inCap     = inSlide.querySelector('.gal-caption');
+    const outImg    = outSlide.querySelector('.gal-img img');
+    const outNum    = outSlide.querySelector('.gal-num');
 
-    /* Set up next slide — off-screen */
-    gsap.set(next, { visibility: 'visible', opacity: 1, 
-                     pointerEvents: 'none', zIndex: 1 });
-    gsap.set(current, { zIndex: 2 });
+    /* Prepare incoming slide */
+    gsap.set(inSlide,  { visibility: 'visible', zIndex: 1, opacity: 1 });
+    gsap.set(outSlide, { zIndex: 2 });
+
+    /* Set incoming elements to start state */
+    gsap.set(inImg,  { scale: 1.06, yPercent: 4 * direction });
+    gsap.set(inNum,  { opacity: 0,  yPercent: 30 * direction });
+    gsap.set(inCap,  { opacity: 0,  y: 12 });
 
     const tl = gsap.timeline({
-      defaults: { ease: 'power2.inOut', duration: 0.7 },
+      defaults: { ease: 'power2.inOut' },
       onComplete: () => {
-        current.classList.remove('active');
-        gsap.set(current, { visibility: 'hidden', opacity: 0, zIndex: 0 });
-        next.classList.add('active');
-        gsap.set(next, { pointerEvents: 'auto', zIndex: 0 });
+        outSlide.classList.remove('active');
+        gsap.set(outSlide, { visibility: 'hidden', zIndex: 0 });
+        inSlide.classList.add('active');
+        gsap.set(inSlide, { zIndex: 0 });
         activeIdx = nextIdx;
-        galBusy = false;
+        galBusy   = false;
         updateChrome();
       }
     });
 
-    /* Outgoing: clip-fade current */
-    tl.to(current, {
+    /* Outgoing: scale + parallax out */
+    tl.to(outSlide, {
       opacity: 0,
-      y: -12 * dir,
-      duration: 0.5,
+      duration: 0.45,
+      ease: 'power2.in'
+    }, 0);
+    tl.to(outImg, {
+      scale: 0.96,
+      yPercent: -3 * direction,
+      duration: 0.45,
+      ease: 'power2.in'
+    }, 0);
+    tl.to(outNum, {
+      opacity: 0,
+      yPercent: -20 * direction,
+      duration: 0.3,
       ease: 'power2.in'
     }, 0);
 
-    /* Incoming: image reveals from slight y offset */
-    gsap.set(img,     { yPercent: 6 * dir, opacity: 0 });
-    gsap.set(caption, { yPercent: 10,      opacity: 0 });
+    /* Incoming: scale + parallax in */
+    tl.to(inImg, {
+      scale: 1,
+      yPercent: 0,
+      duration: 0.75,
+      ease: 'power2.out'
+    }, 0.15);
+    tl.to(inNum, {
+      opacity: 1,       /* will land at CSS value rgba(255,255,255,0.10) */
+      yPercent: 0,
+      duration: 0.6,
+      ease: 'power3.out'
+    }, 0.2);
+    tl.to(inCap, {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      ease: 'power3.out'
+    }, 0.35);
 
-    tl.to(img,     { yPercent: 0, opacity: 1, duration: 0.7 }, 0.2)
-      .to(caption, { yPercent: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, 0.4);
+    return tl;
   }
 
-  /* ── Update counter + dots ───────────────────── */
+  /* ── Update dots ─────────────────────────────── */
   function updateChrome() {
-    currentEl.textContent = String(activeIdx + 1).padStart(2, '0');
     getDots().forEach((d, i) => {
       d.classList.toggle('active', i === activeIdx);
     });
   }
 
-  /* ── Keyboard: ← → only when gallery panel active ── */
-  window.addEventListener('keydown', (e) => {
-    /* Only fire when panel-gallery is the current panel */
-    const galleryPanel = document.getElementById('panel-gallery');
-    if (!galleryPanel) return;
-    /* Check if gallery is the visible panel via its data-index */
-    /* The main nav system stores currentIdx as a global — 
-       check if it equals the gallery's data-index (4) */
-    if (typeof currentIndex !== 'undefined' && window._siwesCurrentPanel !== 4) return;
+  /* ── Click zones ─────────────────────────────── */
+  prevZone.addEventListener('click', () => goToSlide(activeIdx - 1, -1));
+  nextZone.addEventListener('click', () => goToSlide(activeIdx + 1, 1));
+  prevZone.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') goToSlide(activeIdx - 1, -1);
+  });
+  nextZone.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') goToSlide(activeIdx + 1, 1);
+  });
 
+  /* ── Keyboard navigation ─────────────────────── */
+  window.addEventListener('keydown', (e) => {
+    if (window._siwesCurrentPanel !== 4) return;
     if (e.key === 'ArrowRight') {
-      e.stopPropagation();   /* prevent main panel scroll */
+      e.stopPropagation();
       goToSlide(activeIdx + 1, 1);
     }
     if (e.key === 'ArrowLeft') {
@@ -2851,19 +2885,18 @@ html, body {
     }
   });
 
-  /* ── Key hint: fade after 3.5s ───────────────── */
-  if (hintEl) {
-    setTimeout(() => {
-      gsap.to(hintEl, { opacity: 0, duration: 0.8, ease: 'power2.out' });
-    }, 3500);
-  }
-
-  /* ── Init first slide state ──────────────────── */
-  gsap.set(slides[0].querySelector('.gal-img-wrap'),
-           { yPercent: 0, opacity: 1 });
-  gsap.set(slides[0].querySelector('.gal-caption'),
-           { yPercent: 0, opacity: 1 });
+  /* ── Init first slide ────────────────────────── */
+  /* Set image to resting state (no scale, no offset) */
+  const firstImg = slides[0].querySelector('.gal-img img');
+  const firstNum = slides[0].querySelector('.gal-num');
+  const firstCap = slides[0].querySelector('.gal-caption');
+  gsap.set(firstImg, { scale: 1, yPercent: 0 });
+  gsap.set(firstNum, { opacity: 1, yPercent: 0 });
+  gsap.set(firstCap, { opacity: 1, y: 0 });
   updateChrome();
+
+  /* ── Expose to window (arrow key conflict guard) */
+  window._galGoTo = goToSlide;
 
 })();
 
