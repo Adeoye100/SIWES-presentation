@@ -1,0 +1,57 @@
+name: Apply theme toggle patch
+
+on:
+  push:
+    branches:
+      - feat/theme-toggle
+    paths:
+      - .github/scripts/apply-theme-toggle.py
+      - .github/workflows/theme-toggle-patch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/theme-toggle
+          fetch-depth: 0
+
+      - name: Apply theme toggle
+        run: python3 .github/scripts/apply-theme-toggle.py
+
+      - name: Verify markup and offline runtime
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          text = Path('index.html').read_text(encoding='utf-8')
+          required = [
+              'id="theme-toggle"',
+              ':root[data-theme="light"]',
+              "const THEME_STORAGE_KEY = 'siwes-theme';",
+              '<script src="gsap.min.js"></script>',
+              '<script src="ScrollTrigger.min.js"></script>',
+              'class="top-bar-actions"',
+          ]
+          for item in required:
+              assert item in text, item
+          for item in ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdnjs.cloudflare.com']:
+              assert item not in text, item
+          assert text.count('id="theme-toggle"') == 1
+          assert text.count('id="theme-toggle-label"') == 1
+          print('Theme/offline checks passed')
+          PY
+          git diff --check
+
+      - name: Commit only the production change
+        run: |
+          rm -f .github/scripts/apply-theme-toggle.py .github/workflows/theme-toggle-patch.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat: add offline light and dark theme toggle"
+          git push origin HEAD:feat/theme-toggle
