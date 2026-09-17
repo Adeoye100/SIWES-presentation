@@ -6,11 +6,22 @@
 <title>SIWES Industrial Training Presentation: Opeyemi</title>
 <meta name="description" content="SIWES Industrial Training Presentation: Systems & Software Engineering">
 <meta name="robots" content="noindex">
+<script>
+(function () {
+  try {
+    var savedTheme = localStorage.getItem('siwes-theme');
+    var theme = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.style.colorScheme = 'dark';
+  }
+})();
+</script>
 
-<!-- Fonts: Google Fonts fallback preconnect -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+
+<!-- Fonts are bundled locally for reliable offline presentation. -->
 
 
 <style>
@@ -47,7 +58,20 @@
 }
 
 :root {
+  color-scheme: dark;
   --bg-color: #000000;
+  --surface-elevated: #050505;
+  --surface-deep: #080808;
+  --surface-open: #090909;
+  --surface-hover: #0a0a0a;
+  --surface-overlay: rgba(0, 0, 0, 0.85);
+  --nav-bg: rgba(0, 0, 0, 0.88);
+  --modal-backdrop: rgba(0, 0, 0, 0.94);
+  --hover-bg: rgba(255, 255, 255, 0.03);
+  --hover-strong: rgba(255, 255, 255, 0.12);
+  --active-bg: rgba(255, 255, 255, 0.08);
+  --progress-track: rgba(255, 255, 255, 0.15);
+  --grid-line: rgba(255, 255, 255, 0.03);
   --text-primary: #FFFFFF;
   --text-muted: rgba(255, 255, 255, 0.55);
   --text-dim: rgba(255, 255, 255, 0.3);
@@ -55,6 +79,28 @@
   --border-bright: rgba(255, 255, 255, 0.4);
   --font-header: 'Clash Display', 'Poppins', system-ui, sans-serif;
   --font-body: 'Poppins', system-ui, sans-serif;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg-color: #f5f3ee;
+  --surface-elevated: #ffffff;
+  --surface-deep: #ece8df;
+  --surface-open: #e8e3d8;
+  --surface-hover: #e3ded3;
+  --surface-overlay: rgba(245, 243, 238, 0.94);
+  --nav-bg: rgba(245, 243, 238, 0.96);
+  --modal-backdrop: rgba(245, 243, 238, 0.96);
+  --hover-bg: rgba(17, 17, 17, 0.045);
+  --hover-strong: rgba(17, 17, 17, 0.11);
+  --active-bg: rgba(17, 17, 17, 0.085);
+  --progress-track: rgba(17, 17, 17, 0.18);
+  --grid-line: rgba(17, 17, 17, 0.055);
+  --text-primary: #111111;
+  --text-muted: rgba(17, 17, 17, 0.72);
+  --text-dim: rgba(17, 17, 17, 0.56);
+  --border-color: rgba(17, 17, 17, 0.24);
+  --border-bright: rgba(17, 17, 17, 0.52);
 }
 
 html, body {
@@ -86,7 +132,7 @@ html, body {
   width: 100vw;
   height: 100dvh;
   overflow: hidden;
-  background: #000000;
+  background: var(--bg-color);
 }
 
 /* Horizontal Track */
@@ -107,7 +153,7 @@ html, body {
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
-  background: #000000;
+  background: var(--bg-color);
   border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
@@ -156,14 +202,14 @@ html, body {
 
 /* Eleya Card Component */
 .eleya-card {
-  background: #000000;
+  background: var(--bg-color);
   border: 1px solid var(--border-color);
   padding: clamp(18px, 2.5vw, 32px);
   transition: border-color 0.3s ease, background 0.3s ease;
 }
 .eleya-card:hover {
   border-color: var(--border-bright);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--hover-bg);
 }
 
 /* Headings & Badges */
@@ -179,7 +225,7 @@ html, body {
 .section-title {
   font-size: clamp(32px, 4.5vw, 56px);
   line-height: 1.05;
-  color: #ffffff;
+  color: var(--text-primary);
   margin-bottom: clamp(16px, 2vh, 28px);
   letter-spacing: -0.03em;
 }
@@ -244,7 +290,7 @@ html, body {
   font-size: 13px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 /* Large Hero Logo Cards (vso_06 specification) */
@@ -259,7 +305,7 @@ html, body {
   width: clamp(160px, 18vw, 240px);
   height: clamp(160px, 18vw, 240px);
   aspect-ratio: 1/1;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--hover-bg);
   border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
@@ -272,7 +318,7 @@ html, body {
 }
 
 .hero-logo-card:hover {
-  background: rgba(255, 255, 255, 0.12); /* Same grey on hover as navigation buttons */
+  background: var(--hover-strong); /* Same grey on hover as navigation buttons */
   border-color: var(--border-bright); /* Eleya border */
 }
 
@@ -296,7 +342,7 @@ html, body {
   transition: color 0.3s ease;
 }
 .hero-logo-card:hover .hero-logo-label {
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .status-pill {
@@ -306,7 +352,7 @@ html, body {
   color: var(--text-muted);
   border: 1px solid var(--border-color);
   padding: 6px 14px;
-  background: rgba(0, 0, 0, 0.85);
+  background: var(--surface-overlay);
 }
 
 /* Bottom Navigation Controls */
@@ -319,7 +365,7 @@ html, body {
   justify-content: space-between;
   align-items: center;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.88);
+  background: var(--nav-bg);
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-color);
   padding: 10px 20px;
@@ -343,9 +389,9 @@ html, body {
   text-transform: uppercase;
 }
 .nav-btn:hover, .nav-btn.active {
-  color: #ffffff;
+  color: var(--text-primary);
   border-color: var(--border-bright);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--active-bg);
 }
 
 .nav-counter {
@@ -360,7 +406,7 @@ html, body {
 #progress-track {
   width: 100px;
   height: 2px;
-  background: rgba(255,255,255,0.15);
+  background: var(--progress-track);
   position: relative;
   overflow: hidden;
 }
@@ -381,7 +427,7 @@ html, body {
   gap: 18px;
   border: 1px solid var(--border-color);
   padding: 16px;
-  background: #050505;
+  background: var(--surface-elevated);
 }
 .qr-box {
   width: 120px;
@@ -423,10 +469,10 @@ html, body {
 }
 .qr-block.qr-clickable:hover {
   border-color: var(--border-bright);
-  background: #0a0a0a;
+  background: var(--surface-hover);
 }
 .qr-block.qr-clickable:hover .qr-box {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--text-primary);
 }
 .qr-enlarge-notation {
   font-size: 11px;
@@ -457,7 +503,7 @@ html, body {
   height: 100vh;
   height: 100dvh;
   z-index: 999999;
-  background: rgba(0, 0, 0, 0.94);
+  background: var(--modal-backdrop);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   display: none;
@@ -470,7 +516,7 @@ html, body {
   display: flex !important;
 }
 .qr-modal-content {
-  background: #050505;
+  background: var(--surface-elevated);
   border: 1px solid var(--border-bright);
   padding: 36px 44px;
   max-width: 95vw;
@@ -508,7 +554,7 @@ html, body {
   right: 16px;
   background: transparent;
   border: 1px solid var(--border-color);
-  color: #ffffff;
+  color: var(--text-primary);
   font-size: 24px;
   line-height: 1;
   width: 40px;
@@ -519,14 +565,14 @@ html, body {
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 .qr-modal-close:hover {
-  border-color: #ffffff;
+  border-color: var(--text-primary);
   background: rgba(255, 255, 255, 0.2);
 }
 
 /* Video Showcase Cards (Enterprise Grade) */
 .showcase-card {
   border: 1px solid var(--border-color);
-  background: #000000;
+  background: var(--bg-color);
   overflow: hidden;
   cursor: pointer;
   display: flex;
@@ -540,7 +586,7 @@ html, body {
 .showcase-media {
   width: 100%;
   aspect-ratio: 16/10;
-  background: #080808;
+  background: var(--surface-deep);
   overflow: hidden;
   position: relative;
 }
@@ -563,12 +609,12 @@ html, body {
 .showcase-info {
   padding: 14px 16px;
   border-top: 1px solid var(--border-color);
-  background: #050505;
+  background: var(--surface-elevated);
 }
 .showcase-title {
   font-size: 12px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-primary);
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -585,7 +631,7 @@ html, body {
   margin-bottom: 16px;
 }
 .growth-tab-btn {
-  background: #050505;
+  background: var(--surface-elevated);
   border: 1px solid var(--border-color);
   color: var(--text-dim);
   font-family: var(--font-header);
@@ -598,12 +644,12 @@ html, body {
 }
 .growth-tab-btn:hover {
   border-color: var(--border-bright);
-  color: #ffffff;
+  color: var(--text-primary);
 }
 .growth-tab-btn.is-active {
   background: #ffffff;
   color: #000000;
-  border-color: #ffffff;
+  border-color: var(--text-primary);
 }
 
 .growth-grid {
@@ -613,7 +659,7 @@ html, body {
   width: 100%;
 }
 .radial-card {
-  background: #050505;
+  background: var(--surface-elevated);
   border: 1px solid var(--border-color);
   padding: 12px 8px;
   display: flex;
@@ -650,7 +696,7 @@ html, body {
   font-family: var(--font-header);
   font-size: 11px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 .radial-label {
   font-size: 11px;
@@ -668,19 +714,19 @@ html, body {
 }
 .accordion-item {
   border: 1px solid var(--border-color);
-  background: #050505;
+  background: var(--surface-elevated);
   transition: border-color 0.3s ease, background 0.3s ease;
   overflow: hidden;
 }
 .accordion-item.is-open {
   border-color: var(--border-bright);
-  background: #090909;
+  background: var(--surface-open);
 }
 .accordion-header {
   width: 100%;
   background: transparent;
   border: none;
-  color: #ffffff;
+  color: var(--text-primary);
   padding: 14px 18px;
   font-family: var(--font-header);
   font-size: 13px;
@@ -697,7 +743,7 @@ html, body {
   background: rgba(255, 255, 255, 0.05);
 }
 .accordion-header:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--text-primary);
   outline-offset: -2px;
 }
 .accordion-icon {
@@ -828,10 +874,10 @@ html, body {
 }
 .project-card:hover {
   border-color: var(--border-bright);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--hover-bg);
 }
 .project-card:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--text-primary);
   outline-offset: 4px;
 }
 
@@ -866,10 +912,10 @@ html, body {
   font-size: 11px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--text-primary);
   border: 1px solid #ffffff;
   padding: 8px 16px;
-  background: rgba(0, 0, 0, 0.85);
+  background: var(--surface-overlay);
   border-radius: 9999px !important;
   display: inline-flex;
   align-items: center;
@@ -884,7 +930,7 @@ html, body {
 
 /* Stylized Card Gallery Button */
 .btn-card-gallery {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--active-bg);
   border: 1px solid var(--border-bright);
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -902,7 +948,7 @@ html, body {
 }
 
 .btn-card-gallery:hover {
-  border-color: #ffffff;
+  border-color: var(--text-primary);
   background: #ffffff;
   color: #000000;
   transform: translateY(-2px);
@@ -918,7 +964,7 @@ html, body {
 }
 
 .btn-card-gallery:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--text-primary);
   outline-offset: 2px;
 }
 
@@ -946,7 +992,7 @@ html, body {
 .gallery-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: #000000;
+  background: var(--bg-color);
 }
 
 .gallery-modal-content {
@@ -955,7 +1001,7 @@ html, body {
   width: 100vw;
   height: 100vh;
   max-height: none;
-  background: #000000;
+  background: var(--bg-color);
   border: none;
   padding: 24px;
   display: flex;
@@ -981,7 +1027,7 @@ html, body {
 
 .gallery-modal-title {
   font-size: 20px;
-  color: #ffffff;
+  color: var(--text-primary);
   margin: 0;
   font-family: var(--font-header);
 }
@@ -997,7 +1043,7 @@ html, body {
 .gallery-modal-close {
   background: transparent;
   border: none;
-  color: #ffffff;
+  color: var(--text-primary);
   width: 44px;
   height: 44px;
   border-radius: 0 !important;
@@ -1011,13 +1057,13 @@ html, body {
 
 .gallery-modal-close:hover {
   background: transparent;
-  color: #ffffff;
+  color: var(--text-primary);
   opacity: 1;
   transform: rotate(90deg);
 }
 
 .gallery-modal-close:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--text-primary);
   outline-offset: 2px;
 }
 
@@ -1162,7 +1208,7 @@ html, body {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background: #000;
+  background: var(--bg-color);
   overflow: hidden;
 }
 
@@ -1369,14 +1415,14 @@ html, body {
   background: rgba(255,255,255,0.4);
 }
 
-  #panel-workflow { background: #080808; } 
-  .workflow-desc { font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.8; max-width: 380px; margin-bottom: 36px; font-weight: 400; } 
-  .workflow-method { padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.12); display: flex; flex-direction: row; gap: 16px; align-items: center; justify-content: space-between; } 
+  #panel-workflow { background: var(--surface-deep); }
+  .workflow-desc { font-size: 16px; color: var(--text-muted); line-height: 1.8; max-width: 380px; margin-bottom: 36px; font-weight: 400; }
+  .workflow-method { padding: 18px 0; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: row; gap: 16px; align-items: center; justify-content: space-between; }
   .workflow-method > div { display: flex; flex-direction: column; gap: 6px; }
-  .kanban-board { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.15); height: 100%; max-height: 380px; } 
-  .kanban-col { background: #000; padding: 24px 16px; display: flex; flex-direction: column; gap: 10px; } 
-  .kanban-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 12px; font-family: 'Poppins', sans-serif; font-weight: 600; } 
-  .kanban-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: 12px 14px; font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.5; border-radius: 4px; }
+  .kanban-board { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--progress-track); height: 100%; max-height: 380px; }
+  .kanban-col { background: var(--bg-color); padding: 24px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .kanban-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; font-family: 'Poppins', sans-serif; font-weight: 600; }
+  .kanban-card { background: var(--active-bg); border: 1px solid var(--border-color); padding: 12px 14px; font-size: 13px; color: var(--text-primary); line-height: 1.5; border-radius: 4px; }
 
   /* New Graphs */
   .pie-progress { stroke-dasharray: 87.96; stroke-dashoffset: 87.96; animation: pieFill 2s ease-out forwards 0.5s; }
@@ -1392,13 +1438,13 @@ html, body {
   .two-col { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; width: 100%; height: 100%; align-items: center; padding: 0 40px; }
   .col-l { display: flex; flex-direction: column; justify-content: center; height: 100%; }
   .col-r { display: flex; flex-direction: column; justify-content: center; height: 100%; }
-  .detail-label { font-size: 12px; letter-spacing: 0.15em; color: rgba(255,255,255,0.6); text-transform: uppercase; font-weight: 600; }
-  .detail-value { font-size: 14px; color: #fff; font-weight: 400; }
+  .detail-label { font-size: 12px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+  .detail-value { font-size: 14px; color: var(--text-primary); font-weight: 400; }
 
   /* New Accordion */
   .accordion { display: flex; flex-direction: column; gap: 12px; width: 100%; }
-  .acc-item { border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 12px; }
-  .acc-trigger { background: transparent; border: none; color: #fff; width: 100%; text-align: left; display: flex; align-items: center; gap: 16px; padding: 16px 0; cursor: pointer; font-family: 'Poppins', sans-serif; }
+  .acc-item { border-bottom: 1px solid var(--border-color); padding-bottom: 12px; }
+  .acc-trigger { background: transparent; border: none; color: var(--text-primary); width: 100%; text-align: left; display: flex; align-items: center; gap: 16px; padding: 16px 0; cursor: pointer; font-family: 'Poppins', sans-serif; }
   .acc-num { font-size: 10px; color: var(--text-dim); font-family: 'Courier New', Courier, monospace; }
   .acc-title { flex-grow: 1; font-size: 15px; font-weight: 500; }
   .acc-arrow { font-size: 20px; color: var(--text-dim); transition: transform 0.3s; }
@@ -1415,26 +1461,26 @@ html, body {
   --space-400: 32px;
   --space-500: 40px;
   --space-600: 48px;
-  
+
   --radius-lg: 8px;
   --radius-xl: 16px;
   --radius-full: 9999px;
-  
+
   --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
-  
-  --card-bg: #050505;
-  --card-hover: rgba(255, 255, 255, 0.03);
-  --line: rgba(255, 255, 255, 0.14);
-  --surface: #000000;
-  --head-solid: #ffffff;
-  --sub: rgba(255, 255, 255, 0.55);
-  
-  --accent: #ffffff;
-  --accent-hover: #e0e0e0;
-  --accent-subtle: rgba(255, 255, 255, 0.08);
+
+  --card-bg: var(--surface-elevated);
+  --card-hover: var(--hover-bg);
+  --line: var(--border-color);
+  --surface: var(--bg-color);
+  --head-solid: var(--text-primary);
+  --sub: var(--text-muted);
+
+  --accent: var(--text-primary);
+  --accent-hover: var(--text-muted);
+  --accent-subtle: var(--active-bg);
 
   --font-heading: 'Clash Display', 'Poppins', sans-serif;
-  
+
   --text-xs: 12px;
   --text-sm: 14px;
   --text-xl: 20px;
@@ -1592,7 +1638,7 @@ html, body {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #ffffff;
+  color: var(--text-primary);
   padding: 4px 12px;
   border-radius: var(--radius-full);
   font-size: var(--text-xs);
@@ -1627,7 +1673,7 @@ html, body {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  background: #000000;
+  background: var(--bg-color);
   transition: opacity 220ms cubic-bezier(0.32, 0.72, 0, 1), visibility 220ms cubic-bezier(0.32, 0.72, 0, 1);
 }
 
@@ -1651,7 +1697,7 @@ html, body {
   display: flex;
   flex-direction: column;
   padding: 48px 72px 24px;
-  background: #000000;
+  background: var(--bg-color);
 }
 
 .project-gallery-header {
@@ -1682,8 +1728,8 @@ html, body {
   align-items: center;
   justify-content: center;
   border: 1px solid var(--border-color);
-  background: #050505;
-  color: #ffffff;
+  background: var(--surface-elevated);
+  color: var(--text-primary);
   cursor: pointer;
   opacity: 0.78;
   transition: opacity 180ms cubic-bezier(0.32, 0.72, 0, 1), background 180ms cubic-bezier(0.32, 0.72, 0, 1), border-color 180ms cubic-bezier(0.32, 0.72, 0, 1);
@@ -1698,7 +1744,7 @@ html, body {
 .project-gallery-close:focus-visible,
 .project-gallery-zone:focus-visible,
 .project-gallery-dots .gal-dot:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--text-primary);
   outline-offset: 3px;
 }
 
@@ -1709,7 +1755,7 @@ html, body {
   margin: 20px 0 18px;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--border-color);
-  background: #050505;
+  background: var(--surface-elevated);
 }
 
 .project-gallery-stage .gal-slide {
@@ -1727,7 +1773,7 @@ html, body {
 
 .project-gallery-stage .gal-img img {
   object-fit: contain;
-  background: #050505;
+  background: var(--surface-elevated);
   transform: none !important;
   will-change: opacity;
 }
@@ -1782,6 +1828,183 @@ html, body {
   }
 }
 
+
+/* ─── GLOBAL THEME TOGGLE / PROJECTION MODE ─────────────── */
+.top-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-overlay);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  border-color: var(--border-bright);
+  background: var(--hover-strong);
+  outline: none;
+}
+
+.theme-toggle-glyph {
+  width: 12px;
+  height: 12px;
+  border: 1px solid currentColor;
+  position: relative;
+  flex: 0 0 12px;
+}
+.theme-toggle-glyph::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  width: 3px;
+  background: currentColor;
+}
+:root[data-theme="light"] .theme-toggle-glyph::after {
+  left: 2px;
+  right: auto;
+}
+
+html,
+body,
+#track-wrap,
+.panel,
+.eleya-card,
+#bottom-nav,
+.status-pill,
+.qr-block,
+.qr-modal-content,
+.showcase-card,
+.showcase-info,
+.radial-card,
+.accordion-item,
+.project-card,
+.kanban-col,
+.gallery-modal-content,
+.gallery-modal-backdrop,
+.project-gallery-modal-overlay,
+.project-gallery-shell {
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.grid-lines-overlay {
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) !important;
+}
+
+#progress-track { background: var(--progress-track) !important; }
+#progress-bar { background: var(--text-primary) !important; }
+
+:root[data-theme="light"] .panel,
+:root[data-theme="light"] #track-wrap,
+:root[data-theme="light"] #panel-gallery,
+:root[data-theme="light"] #panel-workflow {
+  background-color: var(--bg-color) !important;
+  color: var(--text-primary);
+}
+
+:root[data-theme="light"] .eleya-card,
+:root[data-theme="light"] .showcase-card,
+:root[data-theme="light"] .showcase-info,
+:root[data-theme="light"] .radial-card,
+:root[data-theme="light"] .accordion-item,
+:root[data-theme="light"] .project-card,
+:root[data-theme="light"] .kanban-col,
+:root[data-theme="light"] .qr-block,
+:root[data-theme="light"] .qr-modal-content {
+  background-color: var(--surface-elevated) !important;
+  border-color: var(--border-color) !important;
+}
+
+:root[data-theme="light"] .accordion-item.is-open {
+  background-color: var(--surface-open) !important;
+}
+
+:root[data-theme="light"] .section-title,
+:root[data-theme="light"] .brand-mark,
+:root[data-theme="light"] .showcase-title,
+:root[data-theme="light"] .accordion-header,
+:root[data-theme="light"] .acc-trigger,
+:root[data-theme="light"] .detail-value,
+:root[data-theme="light"] .nav-btn:hover,
+:root[data-theme="light"] .nav-btn.active,
+:root[data-theme="light"] .hero-logo-card:hover .hero-logo-label {
+  color: var(--text-primary) !important;
+}
+
+:root[data-theme="light"] .growth-tab-btn.is-active,
+:root[data-theme="light"] .btn-card-gallery:hover,
+:root[data-theme="light"] .project-gallery-badge:hover {
+  background: var(--text-primary) !important;
+  border-color: var(--text-primary) !important;
+  color: var(--bg-color) !important;
+}
+
+:root[data-theme="light"] .hero-backdrop img {
+  opacity: 0.24;
+  filter: grayscale(0.25) brightness(1.2) contrast(0.9);
+}
+:root[data-theme="light"] .hero-backdrop::after {
+  background: linear-gradient(180deg, rgba(245,243,238,0.70) 0%, rgba(245,243,238,0.88) 100%);
+}
+
+
+:root[data-theme="light"] #panel-workflow svg circle:first-child {
+  stroke: rgba(17, 17, 17, 0.18) !important;
+}
+:root[data-theme="light"] #panel-workflow svg .pie-progress {
+  stroke: rgba(17, 17, 17, 0.82) !important;
+}
+:root[data-theme="light"] #panel-workflow .kb-bar {
+  background: var(--text-primary) !important;
+}
+
+/* Media caption zones intentionally stay dark so photographs/screenshots remain readable. */
+:root[data-theme="light"] .gal-caption,
+:root[data-theme="light"] .project-media-overlay,
+:root[data-theme="light"] .project-gallery-stage .gal-caption {
+  color: #ffffff !important;
+}
+:root[data-theme="light"] .project-media-overlay {
+  background: rgba(0, 0, 0, 0.72) !important;
+}
+:root[data-theme="light"] .gal-caption .gal-tag,
+:root[data-theme="light"] .gal-caption .gal-desc,
+:root[data-theme="light"] .project-gallery-stage .gal-tag,
+:root[data-theme="light"] .project-gallery-stage .gal-desc {
+  color: rgba(255,255,255,0.82) !important;
+}
+
+/* QR artwork remains pure black-on-white in both themes for scan reliability. */
+.qr-box,
+.qr-modal-img {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+@media (max-width: 760px) {
+  .top-bar-actions { gap: 6px; }
+  .theme-toggle { padding: 5px 8px; font-size: 8px; }
+  .status-pill { display: none; }
+}
+
 </style>
 </head>
 
@@ -1790,7 +2013,13 @@ html, body {
 <!-- TOP BRAND BAR -->
 <div id="top-bar">
   <div class="brand-mark f-clash">SIWES 2026 PRESENTATION</div>
-  <div class="status-pill f-poppins">INDUSTRIAL TRAINING PRESENTATION</div>
+  <div class="top-bar-actions">
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light projection theme" title="Toggle light / dark theme">
+      <span class="theme-toggle-glyph" aria-hidden="true"></span>
+      <span id="theme-toggle-label">LIGHT</span>
+    </button>
+    <div class="status-pill f-poppins">INDUSTRIAL TRAINING PRESENTATION</div>
+  </div>
 </div>
 
 <!-- MAIN HORIZONTAL SCROLL TRACK WRAPPER -->
@@ -1818,8 +2047,8 @@ html, body {
             A comprehensive review of software engineering placement, technical discoveries, and full-stack solutions shipped at scale.
           </p>
 
-          <div style="display: inline-flex; align-items: center; gap: 16px; border: 1px solid var(--border-color); padding: 10px 24px; background: rgba(0,0,0,0.85);">
-            <span style="font-size: 11px; letter-spacing: 0.15em; color: #fff; text-transform: uppercase;">Adeoye Emmanuel Opeyemi</span>
+          <div style="display: inline-flex; align-items: center; gap: 16px; border: 1px solid var(--border-color); padding: 10px 24px; background: var(--surface-overlay);">
+            <span style="font-size: 11px; letter-spacing: 0.15em; color: var(--text-primary); text-transform: uppercase;">Adeoye Emmanuel Opeyemi</span>
           </div>
         </div>
 
@@ -1864,7 +2093,7 @@ html, body {
 
     <div class="panel-container">
       <span class="section-tag gsap-hidden">02 | PLACE OF RESIDENCE / ORGANIZATION</span>
-      
+
       <div class="grid-2col">
         <div class="gsap-hidden">
           <h2 class="section-title f-clash">Sanfaani Saas</h2>
@@ -1874,7 +2103,7 @@ html, body {
 
           <div style="border-left: 2px solid #fff; padding-left: 16px; margin-top: 20px;">
             <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase;">Physical Address</div>
-            <div style="font-size: 13px; color: #fff; margin-top: 4px;">Kehinde Shaffi, Islamic Village, Ilorin, Kwara State.</div>
+            <div style="font-size: 13px; color: var(--text-primary); margin-top: 4px;">Kehinde Shaffi, Islamic Village, Ilorin, Kwara State.</div>
           </div>
         </div>
 
@@ -2102,19 +2331,19 @@ html, body {
 
       <div class="grid-4col gsap-hidden" style="margin-bottom: 20px;">
         <div class="eleya-card">
-          <div class="f-clash" style="font-size: 15px; color: #fff; margin-bottom: 8px;">Code Completion & Refactoring</div>
+          <div class="f-clash" style="font-size: 15px; color: var(--text-primary); margin-bottom: 8px;">Code Completion & Refactoring</div>
           <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Auto-completion, symbol search, and quick refactoring across project files.</div>
         </div>
         <div class="eleya-card">
-          <div class="f-clash" style="font-size: 15px; color: #fff; margin-bottom: 8px;">Integrated Terminal</div>
+          <div class="f-clash" style="font-size: 15px; color: var(--text-primary); margin-bottom: 8px;">Integrated Terminal</div>
           <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Runs build scripts, package managers, and dev servers directly inside the IDE.</div>
         </div>
         <div class="eleya-card">
-          <div class="f-clash" style="font-size: 15px; color: #fff; margin-bottom: 8px;">Git Integration</div>
+          <div class="f-clash" style="font-size: 15px; color: var(--text-primary); margin-bottom: 8px;">Git Integration</div>
           <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Side-by-side file diffs, branch management, and conflict resolution built in.</div>
         </div>
         <div class="eleya-card">
-          <div class="f-clash" style="font-size: 15px; color: #fff; margin-bottom: 8px;">Debugging & Diagnostics</div>
+          <div class="f-clash" style="font-size: 15px; color: var(--text-primary); margin-bottom: 8px;">Debugging & Diagnostics</div>
           <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Breakpoints, call stack checks, variable inspection, and instant linter feedback.</div>
         </div>
       </div>
@@ -2239,7 +2468,7 @@ html, body {
     <div class="grid-lines-overlay"></div>
 
     <div class="panel-container">
-      
+
       <div class="projects-intro">
         <p class="section-label">Selected work</p>
         <h2 class="section-title">
@@ -2406,9 +2635,9 @@ html, body {
               <span class="acc-arrow">+</span>
             </button>
             <div class="acc-body" hidden>
-              <p>API endpoints returned inconsistent data shapes. 
-              I learned to inspect the request, the payload, and the 
-              server response systematically — not randomly. 
+              <p>API endpoints returned inconsistent data shapes.
+              I learned to inspect the request, the payload, and the
+              server response systematically — not randomly.
               The fix was structured: read the contract, then read the code.</p>
             </div>
           </div>
@@ -2420,9 +2649,9 @@ html, body {
               <span class="acc-arrow">+</span>
             </button>
             <div class="acc-body" hidden>
-              <p>UI components drifted across pages as the codebase grew. 
-              I addressed it with shared component files and defined 
-              spacing and color tokens. Reusability is not a shortcut — 
+              <p>UI components drifted across pages as the codebase grew.
+              I addressed it with shared component files and defined
+              spacing and color tokens. Reusability is not a shortcut —
               it is a discipline.</p>
             </div>
           </div>
@@ -2434,9 +2663,9 @@ html, body {
               <span class="acc-arrow">+</span>
             </button>
             <div class="acc-body" hidden>
-              <p>Features arrived half-specified. Coding first produced 
-              the wrong result every time. I built the habit of writing 
-              a one-page summary: who is the user, what do they expect, 
+              <p>Features arrived half-specified. Coding first produced
+              the wrong result every time. I built the habit of writing
+              a one-page summary: who is the user, what do they expect,
               what does success look like — before any code was written.</p>
             </div>
           </div>
@@ -2467,7 +2696,7 @@ html, body {
         <!-- Absorbed Reflection Accordion -->
         <div style="text-align: left; margin-bottom: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); padding: 24px; border-radius: 8px;">
           <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px;">Reflection Q&A</div>
-          
+
           <div class="accordion-group" id="reflection-accordion">
             <div class="accordion-item is-open">
               <button type="button" class="accordion-header" aria-expanded="true" aria-controls="rf-body-1" id="rf-header-1">
@@ -2502,22 +2731,22 @@ html, body {
         <!-- Summary Metrics Row -->
         <div class="grid-3col" style="margin-bottom: 36px; text-align: center;">
           <div class="eleya-card">
-            <div class="f-clash" style="font-size: 28px; color: #fff;">06</div>
+            <div class="f-clash" style="font-size: 28px; color: var(--text-primary);">06</div>
             <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Months Completed</div>
           </div>
           <div class="eleya-card">
-            <div class="f-clash" style="font-size: 28px; color: #fff;">02</div>
+            <div class="f-clash" style="font-size: 28px; color: var(--text-primary);">02</div>
             <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Stacks Practiced</div>
           </div>
           <div class="eleya-card">
-            <div class="f-clash" style="font-size: 28px; color: #fff;">02</div>
+            <div class="f-clash" style="font-size: 28px; color: var(--text-primary);">02</div>
             <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Core Projects</div>
           </div>
         </div>
 
         <div style="width: 1px; height: 32px; background: var(--border-bright); margin: 0 auto 28px;"></div>
 
-        <div class="f-clash" style="font-size: 20px; color: #fff; margin-bottom: 4px;">Adeoye Emmanuel Opeyemi</div>
+        <div class="f-clash" style="font-size: 20px; color: var(--text-primary); margin-bottom: 4px;">Adeoye Emmanuel Opeyemi</div>
         <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 24px;">Systems & Software Engineering · SIWES 2026</div>
 
         <div style="display: flex; justify-content: center; gap: 24px; align-items: center;">
@@ -2596,15 +2825,50 @@ html, body {
   </div>
 </div>
 
-<!-- ─── SCRIPT LIBRARIES (LOCAL + CDN FALLBACK) ─── -->
+<!-- ─── SCRIPT LIBRARIES (LOCAL / OFFLINE) ─── -->
 <script src="gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="ScrollTrigger.min.js"></script>
 
 
 <script>
 (function() {
   'use strict';
+
+  // ─── GLOBAL THEME TOGGLE (OFFLINE, VANILLA JS) ──────────
+  const THEME_STORAGE_KEY = 'siwes-theme';
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeToggleLabel = document.getElementById('theme-toggle-label');
+
+  function setTheme(theme, persist) {
+    const nextTheme = theme === 'light' ? 'light' : 'dark';
+    const isLight = nextTheme === 'light';
+
+    root.setAttribute('data-theme', nextTheme);
+    root.style.colorScheme = nextTheme;
+
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-pressed', String(isLight));
+      themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light projection theme');
+      themeToggle.title = isLight ? 'Use dark theme' : 'Use light projection theme';
+    }
+    if (themeToggleLabel) {
+      themeToggleLabel.textContent = isLight ? 'DARK' : 'LIGHT';
+    }
+
+    if (persist !== false) {
+      try { localStorage.setItem(THEME_STORAGE_KEY, nextTheme); } catch (error) { /* storage can be unavailable in strict/private contexts */ }
+    }
+  }
+
+  setTheme(root.getAttribute('data-theme') || 'dark', false);
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function (event) {
+      event.stopPropagation();
+      setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light', true);
+    });
+  }
+
 
   // Growth Profile Radial Percentage Animation
   function animateRadialProgress(container) {
