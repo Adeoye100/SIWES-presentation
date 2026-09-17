@@ -12,9 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
 
-<!-- Swiper CSS & JS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <style>
 /* ─── LOCAL FONTS FOR 100% OFFLINE SUPPORT ───────────────── */
@@ -1616,6 +1613,175 @@ html, body {
   transform: scale(1.05);
 }
 
+
+/* ── SECTION 06 PROJECT GALLERY — SECTION 05 VISUAL LANGUAGE ── */
+.project-gallery-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  background: #000000;
+  transition: opacity 220ms cubic-bezier(0.32, 0.72, 0, 1), visibility 220ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.project-gallery-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.project-gallery-modal-overlay .gallery-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.96);
+}
+
+.project-gallery-shell {
+  position: relative;
+  z-index: 2;
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 48px 72px 24px;
+  background: #000000;
+}
+
+.project-gallery-header {
+  position: relative;
+  flex: 0 0 auto;
+  padding-right: 64px;
+  margin-bottom: 0;
+}
+
+.project-gallery-header .panel-heading {
+  margin-bottom: 4px;
+}
+
+.project-gallery-subtitle {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.project-gallery-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  background: #050505;
+  color: #ffffff;
+  cursor: pointer;
+  opacity: 0.78;
+  transition: opacity 180ms cubic-bezier(0.32, 0.72, 0, 1), background 180ms cubic-bezier(0.32, 0.72, 0, 1), border-color 180ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.project-gallery-close:hover {
+  opacity: 1;
+  background: #131313;
+  border-color: var(--border-bright);
+}
+
+.project-gallery-close:focus-visible,
+.project-gallery-zone:focus-visible,
+.project-gallery-dots .gal-dot:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.project-gallery-stage.gal-stage {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  margin: 20px 0 18px;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-color);
+  background: #050505;
+}
+
+.project-gallery-stage .gal-slide {
+  opacity: 0;
+  visibility: hidden;
+  z-index: 0;
+  transition: opacity 220ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.project-gallery-stage .gal-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+
+.project-gallery-stage .gal-img img {
+  object-fit: contain;
+  background: #050505;
+  transform: none !important;
+  will-change: opacity;
+}
+
+.project-gallery-stage .gal-num {
+  opacity: 1;
+}
+
+.project-gallery-zone {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.project-gallery-dots {
+  flex: 0 0 auto;
+  min-height: 18px;
+  padding-bottom: 4px;
+}
+
+@media (max-width: 768px) {
+  .project-gallery-shell {
+    padding: 28px 20px 20px;
+  }
+
+  .project-gallery-stage.gal-stage {
+    margin-top: 16px;
+    margin-bottom: 14px;
+  }
+
+  .project-gallery-stage .gal-caption {
+    width: 78%;
+    padding: 24px 20px 18px;
+  }
+
+  .project-gallery-stage .gal-num {
+    top: 16px;
+    right: 18px;
+    font-size: clamp(44px, 14vw, 72px);
+  }
+
+  .project-gallery-stage .gal-zone {
+    width: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-gallery-modal-overlay,
+  .project-gallery-stage .gal-slide,
+  .project-gallery-close {
+    transition: none !important;
+  }
+}
+
 </style>
 </head>
 
@@ -2091,14 +2257,6 @@ html, body {
             <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 12px; color: var(--sub); text-transform: uppercase; border: 1px dashed var(--line);">
               [ SANFAANISERVICE INTERFACE PREVIEW ]
             </div>
-            <div class="project-mockup-badge">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21 15 16 10 5 21"></polyline>
-              </svg>
-              <span>Gallery</span>
-            </div>
           </div>
           <div class="project-content">
             <h3 class="project-title">Sanfaani commerce platform</h3>
@@ -2121,13 +2279,6 @@ html, body {
                 </svg>
                 <span>Gallery</span>
               </button>
-              <a href="https://github.com/Adeoye100" target="_blank" rel="noopener noreferrer" class="btn-card-outline">
-                Source code
-              </a>
-              <a href="https://github.com/Adeoye100" target="_blank" rel="noopener noreferrer" class="btn-card-solid">
-                Live website
-                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="8" x2="13" y2="8"></line><polyline points="9 4 13 8 9 12"></polyline></svg>
-              </a>
             </div>
           </div>
         </article>
@@ -2135,17 +2286,7 @@ html, body {
         <!-- Project 2 -->
         <article class="project-card reveal">
           <div class="project-mockup-wrapper" onclick="window.openProjectGallery('nexos')" title="Click to view image gallery">
-            <div style="display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 12px; color: var(--sub); text-transform: uppercase; border: 1px dashed var(--line);">
-              [ PLATFORM INTERFACE PREVIEW ]
-            </div>
-            <div class="project-mockup-badge">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21 15 16 10 5 21"></polyline>
-              </svg>
-              <span>Gallery</span>
-            </div>
+            <img src="ss01.png" alt="Nexos productivity workspace preview" class="project-mockup-img" onerror="this.style.display='none';" />
           </div>
           <div class="project-content">
             <h3 class="project-title">Nexos productivity workspace</h3>
@@ -2168,13 +2309,6 @@ html, body {
                 </svg>
                 <span>Gallery</span>
               </button>
-              <a href="https://github.com/Adeoye100" target="_blank" rel="noopener noreferrer" class="btn-card-outline">
-                Source code
-              </a>
-              <a href="https://github.com/Adeoye100" target="_blank" rel="noopener noreferrer" class="btn-card-solid">
-                Live website
-                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="8" x2="13" y2="8"></line><polyline points="9 4 13 8 9 12"></polyline></svg>
-              </a>
             </div>
           </div>
         </article>
@@ -2433,43 +2567,32 @@ html, body {
   </div>
 </div>
 
-<!-- PROJECT GALLERY SWIPABLE LIGHTBOX MODAL -->
-<div id="project-gallery-modal" class="gallery-modal-overlay" role="dialog" aria-modal="true" aria-label="Project Image Gallery">
+<!-- PROJECT GALLERY — SECTION 05 STYLE FULL-SCREEN POPUP -->
+<div id="project-gallery-modal" class="gallery-modal-overlay project-gallery-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="gallery-title-text" aria-describedby="gallery-subtitle-text">
   <div class="gallery-modal-backdrop" id="gallery-modal-backdrop"></div>
-  <div class="gallery-modal-content">
-    <!-- Modal Header -->
-    <div class="gallery-modal-header">
-      <div>
-        <h3 id="gallery-title-text" class="gallery-modal-title f-clash">Project Title</h3>
-        <div id="gallery-subtitle-text" class="gallery-modal-subtitle">Project Subtitle</div>
-      </div>
-      <button type="button" class="gallery-modal-close" id="gallery-modal-close-btn" aria-label="Close project gallery lightbox">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+
+  <div class="project-gallery-shell">
+    <div class="gal-hdr project-gallery-header">
+      <p class="section-num">06 — Project Gallery</p>
+      <h3 id="gallery-title-text" class="panel-heading f-clash">Project Title</h3>
+      <p id="gallery-subtitle-text" class="project-gallery-subtitle">Project image gallery</p>
+
+      <button type="button" class="project-gallery-close" id="gallery-modal-close-btn" aria-label="Close project gallery">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
     </div>
 
-    <!-- Swiper Container Body -->
-    <div class="gallery-modal-body">
-      <div class="swiper">
-        <div class="swiper-wrapper" id="swiper-wrapper">
-          <!-- Dynamically populated slides -->
-        </div>
-        <!-- Swiper Navigation Controls -->
-        <button type="button" class="swiper-button-prev" aria-label="Previous slide"></button>
-        <button type="button" class="swiper-button-next" aria-label="Next slide"></button>
-        <!-- Swiper Scrollbar -->
-        <div class="swiper-scrollbar"></div>
-      </div>
+    <div class="gal-stage project-gallery-stage" id="project-gallery-stage">
+      <div id="project-gallery-slides"></div>
+
+      <button type="button" class="gal-zone gal-zone-prev project-gallery-zone" id="project-gallery-prev" aria-label="Previous project image"></button>
+      <button type="button" class="gal-zone gal-zone-next project-gallery-zone" id="project-gallery-next" aria-label="Next project image"></button>
     </div>
 
-    <!-- Modal Footer: Caption & Counter -->
-    <div class="gallery-modal-footer">
-      <div id="gallery-slide-caption" class="gallery-slide-caption">Slide Caption</div>
-      <div id="gallery-slide-counter" class="gallery-slide-counter">Slide 1 of 3</div>
-    </div>
+    <div class="gal-dots project-gallery-dots" id="project-gallery-dots" aria-label="Project gallery image navigation"></div>
   </div>
 </div>
 
@@ -2556,53 +2679,106 @@ html, body {
     });
   }
 
-  // ─── PROJECT GALLERY LIGHTBOX & SWIPABLE SLIDER ───
+  // ─── SECTION 06 PROJECT GALLERY — RESTRAINED SECTION 05 PATTERN ───
   const projectGalleries = {
     'sanfaani': {
       title: 'SanfaaniService',
-      subtitle: 'ENTERPRISE SAAS PLATFORM | IMAGE GALLERY',
+      subtitle: 'ENTERPRISE SAAS PLATFORM | 3 IMAGE GALLERY',
       slides: [
         {
           src: 'Sanfaani_service_00.png',
-          title: '01. Client Dashboard & Workflow Overview',
-          caption: 'Main enterprise web dashboard showing client onboarding status, active service requests, and real-time activity metrics.'
+          title: 'Client dashboard & workflow overview',
+          caption: 'Main enterprise dashboard showing service activity, client workflow, and operational status at a glance.'
         },
         {
           src: 'Sanfaani_service_01.png',
-          title: '02. Service Management & Detailed Tracking',
-          caption: 'Detailed view of client requests, service progress timelines, and operational status logs.'
+          title: 'Service management & detailed tracking',
+          caption: 'Detailed service workflow showing request progress, operational states, and client-facing tracking.'
         },
         {
           src: 'sanfaani_service_02.svg',
-          title: '03. System Analytics & API Latency Monitor',
-          caption: 'Backend REST API endpoint metrics, request throughput graphs, and automated database latency tracking.'
+          title: 'System analytics & engineering view',
+          caption: 'A technical view of the system used to communicate platform behaviour and engineering detail.'
         }
       ]
     },
     'nexos': {
       title: 'Nexos Productivity Platform',
-      subtitle: 'WEB APPLICATION | IMAGE GALLERY',
+      subtitle: 'PRODUCTIVITY WORKSPACE | 3 IMAGE GALLERY',
       slides: [
         {
-          src: 'nexos_ui_01.svg',
-          title: '01. Kanban Board Interface',
-          caption: 'React/TypeScript workspace interface managing tasks, sprint progress, and team assignments.'
+          src: 'ss01.png',
+          title: 'Workspace overview',
+          caption: 'Nexos workspace view focused on structured project visibility, task organisation, and practical daily use.'
         },
         {
-          src: 'nexos_engine_02.svg',
-          title: '02. State Management & Data Flow',
-          caption: 'Redux store visualization handling real-time task updates and optimistic UI rendering.'
+          src: 'ss02.png',
+          title: 'Task and workflow detail',
+          caption: 'A closer look at the task workflow and the information hierarchy used to keep project work understandable.'
         },
         {
-          src: 'nexos_database_03.svg',
-          title: '03. API & Database Schema',
-          caption: 'Node.js/Express backend integration with scalable MongoDB schema for user activity tracking.'
+          src: 'ss03.png',
+          title: 'Project management interface',
+          caption: 'Project-level interface showing how the productivity system presents work states and supporting context.'
         }
       ]
     }
   };
 
-  let swiperInstance = null;
+  let activeProjectGallery = null;
+  let projectGalleryIndex = 0;
+  let projectGalleryReturnFocus = null;
+
+  function setProjectGallerySlide(nextIndex) {
+    if (!activeProjectGallery) return;
+
+    const total = activeProjectGallery.slides.length;
+    const normalizedIndex = (nextIndex + total) % total;
+    const slideEls = Array.from(document.querySelectorAll('#project-gallery-slides .gal-slide'));
+    const dotEls = Array.from(document.querySelectorAll('#project-gallery-dots .gal-dot'));
+
+    slideEls.forEach(function(slideEl, index) {
+      slideEl.classList.toggle('active', index === normalizedIndex);
+      slideEl.setAttribute('aria-hidden', index === normalizedIndex ? 'false' : 'true');
+    });
+
+    dotEls.forEach(function(dotEl, index) {
+      dotEl.classList.toggle('active', index === normalizedIndex);
+      dotEl.setAttribute('aria-current', index === normalizedIndex ? 'true' : 'false');
+    });
+
+    projectGalleryIndex = normalizedIndex;
+  }
+
+  function renderProjectGallery(galleryData) {
+    const slidesEl = document.getElementById('project-gallery-slides');
+    const dotsEl = document.getElementById('project-gallery-dots');
+    if (!slidesEl || !dotsEl) return;
+
+    slidesEl.innerHTML = galleryData.slides.map(function(slide, index) {
+      const num = String(index + 1).padStart(2, '0');
+      return '<div class="gal-slide' + (index === 0 ? ' active' : '') + '" data-index="' + index + '" aria-hidden="' + (index === 0 ? 'false' : 'true') + '">' +
+        '<div class="gal-img">' +
+          '<img src="' + slide.src + '" alt="' + slide.title + '" draggable="false" />' +
+        '</div>' +
+        '<div class="gal-num">' + num + '</div>' +
+        '<div class="gal-caption">' +
+          '<span class="gal-tag">' + slide.title + '</span>' +
+          '<p class="gal-desc">' + slide.caption + '</p>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    dotsEl.innerHTML = galleryData.slides.map(function(_, index) {
+      return '<button type="button" class="gal-dot' + (index === 0 ? ' active' : '') + '" aria-label="Image ' + (index + 1) + ' of ' + galleryData.slides.length + '" aria-current="' + (index === 0 ? 'true' : 'false') + '" data-project-gallery-dot="' + index + '"></button>';
+    }).join('');
+
+    dotsEl.querySelectorAll('[data-project-gallery-dot]').forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        setProjectGallerySlide(parseInt(dot.getAttribute('data-project-gallery-dot'), 10));
+      });
+    });
+  }
 
   window.openProjectGallery = function(key) {
     const galleryData = projectGalleries[key];
@@ -2611,86 +2787,39 @@ html, body {
     const modal = document.getElementById('project-gallery-modal');
     const titleEl = document.getElementById('gallery-title-text');
     const subtitleEl = document.getElementById('gallery-subtitle-text');
-    const wrapperEl = document.getElementById('swiper-wrapper');
-    const captionEl = document.getElementById('gallery-slide-caption');
-    const counterEl = document.getElementById('gallery-slide-counter');
+    const closeBtn = document.getElementById('gallery-modal-close-btn');
+    if (!modal) return;
+
+    projectGalleryReturnFocus = document.activeElement;
+    activeProjectGallery = galleryData;
+    projectGalleryIndex = 0;
 
     if (titleEl) titleEl.textContent = galleryData.title;
     if (subtitleEl) subtitleEl.textContent = galleryData.subtitle;
 
-    let displaySlides = galleryData.slides;
+    renderProjectGallery(galleryData);
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
 
-    if (wrapperEl) {
-      wrapperEl.innerHTML = displaySlides.map(function(slide) {
-        return '<div class="swiper-slide">' +
-          '<img src="' + slide.src + '" alt="' + slide.title + '" onerror="this.onerror=null; this.src=\'Sanfaani_service_00.png\';" />' +
-        '</div>';
-      }).join('');
-    }
+    if (closeBtn) closeBtn.focus({ preventScroll: true });
+  };
 
-    if (modal) {
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    if (swiperInstance) {
-      swiperInstance.destroy(true, true);
-      swiperInstance = null;
-    }
-
-    // Initialize Swiper for clean landscape presentation view
-    swiperInstance = new Swiper('.swiper', {
-      snapToSlideEdge: true,
-      autoHeight: true,
-      roundLengths: true,
-      rewind: true,
-      passiveListeners: false,
-      parallax: true,
-      effect: "cards",
-      freeMode: {
-        enabled: true
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-        hideOnClick: true
-      },
-      autoplay: {
-        pauseOnMouseEnter: true
-      },
-      keyboard: true
-    });
-
-    function updateCaptionAndCounter() {
-      if (!galleryData || !galleryData.slides.length || !swiperInstance) return;
-      const total = galleryData.slides.length;
-      const realIndex = (swiperInstance.realIndex % total);
-      const slide = galleryData.slides[realIndex];
-
-      if (captionEl && slide) {
-        captionEl.innerHTML = '<strong style="color: #fff; display: block; margin-bottom: 2px;">' + slide.title + '</strong>' + slide.caption;
-      }
-      if (counterEl) {
-        counterEl.textContent = 'Slide ' + (realIndex + 1) + ' of ' + total;
-      }
-    }
-
-    updateCaptionAndCounter();
-    swiperInstance.on('slideChange', updateCaptionAndCounter);
-    swiperInstance.on('scroll', updateCaptionAndCounter);
+  window.stepProjectGallery = function(direction) {
+    if (!activeProjectGallery) return;
+    setProjectGallerySlide(projectGalleryIndex + direction);
   };
 
   window.closeProjectGallery = function() {
     const modal = document.getElementById('project-gallery-modal');
-    if (modal) {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
+    if (modal) modal.classList.remove('active');
+    document.body.style.overflow = '';
+    activeProjectGallery = null;
+    projectGalleryIndex = 0;
 
-    if (swiperInstance) {
-      swiperInstance.destroy(true, true);
-      swiperInstance = null;
+    if (projectGalleryReturnFocus && typeof projectGalleryReturnFocus.focus === 'function') {
+      projectGalleryReturnFocus.focus({ preventScroll: true });
     }
+    projectGalleryReturnFocus = null;
   };
 
   const galleryModalCloseBtn = document.getElementById('gallery-modal-close-btn');
@@ -2709,12 +2838,18 @@ html, body {
     });
   }
 
-  const projectGalleryModal = document.getElementById('project-gallery-modal');
-  if (projectGalleryModal) {
-    projectGalleryModal.addEventListener('click', function(e) {
-      if (e.target === projectGalleryModal) {
-        closeProjectGallery();
-      }
+  const projectGalleryPrev = document.getElementById('project-gallery-prev');
+  const projectGalleryNext = document.getElementById('project-gallery-next');
+  if (projectGalleryPrev) {
+    projectGalleryPrev.addEventListener('click', function(e) {
+      e.stopPropagation();
+      stepProjectGallery(-1);
+    });
+  }
+  if (projectGalleryNext) {
+    projectGalleryNext.addEventListener('click', function(e) {
+      e.stopPropagation();
+      stepProjectGallery(1);
     });
   }
 
@@ -2869,6 +3004,8 @@ html, body {
   let wheelTimer = null;
   window.addEventListener('wheel', function(e) {
     e.preventDefault();
+    const projectModal = document.getElementById('project-gallery-modal');
+    if (projectModal && projectModal.classList.contains('active')) return;
     const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
     if (Math.abs(delta) < 8) return;
 
@@ -2907,11 +3044,11 @@ html, body {
         return;
       } else if (e.key === 'ArrowRight') {
         e.preventDefault();
-        if (swiperInstance) swiperInstance.slideNext();
+        stepProjectGallery(1);
         return;
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        if (swiperInstance) swiperInstance.slidePrev();
+        stepProjectGallery(-1);
         return;
       }
     }
@@ -2991,6 +3128,8 @@ html, body {
   }, { passive: true });
 
   window.addEventListener('touchend', function(e) {
+    const projectModal = document.getElementById('project-gallery-modal');
+    if (projectModal && projectModal.classList.contains('active')) return;
     if (e.changedTouches.length === 1) {
       const deltaX = e.changedTouches[0].clientX - touchStartX;
       if (Math.abs(deltaX) > 40) {
