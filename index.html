@@ -682,12 +682,12 @@ html, body {
 }
 .radial-bg {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.08);
+  stroke: var(--progress-track);
   stroke-width: 3.5;
 }
 .radial-progress {
   fill: none;
-  stroke: #ffffff;
+  stroke: var(--text-primary);
   stroke-width: 3.5;
   stroke-linecap: square;
 }
@@ -1247,7 +1247,7 @@ html, body {
   position: absolute;
   inset: 0;
   visibility: hidden;
-  /* Do NOT set opacity here — GSAP owns it */
+  /* Do NOT set opacity here: GSAP owns it */
 }
 .gal-slide.active {
   visibility: visible;
@@ -1273,7 +1273,7 @@ html, body {
   will-change: transform;
 }
 
-/* ── SLIDE NUMBER — top-right, inside image ──────── */
+/* ── SLIDE NUMBER: top-right, inside image ──────── */
 .gal-num {
   position: absolute;
   top: 24px;
@@ -1291,7 +1291,7 @@ html, body {
   will-change: transform, opacity;
 }
 
-/* ── CAPTION — bottom-left, ON the image ─────────── */
+/* ── CAPTION: bottom-left, ON the image ─────────── */
 .gal-caption {
   position: absolute;
   bottom: 0;
@@ -1334,7 +1334,7 @@ html, body {
   text-shadow: 0 2px 12px rgba(0,0,0,0.5);
 }
 
-/* ── CLICK ZONES — invisible prev/next ───────────── */
+/* ── CLICK ZONES: invisible prev/next ───────────── */
 .gal-zone {
   position: absolute;
   top: 0;
@@ -1660,7 +1660,7 @@ html, body {
 }
 
 
-/* ── SECTION 06 PROJECT GALLERY — SECTION 05 VISUAL LANGUAGE ── */
+/* ── SECTION 06 PROJECT GALLERY: SECTION 05 VISUAL LANGUAGE ── */
 .project-gallery-modal-overlay {
   position: fixed;
   inset: 0;
@@ -2052,7 +2052,7 @@ body,
           </div>
         </div>
 
-        <!-- Right Column: Logos & Presentation Share QR Code (01_presenation_share.svg -> https://siwes-presentation-five.vercel.app/) -->
+        <!-- Right Column: Logos & Presentation Share QR Code (01_presentation_share.svg -> https://siwes-presentation-five.vercel.app/) -->
         <div class="hero-logos-container gsap-hidden" style="display: flex; flex-direction: column; gap: 16px; align-items: flex-end;">
           <div style="display: flex; gap: clamp(12px, 2vw, 24px);">
             <div class="hero-logo-card">
@@ -2066,7 +2066,7 @@ body,
           <!-- Landing Page Presentation Share QR Code -->
           <div class="qr-block qr-clickable" id="qr-hero-block" role="button" tabindex="0" title="Click to enlarge QR code" style="width: 100%; max-width: 380px;">
             <div class="qr-box">
-              <img src="01_presenation_share.svg" alt="Presentation Share QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
+              <img src="01_presentation_share.svg" alt="Presentation Share QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
             </div>
             <div class="qr-meta">
               <span class="qr-label">SCAN TO VIEW PRESENTATION</span>
@@ -2113,10 +2113,10 @@ body,
             <img src="logo.webp" alt="Sanfaani SaaS Logo" style="max-width: 85%; max-height: 80%; width: auto; height: auto; object-fit: contain; filter: grayscale(100%); transition: filter 0.4s ease, transform 0.4s ease;" onmouseenter="this.style.filter='grayscale(0%)'; this.style.transform='scale(1.05)';" onmouseleave="this.style.filter='grayscale(100%)'; this.style.transform='scale(1)';" />
           </div>
 
-          <!-- SVG QR Code for Residence Placement (02_placement.svg -> https://www.sanfaani.net) -->
+          <!-- SVG QR Code for Residence Placement (Qr_placement.svg -> https://www.sanfaani.net) -->
           <div class="qr-block qr-clickable" id="qr-sec2-block" role="button" tabindex="0" title="Click to enlarge QR code">
             <div class="qr-box">
-              <img src="02_placement.svg" alt="Sanfaani Placement QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
+              <img src="Qr_placement.svg" alt="Sanfaani Placement QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
             </div>
             <div class="qr-meta">
               <span class="qr-label">SCAN FOR PLACEMENT / RESIDENCE</span>
@@ -2149,7 +2149,7 @@ body,
         <div class="gsap-hidden">
           <h2 class="section-title f-clash">From Familiar Tools to Engineering Systems</h2>
           <p class="section-desc" style="margin-bottom: 20px;">
-            I started with basic HTML, CSS, and JavaScript, then moved into full-stack web application development.
+            I started with HTML, CSS, and JavaScript, then moved to full-stack web development.
           </p>
 
           <div class="growth-tab-buttons" role="tablist" aria-label="Growth Profile Timeline">
@@ -2305,6 +2305,23 @@ body,
               <span class="radial-label">Git & CI/CD</span>
             </div>
           </div>
+
+          <!-- Developer QR Code -->
+          <div class="qr-block qr-clickable" id="qr-adept-block" role="button" tabindex="0" title="Click to enlarge QR code" style="width: 100%; margin-top: 24px;">
+            <div class="qr-box">
+              <img src="adept'sport.svg" alt="Adept Portfolio QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
+            </div>
+            <div class="qr-meta">
+              <span class="qr-label">SCAN TO VIEW DEVELOPER PORTFOLIO</span>
+              <span class="qr-url">https://adept.is-a.dev</span>
+              <span class="qr-enlarge-notation">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width: 12px; height: 12px; fill: currentColor; display: inline-block; vertical-align: middle;">
+                  <path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 176C258.7 176 248 186.7 248 200L248 248L200 248C186.7 248 176 258.7 176 272C176 285.3 186.7 296 200 296L248 296L248 344C248 357.3 258.7 368 272 368C285.3 368 296 357.3 296 344L296 296L344 296C357.3 296 368 285.3 368 272C368 258.7 357.3 248 344 248L296 248L296 200C296 186.7 285.3 176 272 176z"/>
+                </svg>
+                (CLICK TO ENLARGE)
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -2329,29 +2346,18 @@ body,
         I used JetBrains WebStorm as my main IDE for writing code, navigating large projects, debugging, and managing Git workflows during my placement.
       </p>
 
-      <div class="grid-4col gsap-hidden" style="margin-bottom: 20px;">
+      <div class="grid-3col gsap-hidden" style="margin-bottom: 20px;">
         <div class="eleya-card">
-          <div class="f-clash" style="font-size: 15px; color: var(--text-primary); margin-bottom: 8px;">Code Completion & Refactoring</div>
-          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Auto-completion, symbol search, and quick refactoring across project files.</div>
+          <div class="f-clash" style="font-size: 15px; color: var(--text-primary); margin-bottom: 8px;">Git Integration</div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Built-in side-by-side file diffs, branch management, and conflict resolution.</div>
         </div>
         <div class="eleya-card">
           <div class="f-clash" style="font-size: 15px; color: var(--text-primary); margin-bottom: 8px;">Integrated Terminal</div>
           <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Runs build scripts, package managers, and dev servers directly inside the IDE.</div>
         </div>
         <div class="eleya-card">
-          <div class="f-clash" style="font-size: 15px; color: var(--text-primary); margin-bottom: 8px;">Git Integration</div>
-          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Side-by-side file diffs, branch management, and conflict resolution built in.</div>
-        </div>
-        <div class="eleya-card">
-          <div class="f-clash" style="font-size: 15px; color: var(--text-primary); margin-bottom: 8px;">Debugging & Diagnostics</div>
-          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Breakpoints, call stack checks, variable inspection, and instant linter feedback.</div>
-        </div>
-      </div>
-
-      <div class="eleya-card gsap-hidden" style="border-left: 2px solid #ffffff; padding: 18px;">
-        <div style="font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">Workflow Impact</div>
-        <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
-          Working in a single IDE saved time on daily tasks and made code changes safer to ship.
+          <div class="f-clash" style="font-size: 15px; color: var(--text-primary); margin-bottom: 8px;">No Extension Clutter</div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Eliminates the extension clutter that traditionally hogs system resources.</div>
         </div>
       </div>
     </div>
@@ -2365,7 +2371,7 @@ body,
 
     <!-- Header -->
     <div class="gal-hdr">
-      <p class="section-num g0">05 — Photo Gallery</p>
+      <p class="section-num g0">05: Photo Gallery</p>
       <h2 class="panel-heading f-clash g0">Evidence of the work.</h2>
     </div>
 
@@ -2375,71 +2381,89 @@ body,
       <!-- SLIDE ITEMS -->
       <div class="gal-slide active" data-index="0">
         <div class="gal-img">
-          <img src="GI_01.jpg"
-               alt="SanfaaniService — Dashboard overview"
-               draggable="false">
+          <img src="01_tutoring.png" alt="Tutoring peers" draggable="false">
         </div>
         <div class="gal-num">01</div>
         <div class="gal-caption">
-          <span class="gal-tag">SanfaaniService</span>
-          <p class="gal-desc">Dashboard — client onboarding,
-          service tracking, and live analytics.</p>
+          <span class="gal-tag">Tutoring</span>
+          <p class="gal-desc">Mentoring peers on technical concepts <br /> ( HTML/CSS, JS, Git & GitHub's Basics ).</p>
         </div>
       </div>
 
       <div class="gal-slide" data-index="1">
         <div class="gal-img">
-          <img src="GI_02.jpg"
-               alt="Nexos — Project management platform"
-               draggable="false">
+          <img src="02_workspace.png" alt="Development workspace" draggable="false">
         </div>
         <div class="gal-num">02</div>
         <div class="gal-caption">
-          <span class="gal-tag">Nexos</span>
-          <p class="gal-desc">Task and project management —
-          organising work and keeping teams aligned.</p>
+          <span class="gal-tag">Workspace</span>
+          <p class="gal-desc">My primary development setup.</p>
         </div>
       </div>
 
       <div class="gal-slide" data-index="2">
         <div class="gal-img">
-          <img src="GI_03.jpg"
-               alt="Sanfaani workspace environment"
-               draggable="false">
+          <img src="BEintialdeployment.png" alt="Backend deployment" draggable="false">
         </div>
         <div class="gal-num">03</div>
         <div class="gal-caption">
-          <span class="gal-tag">Workplace</span>
-          <p class="gal-desc">Physical workspace — Sanfaani SaaS,
-          Ilorin. Where the daily engineering took place.</p>
+          <span class="gal-tag">Backend Deployment</span>
+          <p class="gal-desc">Initial backend server deployment.</p>
         </div>
       </div>
 
       <div class="gal-slide" data-index="3">
         <div class="gal-img">
-          <img src="GI_04.jpg"
-               alt="WebStorm development environment"
-               draggable="false">
+          <img src="04_githubcontribution.png" alt="GitHub contributions" draggable="false">
         </div>
         <div class="gal-num">04</div>
         <div class="gal-caption">
-          <span class="gal-tag">Dev Environment</span>
-          <p class="gal-desc">WebStorm — TypeScript project open,
-          Git diff visible, terminal active.</p>
+          <span class="gal-tag">GitHub Contributions</span>
+          <p class="gal-desc">Consistent code commits and version control activity.</p>
         </div>
       </div>
 
       <div class="gal-slide" data-index="4">
         <div class="gal-img">
-          <img src="GI_05.jpg"
-               alt="SanfaaniService — Service tracking detail"
-               draggable="false">
+          <img src="sanfaanistore.png" alt="Sanfaani Store UI" draggable="false">
         </div>
         <div class="gal-num">05</div>
         <div class="gal-caption">
-          <span class="gal-tag">SanfaaniService — Detail</span>
-          <p class="gal-desc">Service module — real requests tracked
-          from submission to completion in one view.</p>
+          <span class="gal-tag">Sanfaani Store</span>
+          <p class="gal-desc">E-commerce application interface and product listing.</p>
+        </div>
+      </div>
+
+      <div class="gal-slide" data-index="5">
+        <div class="gal-img">
+          <img src="06_starlink.png" alt="Starlink setup" draggable="false">
+        </div>
+        <div class="gal-num">06</div>
+        <div class="gal-caption">
+          <span class="gal-tag">Network Setup</span>
+          <p class="gal-desc">Reliable internet setup with Starlink. <br /> (Standard 4 model)</p>
+        </div>
+      </div>
+
+      <div class="gal-slide" data-index="6">
+        <div class="gal-img">
+          <img src="07_workplace.png" alt="Workplace environment" draggable="false">
+        </div>
+        <div class="gal-num">07</div>
+        <div class="gal-caption">
+          <span class="gal-tag">Workplace Environment</span>
+          <p class="gal-desc">The physical office environment.</p>
+        </div>
+      </div>
+
+      <div class="gal-slide" data-index="7">
+        <div class="gal-img">
+          <img src="IDE.png" alt="IDE Interface" draggable="false">
+        </div>
+        <div class="gal-num">08</div>
+        <div class="gal-caption">
+          <span class="gal-tag">IDE</span>
+          <p class="gal-desc">My integrated development environment.</p>
         </div>
       </div>
 
@@ -2550,7 +2574,7 @@ body,
   <section class="panel" id="panel-workflow" data-index="6" data-nav="07 WORKFLOW">
     <div class="two-col">
       <div class="col-l">
-        <p class="section-num">07 — Workflow</p>
+        <p class="section-num">07: Workflow</p>
         <h2 class="panel-heading f-clash">How the work<br>was managed.</h2>
         <p class="workflow-desc">
           Every task moved through a defined process.
@@ -2559,7 +2583,7 @@ body,
         <div class="workflow-method">
           <div>
             <span class="detail-label">Methodology</span>
-            <span class="detail-value">Agile — iterative delivery in short cycles</span>
+            <span class="detail-value">Agile: iterative delivery in short cycles</span>
           </div>
           <svg width="32" height="32" viewBox="0 0 32 32" style="transform: rotate(-90deg); margin-right: 8px;">
             <circle cx="16" cy="16" r="14" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4"></circle>
@@ -2569,7 +2593,7 @@ body,
         <div class="workflow-method">
           <div>
             <span class="detail-label">Board System</span>
-            <span class="detail-value">Kanban — visual task states: Backlog → In Progress → Review → Done</span>
+            <span class="detail-value">Kanban: visual task states: Backlog → In Progress → Review → Done</span>
           </div>
           <div style="display: flex; gap: 3px; align-items: flex-end; height: 24px; margin-right: 8px;">
             <div class="kb-bar" style="width: 5px; height: 12px; background: rgba(255,255,255,0.4); border-radius: 1px;"></div>
@@ -2581,7 +2605,16 @@ body,
         <div class="workflow-method">
           <div>
             <span class="detail-label">Task Unit</span>
-            <span class="detail-value">Tickets — each feature, bug, and improvement tracked as a ticket</span>
+            <span class="detail-value">Tickets: each feature, bug, and improvement tracked as a ticket</span>
+          </div>
+        </div>
+        <div class="workflow-method" style="border-bottom: none;">
+          <div>
+            <span class="detail-label">Primary Tool</span>
+            <span class="detail-value">Obsidian: Knowledge base and task management</span>
+          </div>
+          <div style="flex-shrink: 0; margin-right: 8px; width: 32px; height: 32px; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #ffffff;">
+            <img src="obsidian.jpeg" alt="Obsidian Logo" style="width: 100%; height: 100%; object-fit: contain;">
           </div>
         </div>
       </div>
@@ -2618,7 +2651,7 @@ body,
   <section class="panel" id="panel-challenges" data-index="7" data-nav="08 CHALLENGES">
     <div class="two-col">
       <div class="col-l">
-        <p class="section-num">08 — Challenges</p>
+        <p class="section-num">08: Challenges</p>
         <h2 class="panel-heading f-clash">Three problems.<br>Three lessons.</h2>
         <p style="font-size:13px;color:rgba(255,255,255,0.35); line-height:1.8;max-width:340px;margin-top:0;">
           Real engineering is not the absence of problems.
@@ -2637,7 +2670,7 @@ body,
             <div class="acc-body" hidden>
               <p>API endpoints returned inconsistent data shapes.
               I learned to inspect the request, the payload, and the
-              server response systematically — not randomly.
+              server response systematically, not randomly.
               The fix was structured: read the contract, then read the code.</p>
             </div>
           </div>
@@ -2651,8 +2684,7 @@ body,
             <div class="acc-body" hidden>
               <p>UI components drifted across pages as the codebase grew.
               I addressed it with shared component files and defined
-              spacing and color tokens. Reusability is not a shortcut —
-              it is a discipline.</p>
+              spacing and color tokens. Reusability is not a shortcut: it is a discipline.</p>
             </div>
           </div>
 
@@ -2666,7 +2698,7 @@ body,
               <p>Features arrived half-specified. Coding first produced
               the wrong result every time. I built the habit of writing
               a one-page summary: who is the user, what do they expect,
-              what does success look like — before any code was written.</p>
+              what does success look like: before any code was written.</p>
             </div>
           </div>
 
@@ -2690,7 +2722,7 @@ body,
           Building Better Software Systems
         </h2>
         <p class="section-desc" style="margin: 0 auto 32px auto; max-width: 600px;">
-          The SIWES placement turned classroom theory into practical engineering experience. I now focus on building reliable software with clean structure and user-centered design.
+          The placement turned theory into practice. I now focus on building reliable software with clean structure and user-centered design.
         </p>
 
         <!-- Absorbed Reflection Accordion -->
@@ -2704,7 +2736,7 @@ body,
                 <span class="accordion-icon">+</span>
               </button>
               <div id="rf-body-1" class="accordion-body" role="region" aria-labelledby="rf-header-1">
-                Moving from just building isolated frontend UI components to thinking about full-stack data flow, API performance, and seamless user experiences.
+                Moving from just building isolated frontend UI components to thinking about full-stack data flow, API performance, and reliable user experiences.
               </div>
             </div>
             <div class="accordion-item">
@@ -2731,7 +2763,7 @@ body,
         <!-- Summary Metrics Row -->
         <div class="grid-3col" style="margin-bottom: 36px; text-align: center;">
           <div class="eleya-card">
-            <div class="f-clash" style="font-size: 28px; color: var(--text-primary);">06</div>
+            <div class="f-clash" style="font-size: 28px; color: var(--text-primary);">03</div>
             <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">Months Completed</div>
           </div>
           <div class="eleya-card">
@@ -2796,13 +2828,13 @@ body,
   </div>
 </div>
 
-<!-- PROJECT GALLERY — SECTION 05 STYLE FULL-SCREEN POPUP -->
+<!-- PROJECT GALLERY: SECTION 05 STYLE FULL-SCREEN POPUP -->
 <div id="project-gallery-modal" class="gallery-modal-overlay project-gallery-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="gallery-title-text" aria-describedby="gallery-subtitle-text">
   <div class="gallery-modal-backdrop" id="gallery-modal-backdrop"></div>
 
   <div class="project-gallery-shell">
     <div class="gal-hdr project-gallery-header">
-      <p class="section-num">06 — Project Gallery</p>
+      <p class="section-num">06: Project Gallery</p>
       <h3 id="gallery-title-text" class="panel-heading f-clash">Project Title</h3>
       <p id="gallery-subtitle-text" class="project-gallery-subtitle">Project image gallery</p>
 
@@ -2943,7 +2975,7 @@ body,
     });
   }
 
-  // ─── SECTION 06 PROJECT GALLERY — RESTRAINED SECTION 05 PATTERN ───
+  // ─── SECTION 06 PROJECT GALLERY: RESTRAINED SECTION 05 PATTERN ───
   const projectGalleries = {
     'sanfaani': {
       title: 'SanfaaniService',
@@ -3143,21 +3175,30 @@ body,
     }
   };
 
-  // Direct click listener for Landing Page Hero QR Code block (01_presenation_share.svg)
+  // Direct click listener for Landing Page Hero QR Code block (01_presentation_share.svg)
   const heroQrBlock = document.getElementById('qr-hero-block');
   if (heroQrBlock) {
     heroQrBlock.addEventListener('click', function(e) {
       e.stopPropagation();
-      openQrModal('01_presenation_share.svg', 'SIWES Presentation: Live Web Share', 'https://siwes-presentation-five.vercel.app/');
+      openQrModal('01_presentation_share.svg', 'SIWES Presentation: Live Web Share', 'https://siwes-presentation-five.vercel.app/');
     });
   }
 
-  // Direct click listener for Section 2 QR Code block (02_placement.svg)
+  // Direct click listener for Section 2 QR Code block (Qr_placement.svg)
   const sec2QrBlock = document.getElementById('qr-sec2-block');
   if (sec2QrBlock) {
     sec2QrBlock.addEventListener('click', function(e) {
       e.stopPropagation();
-      openQrModal('02_placement.svg', 'Sanfaani SaaS: Place of Residence', 'https://www.sanfaani.net');
+      openQrModal('Qr_placement.svg', 'Sanfaani SaaS: Place of Residence', 'https://www.sanfaani.net');
+    });
+  }
+
+  // Direct click listener for Section 3 QR Code block (adept'sport.svg)
+  const adeptQrBlock = document.getElementById('qr-adept-block');
+  if (adeptQrBlock) {
+    adeptQrBlock.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openQrModal("adept'sport.svg", 'Developer Portfolio', 'https://adept.is-a.dev');
     });
   }
 
@@ -3444,7 +3485,7 @@ body,
   });
 
 /* ══════════════════════════════════════════════════
-   GALLERY — Full-frame image viewer with GSAP transitions
+   GALLERY: Full-frame image viewer with GSAP transitions
    Navigation: Arrow keys (← →), dot clicks
    ══════════════════════════════════════════════════ */
 (function initGallery() {
@@ -3477,7 +3518,7 @@ body,
      Reference: vsi_02.png (NFT card hover effect).
      - Outgoing slide: scale down slightly, fade out
      - Incoming image: starts scale(1.04) + yPercent offset,
-       animates to scale(1) + yPercent(0) — parallax reveal.
+       animates to scale(1) + yPercent(0): parallax reveal.
      - Slide number: counts up/down with a yPercent flip.
      - Caption: fades in from slight y offset.
   ──────────────────────────────────────────────── */
