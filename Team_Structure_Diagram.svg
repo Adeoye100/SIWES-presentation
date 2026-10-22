@@ -1,0 +1,138 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="org-chart" width="1100" height="500" viewBox="0 0 1100 500" xmlns="http://www.w3.org/2000/svg"><style>
+                .node-rect { fill: #ffffff; stroke-width: 2; rx: 6; ry: 6; }
+                .node-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: #333333; text-anchor: middle; dominant-baseline: middle; }
+                .node-title { font-weight: bold; font-size: 15px; }
+                .link-path { fill: none; stroke: #adb5bd; stroke-width: 2; }
+                .level-1-rect { stroke: #0056b3; fill: #e6f2ff; }
+                .level-2-rect { stroke: #17a2b8; fill: #e0f7fa; }
+                .level-3-rect { stroke: #28a745; fill: #e8f5e9; }
+                .level-4-rect { stroke: #fd7e14; fill: #fff3cd; }
+                .level-5-rect { stroke: #6c757d; fill: #f8f9fa; }
+                .level-6-rect { stroke: #6f42c1; fill: #f3e5f5; }
+            </style>
+                <!-- Defs for arrowhead -->
+                <defs>
+                    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#adb5bd"/>
+                    </marker>
+                    <!-- Shadow effect -->
+                    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                        <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.1"/>
+                    </filter>
+                </defs>
+
+                <!-- Connections (Lines) -->
+                <g id="links">
+                    <!-- L1 to L2 -->
+                    <path class="link-path" d="M 220 250 L 260 250" marker-end="url(#arrow)"/>
+                    
+                    <!-- L2 to L3 -->
+                    <path class="link-path" d="M 440 250 L 480 250" marker-end="url(#arrow)"/>
+                    
+                    <!-- L3 to L4 Branches -->
+                    <path class="link-path" d="M 660 250 L 680 250 L 680 150 L 700 150" marker-end="url(#arrow)"/>
+                    <path class="link-path" d="M 660 250 L 680 250 L 680 250 L 700 250" marker-end="url(#arrow)"/>
+                    <path class="link-path" d="M 660 250 L 680 250 L 680 350 L 700 350" marker-end="url(#arrow)"/>
+                    
+                    <!-- L4 Top to sub-boxes -->
+                    <path class="link-path" d="M 880 150 L 920 120" marker-end="url(#arrow)"/>
+                    <path class="link-path" d="M 880 150 L 920 180" marker-end="url(#arrow)"/>
+                    
+                    <!-- L4 Middle to sub-boxes -->
+                    <path class="link-path" d="M 880 250 L 920 220" marker-end="url(#arrow)"/>
+                    <path class="link-path" d="M 880 250 L 920 280" marker-end="url(#arrow)"/>
+
+                    <!-- L4 Bottom to L5 -->
+                    <path class="link-path" d="M 880 350 L 920 350" marker-end="url(#arrow)"/>
+
+                    <!-- L5 to L6 (SIWES) - Connects from bottom box -->
+                    <path class="link-path" d="M 1080 350 L 1100 350 L 1100 450 L 550 450 L 550 415" marker-end="url(#arrow)"/>
+                    <!-- Actually let's place SIWES at the bottom centered, spanning -->
+                </g>
+
+                <!-- Nodes (Boxes) -->
+                <g id="nodes">
+                    <!-- Level 1: Management -->
+                    <g transform="translate(40, 210)">
+                        <rect class="node-rect level-1-rect" width="180" height="80" filter="url(#shadow)"/>
+                        <text class="node-text node-title" x="90" y="30">Management /</text>
+                        <text class="node-text node-title" x="90" y="50">Operations</text>
+                    </g>
+
+                    <!-- Level 2: Tech Lead -->
+                    <g transform="translate(260, 210)">
+                        <rect class="node-rect level-2-rect" width="180" height="80" filter="url(#shadow)"/>
+                        <text class="node-text node-title" x="90" y="30">Technical /</text>
+                        <text class="node-text node-title" x="90" y="50">Product Lead</text>
+                    </g>
+
+                    <!-- Level 3: Dev Team -->
+                    <g transform="translate(480, 210)">
+                        <rect class="node-rect level-3-rect" width="180" height="80" filter="url(#shadow)"/>
+                        <text class="node-text node-title" x="90" y="30">Software</text>
+                        <text class="node-text node-title" x="90" y="50">Development Team</text>
+                    </g>
+
+                    <!-- Level 4: Dev Team Branches -->
+                    <!-- Top Branch -->
+                    <g transform="translate(700, 110)">
+                        <rect class="node-rect level-4-rect" width="180" height="80" filter="url(#shadow)"/>
+                        <text class="node-text" x="90" y="40">Development Core</text>
+                    </g>
+                    <!-- Top Branch Sub 1 -->
+                    <g transform="translate(920, 80)">
+                        <rect class="node-rect level-5-rect" width="160" height="60" filter="url(#shadow)"/>
+                        <text class="node-text" x="80" y="20">Frontend</text>
+                        <text class="node-text" x="80" y="40">Development</text>
+                    </g>
+                    <!-- Top Branch Sub 2 -->
+                    <g transform="translate(920, 150)">
+                        <rect class="node-rect level-5-rect" width="160" height="60" filter="url(#shadow)"/>
+                        <text class="node-text" x="80" y="20">Backend / API</text>
+                        <text class="node-text" x="80" y="40">Development</text>
+                    </g>
+
+                    <!-- Middle Branch -->
+                    <g transform="translate(700, 210)">
+                        <rect class="node-rect level-4-rect" width="180" height="80" filter="url(#shadow)"/>
+                        <text class="node-text" x="90" y="30">Product &amp;</text>
+                        <text class="node-text" x="90" y="50">Quality</text>
+                    </g>
+                     <!-- Middle Branch Sub 1 -->
+                     <g transform="translate(920, 220)">
+                        <rect class="node-rect level-5-rect" width="160" height="50" filter="url(#shadow)"/>
+                        <text class="node-text" x="80" y="25">UI/UX Support</text>
+                    </g>
+                    <!-- Middle Branch Sub 2 -->
+                    <g transform="translate(920, 280)">
+                        <rect class="node-rect level-5-rect" width="160" height="50" filter="url(#shadow)"/>
+                        <text class="node-text" x="80" y="15">Testing /</text>
+                        <text class="node-text" x="80" y="35">Quality Review</text>
+                    </g>
+
+                    <!-- Bottom Branch -->
+                    <g transform="translate(700, 310)">
+                        <rect class="node-rect level-4-rect" width="180" height="80" filter="url(#shadow)"/>
+                        <text class="node-text" x="90" y="30">Infrastructure</text>
+                    </g>
+                     <!-- Bottom Branch Sub 1 -->
+                     <g transform="translate(920, 320)">
+                        <rect class="node-rect level-5-rect" width="160" height="60" filter="url(#shadow)"/>
+                        <text class="node-text" x="80" y="20">Deployment /</text>
+                        <text class="node-text" x="80" y="40">Infra Support</text>
+                    </g>
+
+                    <!-- SIWES Student (Placed at the bottom spanning across) -->
+                    <!-- Connection line to SIWES -->
+                    <!-- Connect from Dev Team to SIWES -->
+                    <path class="link-path" d="M 570 290 L 570 380" marker-end="url(#arrow)"/>
+                    
+                    <g transform="translate(370, 380)">
+                        <rect class="node-rect level-6-rect" width="400" height="80" filter="url(#shadow)" stroke-dasharray="5,5"/>
+                        <text class="node-text node-title" x="200" y="30">SIWES Student</text>
+                        <text class="node-text" x="200" y="50">Software Engineering / Full-Stack Development</text>
+                    </g>
+
+                </g>
+            </svg>
