@@ -2449,12 +2449,12 @@ body,
 
       <div class="gal-slide" data-index="4">
         <div class="gal-img">
-          <img src="sanfaanistore.png" alt="Sanfaani Store UI" draggable="false">
+          <img src="GI_02.jpg" alt="Developer profile and growth insights" draggable="false">
         </div>
         <div class="gal-num">05</div>
         <div class="gal-caption">
-          <span class="gal-tag">Sanfaani Store</span>
-          <p class="gal-desc">E-commerce application interface and product listing.</p>
+          <span class="gal-tag">Growth & Engineering Profile</span>
+          <p class="gal-desc">Developer profile overview tracking software engineering milestones, consistency streaks, and technical competencies.</p>
         </div>
       </div>
 
@@ -2572,19 +2572,23 @@ body,
         <!-- Project 2 -->
         <article class="project-card reveal">
           <div class="project-mockup-wrapper" onclick="window.openProjectGallery('nexos')" title="Click to view image gallery">
-            <img src="ss01.png" alt="Nexos productivity workspace preview" class="project-mockup-img" onerror="this.style.display='none';" />
+            <img src="Selected work02_Nexos_problemsolved.png" alt="Nexos productivity platform preview" class="project-mockup-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 12px; color: var(--sub); text-transform: uppercase; border: 1px dashed var(--line);">
+              [ NEXOS WORKSPACE INTERFACE PREVIEW ]
+            </div>
           </div>
           <div class="project-content">
             <h3 class="project-title">Nexos productivity workspace</h3>
             <p class="project-description">
-              Productivity and project management application exploring structured task organization,
-              team workflows, and real-time state synchronization.
+              Offline-first developer workspace combining habit tracking and personal growth with
+              GitHub-linked Kanban boards, CRDT state sync, and automated standup generation.
             </p>
             <div class="project-tags">
               <span class="tag-pill">React</span>
               <span class="tag-pill">TypeScript</span>
-              <span class="tag-pill">Node.js</span>
-              <span class="tag-pill">Supabase</span>
+              <span class="tag-pill">Yjs / CRDT</span>
+              <span class="tag-pill">IndexedDB</span>
+              <span class="tag-pill">PartyKit</span>
             </div>
             <div class="project-btn-row">
               <button type="button" class="btn-card-gallery" onclick="window.openProjectGallery('nexos')" aria-label="Open gallery for Nexos productivity workspace">
@@ -2595,6 +2599,14 @@ body,
                 </svg>
                 <span>Gallery</span>
               </button>
+              <a href="https://nexosdoc.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-card-outline" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;" aria-label="View documentation site for Nexos productivity workspace">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                <span>Docs</span>
+              </a>
             </div>
           </div>
         </article>
@@ -2685,11 +2697,7 @@ body,
     <div class="two-col">
       <div class="col-l">
         <p class="section-num">08: Challenges</p>
-        <h2 class="panel-heading f-clash">Three problems.<br>Three lessons.</h2>
-     <!--   <p style="font-size:13px;color:rgba(255,255,255,0.35); line-height:1.8;max-width:340px;margin-top:0;">
-          Real engineering is not the absence of problems.
-          It is knowing how to move through them.
-        </p>-->
+        <h2 class="panel-heading f-clash">What was hard.<br>What changed.</h2>
       </div>
       <div class="col-r" style="gap:0;justify-content:center;">
         <div class="accordion">
@@ -2697,41 +2705,33 @@ body,
           <div class="acc-item">
             <button class="acc-trigger" aria-expanded="false">
               <span class="acc-num">01</span>
-              <span class="acc-title">Connecting Frontend to Backend</span>
+              <span class="acc-title">Perfectionism with planning</span>
               <span class="acc-arrow">+</span>
             </button>
             <div class="acc-body" hidden>
-              <p>API endpoints returned inconsistent data shapes.
-              I learned to inspect the request, the payload, and the
-              server response systematically, not randomly.
-              The fix was structured: read the contract, then read the code.</p>
+              <p>I used to spend days trying to design the entire database schema and interface on paper before writing code. When requirements inevitably shifted, those elaborate upfront designs became wasted hours. I had to learn to plan just enough to get the core data flow working, build a small slice, and adapt as real constraints showed up.</p>
             </div>
           </div>
 
           <div class="acc-item">
             <button class="acc-trigger" aria-expanded="false">
               <span class="acc-num">02</span>
-              <span class="acc-title">Maintaining Visual Consistency</span>
+              <span class="acc-title">Giving and receiving feedback</span>
               <span class="acc-arrow">+</span>
             </button>
             <div class="acc-body" hidden>
-              <p>UI components drifted across pages as the codebase grew.
-              I addressed it with shared component files and defined
-              spacing and color tokens. Reusability is not a shortcut: it is a discipline.</p>
+              <p>During team code reviews, I was initially hesitant to speak up or push back on implementation choices because I worried about second-guessing colleagues. Keeping feedback polite and vague actually slowed down debugging. Pointing to exact lines, testing edge cases together, and explaining concrete trade-offs made review sessions productive instead of tense.</p>
             </div>
           </div>
 
           <div class="acc-item">
             <button class="acc-trigger" aria-expanded="false">
               <span class="acc-num">03</span>
-              <span class="acc-title">Working With Incomplete Requirements</span>
+              <span class="acc-title">Taming technical unknowns</span>
               <span class="acc-arrow">+</span>
             </button>
             <div class="acc-body" hidden>
-              <p>Features arrived half-specified. Coding first produced
-              the wrong result every time. I built the habit of writing
-              a one-page summary: who is the user, what do they expect,
-              what does success look like: before any code was written.</p>
+              <p>Facing unfamiliar tools like CRDT synchronization and thermal printer protocols felt overwhelming at the start. Reading dense documentation cover to cover did not help much. The breakthrough was setting up small, isolated test scripts to poke at one function at a time until the mechanics made sense.</p>
             </div>
           </div>
 
@@ -3037,23 +3037,23 @@ body,
       ]
     },
     'nexos': {
-      title: 'Nexos Productivity Platform',
-      subtitle: 'PRODUCTIVITY WORKSPACE | 3 IMAGE GALLERY',
+      title: 'Nexos productivity workspace',
+      subtitle: 'LOCAL-FIRST DEVELOPER WORKSPACE | 3 IMAGE GALLERY',
       slides: [
         {
-          src: 'ss01.png',
-          title: 'Workspace overview',
-          caption: 'Nexos workspace view focused on structured project visibility, task organisation, and practical daily use.'
+          src: 'Selected work02_Nexos_problemsolved.png',
+          title: 'Operational problem & local-first solution',
+          caption: 'Eliminates network latency and server lock-in with a local-first CRDT architecture, immediate offline writes, and deterministic peer-to-peer sync.'
         },
         {
-          src: 'ss02.png',
-          title: 'Task and workflow detail',
-          caption: 'A closer look at the task workflow and the information hierarchy used to keep project work understandable.'
+          src: 'nexosui.jpg',
+          title: 'Nexos developer workspace interface',
+          caption: 'Unified developer workspace featuring GitHub-linked Kanban boards, habit heatmaps, automated standup generation, and context-aware AI assistant.'
         },
         {
-          src: 'ss03.png',
-          title: 'Project management interface',
-          caption: 'Project-level interface showing how the productivity system presents work states and supporting context.'
+          src: 'nexos_qrcode.svg',
+          title: 'Documentation site QR code',
+          caption: 'Scan to visit the complete platform documentation at <a href="https://nexosdoc.vercel.app/" target="_blank" rel="noopener noreferrer">nexosdoc.vercel.app</a>.'
         }
       ]
     }
