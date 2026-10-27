@@ -867,6 +867,8 @@ html, body {
   .panel { padding: 16px 24px; }
   .section-title { font-size: clamp(24px, 3.5vw, 36px); margin-bottom: 10px; }
   .section-tag { margin-bottom: 6px; }
+}
+
 /* ─── PROJECT GALLERY LIGHTBOX MODAL & SWIPABLE SLIDER ─── */
 .project-card {
   cursor: pointer;
@@ -1198,7 +1200,6 @@ html, body {
     transform: none !important;
     animation: none !important;
   }
-}
 }
   /* --- NEW PANELS CSS --- */
 /* ── SHELL ───────────────────────────────────────── */
@@ -2029,6 +2030,563 @@ body,
   .status-pill { display: none; }
 }
 
+/* ─── GLOBAL & PANEL-SPECIFIC MOBILE RESPONSIVENESS FIXES (ImgI_01 to ImgI_05) ─── */
+@media (max-width: 768px) {
+  /* Top Bar & Bottom Nav Compact Sizing */
+  #top-bar {
+    top: 10px;
+    left: 12px;
+    right: 12px;
+  }
+  .brand-mark {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+  .top-bar-actions {
+    gap: 6px;
+  }
+  .theme-toggle {
+    padding: 5px 8px;
+    font-size: 8px;
+  }
+  .status-pill {
+    display: none !important;
+  }
+  #bottom-nav {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    padding: 8px 12px;
+  }
+
+  /* Universal Panel Container Viewport Containment & Safe Scrolling */
+  .panel {
+    padding: 56px 14px 64px 14px !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    overflow: hidden !important;
+  }
+  .panel-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: calc(100dvh - 120px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    scrollbar-width: none;
+    padding: 4px 2px 36px 2px !important;
+    box-sizing: border-box !important;
+  }
+  .panel-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Universal Grid Collapse */
+  .grid-2col, .grid-3col, .grid-4col {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     ImgI_05: PANEL 03 (GROWTH PROFILE)
+     ───────────────────────────────────────────────────────── */
+  #panel-03 .panel-container {
+    max-height: calc(100dvh - 120px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    padding-top: 4px !important;
+    padding-bottom: 40px !important;
+  }
+  #panel-03 .grid-2col {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    align-items: stretch !important;
+  }
+  #panel-03 .section-title {
+    font-size: clamp(20px, 4.8vw, 26px);
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+  #panel-03 .section-desc {
+    font-size: 12px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  #panel-03 .growth-tab-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  #panel-03 .growth-tab-btn {
+    flex: 1;
+    font-size: 10px;
+    padding: 8px 6px;
+    letter-spacing: 0.08em;
+    text-align: center;
+  }
+  #panel-03 .eleya-card {
+    padding: 12px !important;
+    margin-top: 8px !important;
+  }
+  #panel-03 .growth-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+  #panel-03 .radial-card {
+    padding: 8px 4px !important;
+    gap: 4px !important;
+  }
+  #panel-03 .radial-wrapper {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  #panel-03 .radial-value {
+    font-size: 10px !important;
+  }
+  #panel-03 .radial-label {
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+  }
+  #panel-03 #qr-adept-block {
+    margin-top: 14px !important;
+    padding: 10px 12px !important;
+    gap: 12px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  #panel-03 #qr-adept-block .qr-box {
+    width: 64px !important;
+    height: 64px !important;
+    padding: 4px !important;
+    flex-shrink: 0 !important;
+  }
+  #panel-03 #qr-adept-block .qr-meta {
+    gap: 3px !important;
+  }
+  #panel-03 #qr-adept-block .qr-label {
+    font-size: 9px !important;
+  }
+  #panel-03 #qr-adept-block .qr-url {
+    font-size: 11px !important;
+  }
+  #panel-03 #qr-adept-block .qr-enlarge-notation {
+    font-size: 9px !important;
+    margin-top: 2px !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     ImgI_01: PANEL 06 (FEATURED PROJECTS)
+     ───────────────────────────────────────────────────────── */
+  #panel-06 .panel-container {
+    max-height: calc(100dvh - 120px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    padding-top: 6px !important;
+    padding-bottom: 44px !important;
+  }
+  #panel-06 .projects-intro {
+    margin-bottom: 14px !important;
+    text-align: left !important;
+  }
+  #panel-06 .section-label {
+    font-size: 10px !important;
+    margin-bottom: 4px !important;
+  }
+  #panel-06 .section-title {
+    font-size: clamp(20px, 4.8vw, 26px) !important;
+    line-height: 1.15 !important;
+  }
+  #panel-06 .projects-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+  #panel-06 .project-card {
+    border-radius: var(--radius-lg) !important;
+    padding: 14px !important;
+    margin-bottom: 8px !important;
+  }
+  #panel-06 .project-mockup-wrapper {
+    aspect-ratio: 16 / 9 !important;
+    max-height: 160px !important;
+    margin-bottom: 12px !important;
+    background: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+  }
+  #panel-06 .project-mockup-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    padding: 6px !important;
+  }
+  #panel-06 .project-title {
+    font-size: 16px !important;
+    margin-bottom: 6px !important;
+  }
+  #panel-06 .project-description {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 10px !important;
+  }
+  #panel-06 .project-tags {
+    gap: 4px !important;
+    margin-bottom: 12px !important;
+  }
+  #panel-06 .tag-pill {
+    font-size: 10px !important;
+    padding: 3px 8px !important;
+  }
+  #panel-06 .project-btn-row {
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+  }
+  #panel-06 .btn-card-gallery,
+  #panel-06 .btn-card-outline {
+    font-size: 11px !important;
+    padding: 6px 12px !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     ImgI_02: PANEL 07 (WORKFLOW)
+     ───────────────────────────────────────────────────────── */
+  #panel-workflow .two-col {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: calc(100dvh - 120px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding: 6px 2px 40px 2px !important;
+    gap: 18px !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+    scrollbar-width: none;
+  }
+  #panel-workflow .two-col::-webkit-scrollbar {
+    display: none;
+  }
+  #panel-workflow .col-l,
+  #panel-workflow .col-r {
+    width: 100% !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+    justify-content: flex-start !important;
+  }
+  #panel-workflow .section-num {
+    font-size: 10px !important;
+    letter-spacing: 0.15em !important;
+    margin-bottom: 4px !important;
+  }
+  #panel-workflow .panel-heading {
+    font-size: clamp(22px, 5vw, 30px) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 8px !important;
+  }
+  #panel-workflow .workflow-desc {
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 14px !important;
+    max-width: 100% !important;
+  }
+  #panel-workflow .workflow-method {
+    padding: 10px 0 !important;
+  }
+  #panel-workflow .detail-label {
+    font-size: 10px !important;
+  }
+  #panel-workflow .detail-value {
+    font-size: 12px !important;
+  }
+  #panel-workflow .kanban-board {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    max-height: none !important;
+    background: transparent !important;
+    width: 100% !important;
+  }
+  #panel-workflow .kanban-col {
+    padding: 10px 8px !important;
+    border: 1px solid var(--border-color) !important;
+    background: var(--surface-elevated) !important;
+  }
+  #panel-workflow .kanban-label {
+    font-size: 10px !important;
+    margin-bottom: 8px !important;
+  }
+  #panel-workflow .kanban-card {
+    font-size: 11px !important;
+    padding: 8px 10px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 6px !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     ImgI_03: PANEL 08 (CHALLENGES ACCORDION)
+     ───────────────────────────────────────────────────────── */
+  #panel-challenges .two-col {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: calc(100dvh - 120px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding: 6px 2px 40px 2px !important;
+    gap: 16px !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+    scrollbar-width: none;
+  }
+  #panel-challenges .two-col::-webkit-scrollbar {
+    display: none;
+  }
+  #panel-challenges .col-l,
+  #panel-challenges .col-r {
+    width: 100% !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+    justify-content: flex-start !important;
+  }
+  #panel-challenges .section-num {
+    font-size: 10px !important;
+    letter-spacing: 0.15em !important;
+    margin-bottom: 4px !important;
+  }
+  #panel-challenges .panel-heading {
+    font-size: clamp(22px, 5vw, 30px) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 8px !important;
+  }
+  #panel-challenges .accordion {
+    gap: 8px !important;
+    width: 100% !important;
+  }
+  #panel-challenges .acc-item {
+    padding-bottom: 8px !important;
+  }
+  #panel-challenges .acc-trigger {
+    padding: 12px 0 !important;
+    gap: 12px !important;
+  }
+  #panel-challenges .acc-num {
+    font-size: 10px !important;
+  }
+  #panel-challenges .acc-title {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+  }
+  #panel-challenges .acc-arrow {
+    font-size: 18px !important;
+  }
+  #panel-challenges .acc-body {
+    font-size: 12px !important;
+    padding-left: 20px !important;
+    padding-bottom: 12px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     ImgI_04: PANEL 09 (CONCLUSION & REFLECTION)
+     ───────────────────────────────────────────────────────── */
+  #panel-09 .panel-container {
+    padding: 6px 2px 44px 2px !important;
+    max-height: calc(100dvh - 120px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+  }
+  #panel-09 .section-title {
+    font-size: clamp(20px, 4.8vw, 26px) !important;
+    margin-bottom: 8px !important;
+  }
+  #panel-09 .section-desc {
+    font-size: 12px !important;
+    margin-bottom: 16px !important;
+    line-height: 1.5 !important;
+  }
+  #panel-09 div[style*="background: rgba(255,255,255,0.03)"] {
+    padding: 14px !important;
+    margin-bottom: 18px !important;
+  }
+  #panel-09 .accordion-header {
+    font-size: 12px !important;
+    padding: 10px 12px !important;
+  }
+  #panel-09 .accordion-body {
+    font-size: 11px !important;
+    padding: 0 12px 10px 12px !important;
+    line-height: 1.5 !important;
+  }
+  #panel-09 .grid-3col {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+    margin-bottom: 18px !important;
+  }
+  #panel-09 .eleya-card {
+    padding: 10px 6px !important;
+  }
+  #panel-09 .eleya-card .f-clash {
+    font-size: 20px !important;
+  }
+  #panel-09 .eleya-card div:last-child {
+    font-size: 8px !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     ImgI: PANEL 05 (PHOTO GALLERY LOOP)
+     ───────────────────────────────────────────────────────── */
+  .gal-shell {
+    padding: 24px 12px 0 12px !important;
+  }
+  .gal-hdr {
+    margin-bottom: 8px !important;
+  }
+  .gal-hdr .panel-heading {
+    font-size: clamp(20px, 5vw, 28px) !important;
+  }
+  .gal-hdr .section-num {
+    font-size: 10px !important;
+  }
+  .gal-stage {
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
+    flex-grow: 1 !important;
+    margin-top: 8px !important;
+    margin-bottom: 14px !important;
+    max-height: calc(100dvh - 190px) !important;
+  }
+  .gal-img img {
+    object-fit: contain !important;
+  }
+  .gal-num {
+    font-size: clamp(32px, 9vw, 50px) !important;
+    top: 10px !important;
+    right: 12px !important;
+    color: rgba(255,255,255,0.35) !important;
+  }
+  .gal-caption {
+    width: 100% !important;
+    padding: 14px 12px 10px 12px !important;
+    background: linear-gradient(
+      0deg,
+      rgba(0,0,0,0.92) 0%,
+      rgba(0,0,0,0.55) 60%,
+      transparent 100%
+    ) !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+  }
+  .gal-tag {
+    font-size: 9px !important;
+    letter-spacing: 0.15em !important;
+  }
+  .gal-desc {
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+    max-width: 100% !important;
+  }
+  .gal-zone {
+    width: 44px !important;
+  }
+  .gal-zone::after {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  .gal-zone-prev::after,
+  .gal-zone-next::after {
+    background-size: 14px !important;
+    -webkit-mask-size: 14px !important;
+    mask-size: 14px !important;
+  }
+  .gal-dots {
+    gap: 8px !important;
+    min-height: 14px !important;
+    padding-bottom: 6px !important;
+  }
+  .gal-dot {
+    width: 3px !important;
+    height: 3px !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   EXTRA-SMALL MOBILE VIEWPORT (max-width: 480px)
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .panel {
+    padding: 50px 10px 60px 10px !important;
+  }
+  .gal-shell {
+    padding: 18px 8px 0 8px !important;
+  }
+  .gal-stage {
+    margin-top: 6px !important;
+    margin-bottom: 10px !important;
+    max-height: calc(100dvh - 170px) !important;
+  }
+  .gal-num {
+    font-size: clamp(26px, 8vw, 38px) !important;
+    top: 6px !important;
+    right: 8px !important;
+  }
+  .gal-caption {
+    padding: 10px 8px 8px 8px !important;
+  }
+  .gal-desc {
+    font-size: 10.5px !important;
+  }
+  .gal-zone {
+    width: 34px !important;
+  }
+  .gal-zone::after {
+    width: 22px !important;
+    height: 22px !important;
+  }
+  #panel-03 .growth-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 4px !important;
+  }
+  #panel-03 .radial-wrapper {
+    width: 38px !important;
+    height: 38px !important;
+  }
+  #panel-03 .radial-value {
+    font-size: 9px !important;
+  }
+  #panel-03 .radial-label {
+    font-size: 8px !important;
+  }
+  #panel-workflow .kanban-board {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4px !important;
+  }
+  #panel-workflow .kanban-card {
+    font-size: 10px !important;
+    padding: 6px 8px !important;
+  }
+}
+
 </style>
 </head>
 
@@ -2581,7 +3139,7 @@ body,
             <h3 class="project-title">Nexos productivity workspace</h3>
             <p class="project-description">
               Offline-first developer workspace combining habit tracking and personal growth with
-              GitHub-linked Kanban boards, CRDT state sync, and automated standup generation.
+              GitHub-linked Kanban boards, CRDT(Conflict-Free Replicated Data Type) state sync, and automated standup generation.
             </p>
             <div class="project-tags">
               <span class="tag-pill">React</span>
@@ -2731,7 +3289,7 @@ body,
               <span class="acc-arrow">+</span>
             </button>
             <div class="acc-body" hidden>
-              <p>Facing unfamiliar tools like CRDT synchronization and thermal printer protocols felt overwhelming at the start. Reading dense documentation cover to cover did not help much. The breakthrough was setting up small, isolated test scripts to poke at one function at a time until the mechanics made sense.</p>
+              <p>Facing unfamiliar tools like CRDT(Conflict-Free Replicated Data Type) synchronization and thermal printer protocols felt overwhelming at the start. Reading dense documentation cover to cover did not help much. The breakthrough was setting up small, isolated test scripts to poke at one function at a time until the mechanics made sense.</p>
             </div>
           </div>
 
@@ -2754,9 +3312,9 @@ body,
         <h2 class="section-title f-clash" style="font-size: clamp(28px, 4vw, 48px); margin-bottom: 16px;">
           Building Better Software Systems
         </h2>
-        <p class="section-desc" style="margin: 0 auto 32px auto; max-width: 600px;">
+        <!--<p class="section-desc" style="margin: 0 auto 32px auto; max-width: 600px;">
           The placement turned theory into practice. I now focus on building reliable software with clean structure and user-centered design.
-        </p>
+        </p> -->
 
         <!-- Absorbed Reflection Accordion -->
         <div style="text-align: left; margin-bottom: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); padding: 24px; border-radius: 8px;">
@@ -3462,20 +4020,28 @@ body,
     });
   }
 
-  // 6. Mobile Touch Swipe Handler
+  // 6. Mobile Touch Swipe Handler (with vertical-scroll discrimination)
   let touchStartX = 0;
+  let touchStartY = 0;
   window.addEventListener('touchstart', function(e) {
     if (e.touches.length === 1) {
       touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
     }
   }, { passive: true });
 
   window.addEventListener('touchend', function(e) {
     const projectModal = document.getElementById('project-gallery-modal');
     if (projectModal && projectModal.classList.contains('active')) return;
+    const qrModal = document.getElementById('qr-modal');
+    if (qrModal && qrModal.classList.contains('active')) return;
+
     if (e.changedTouches.length === 1) {
       const deltaX = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(deltaX) > 40) {
+      const deltaY = e.changedTouches[0].clientY - touchStartY;
+
+      // Only navigate if horizontal swipe is intentional and exceeds vertical motion
+      if (Math.abs(deltaX) > 48 && Math.abs(deltaX) > Math.abs(deltaY) * 1.35) {
         if (deltaX < 0 && currentIndex < totalPanels - 1) {
           goToSection(currentIndex + 1);
         } else if (deltaX > 0 && currentIndex > 0) {
