@@ -9,7 +9,9 @@
 <script>
 (function () {
   try {
-    var savedTheme = localStorage.getItem('siwes-theme');
+    var params = new URLSearchParams(window.location.search);
+    var paramTheme = params.get('theme');
+    var savedTheme = (paramTheme === 'light' || paramTheme === 'dark') ? paramTheme : localStorage.getItem('siwes-theme');
     var theme = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark';
     document.documentElement.setAttribute('data-theme', theme);
     document.documentElement.style.colorScheme = theme;
@@ -26,6 +28,7 @@
 <link rel=preload href=./Poppins-Regular.woff2 as=font type=font/woff2 crossorigin>
 <link rel=preload href=./Poppins-SemiBold.woff2 as=font type=font/woff2 crossorigin>
 <link rel=preload href=ascii-magic-poster.webp as=image fetchpriority=high>
+<link rel=preload href=ascii-magic-white-poster.webp as=image>
 <link rel=preload href=ascii-magic-9.webm as=video type=video/webm>
 <!-- Fonts are bundled locally for reliable offline presentation. -->
 
@@ -175,6 +178,10 @@ html, body {
   padding: clamp(24px, 5vh, 56px) clamp(32px, 5vw, 72px);
   isolation: isolate;
 }
+.panel:not(:first-child) {
+  content-visibility: auto;
+  contain-intrinsic-size: 100vw 100dvh;
+}
 
 .panel-container {
   width: 100%;
@@ -250,28 +257,67 @@ html, body {
   max-width: 540px;
 }
 
-/* Hero Background GIF (ascii-magic-9.gif): High Brightness & Vivid Contrast */
+/* Hero Background Backdrop (Dark & Light) */
 .hero-backdrop {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 .hero-backdrop img,
 .hero-backdrop video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.85; /* Bright & fully visible */
-  filter: brightness(1.65) contrast(1.25); /* Enhanced brightness & crispness */
 }
-.hero-backdrop::after {
+
+/* Dark Theme Backdrop */
+.hero-backdrop-dark {
+  opacity: 1;
+  visibility: visible;
+}
+.hero-backdrop-dark img,
+.hero-backdrop-dark video {
+  opacity: 0.85;
+  filter: brightness(1.65) contrast(1.25);
+}
+.hero-backdrop-dark::after {
   content: '';
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at center, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.55) 100%),
               linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 60%, rgba(0,0,0,0.6) 100%);
+}
+
+/* Light Theme Backdrop (ascii-magic-white) */
+.hero-backdrop-light {
+  opacity: 0;
+  visibility: hidden;
+}
+.hero-backdrop-light img,
+.hero-backdrop-light video {
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+  filter: contrast(1.15) brightness(0.98);
+}
+.hero-backdrop-light::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 60% 40%, transparent 25%, rgba(245,243,238,0.35) 90%),
+              linear-gradient(180deg, rgba(245,243,238,0.15) 0%, transparent 50%, rgba(245,243,238,0.55) 100%);
+}
+
+/* Theme Switching States */
+:root[data-theme="light"] .hero-backdrop-dark {
+  opacity: 0;
+  visibility: hidden;
+}
+:root[data-theme="light"] .hero-backdrop-light {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Grid overlay background */
@@ -783,8 +829,8 @@ html, body {
   display: block;
 }
 
-/* GSAP Entry Reveal State */
-.gsap-hidden {
+/* GSAP Entry Reveal State (Hero panel renders immediately for fast LCP & zero layout thrashing) */
+.panel:not(#panel-01) .gsap-hidden {
   opacity: 0;
   transform: translateY(20px);
 }
@@ -2000,14 +2046,7 @@ body,
   color: var(--bg-color) !important;
 }
 
-:root[data-theme="light"] .hero-backdrop img,
-:root[data-theme="light"] .hero-backdrop video {
-  opacity: 0.24;
-  filter: grayscale(0.25) brightness(1.2) contrast(0.9);
-}
-:root[data-theme="light"] .hero-backdrop::after {
-  background: linear-gradient(180deg, rgba(245,243,238,0.70) 0%, rgba(245,243,238,0.88) 100%);
-}
+
 
 
 :root[data-theme="light"] #panel-workflow svg circle:first-child {
@@ -2632,11 +2671,18 @@ body,
        PANEL 01: LANDING PAGE + ASCII BACKDROP
   ═══════════════════════════════════════════════════ -->
   <section class="panel" id="panel-01" data-index="0" data-nav="01 HERO">
-    <div class="hero-backdrop">
-      <video autoplay loop muted playsinline preload="auto" poster="ascii-magic-poster.webp">
+    <div class="hero-backdrop hero-backdrop-dark" aria-hidden="true">
+      <video id="hero-video-dark" autoplay loop muted playsinline preload="auto" poster="ascii-magic-poster.webp">
         <source src="ascii-magic-9.webm" type="video/webm">
         <source src="ascii-magic-9.mp4" type="video/mp4">
-        <img src="ascii-magic-9.gif" alt="ASCII Animation Backdrop" loading="eager" />
+        <img src="ascii-magic-poster.webp" alt="" loading="lazy" />
+      </video>
+    </div>
+    <div class="hero-backdrop hero-backdrop-light" aria-hidden="true">
+      <video id="hero-video-light" loop muted playsinline preload="none" poster="ascii-magic-white-poster.webp">
+        <source src="ascii-magic-white.webm" type="video/webm">
+        <source src="ascii-magic-white.mp4" type="video/mp4">
+        <img src="ascii-magic-white-poster.webp" alt="" loading="lazy" />
       </video>
     </div>
     <div class="grid-lines-overlay"></div>
@@ -2647,7 +2693,7 @@ body,
         <div class="gsap-hidden" style="text-align: left; max-width: 580px;">
           <span class="section-tag">INDUSTRIAL TRAINING PRESENTATION</span>
           <h1 class="section-title f-clash" style="margin-left: 0; line-height: 1.05; text-wrap: balance;">
-            Building Resilient Systems & Modern Architecture
+          Solving Real Problems ...
           </h1>
           <p class="section-desc" style="margin: 0 0 32px 0;">
             A comprehensive review of software engineering placement, technical discoveries, and full-stack solutions.
@@ -2664,13 +2710,13 @@ body,
             <div class="hero-logo-card">
               <picture>
                 <source srcset="TAU.webp" type="image/webp">
-                <img src="TAU.png" alt="TAU Logo" fetchpriority="high" decoding="async" />
+                <img src="TAU.png" alt="TAU Logo" width="498" height="501" loading="eager" decoding="async" />
               </picture>
             </div>
             <div class="hero-logo-card">
               <picture>
                 <source srcset="Nacos.webp" type="image/webp">
-                <img src="Nacos.png" alt="NACOS Logo" fetchpriority="high" decoding="async" />
+                <img src="Nacos.png" alt="NACOS Logo" width="500" height="500" loading="eager" decoding="async" />
               </picture>
             </div>
           </div>
@@ -2678,7 +2724,7 @@ body,
           <!-- Landing Page Presentation Share QR Code -->
           <div class="qr-block qr-clickable" id="qr-hero-block" role="button" tabindex="0" title="Click to enlarge QR code" style="width: 100%; max-width: 380px;">
             <div class="qr-box">
-              <img src="01_presentation_share.svg" alt="Presentation Share QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
+              <img src="01_presentation_share.svg" alt="Presentation Share QR Code" width="380" height="380" loading="eager" decoding="async" style="width: 100%; height: 100%; object-fit: contain;" />
             </div>
             <div class="qr-meta">
               <span class="qr-label">SCAN TO VIEW PRESENTATION</span>
@@ -2722,13 +2768,13 @@ body,
         <div class="gsap-hidden" style="display: flex; flex-direction: column; gap: 20px;">
           <!-- Company Logo Card (White Box Background for Maximum Visibility) -->
           <div class="eleya-card" style="padding: 24px; overflow: hidden; height: 180px; background: #ffffff; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-bright);">
-            <img src="logo.webp" alt="Sanfaani SaaS Logo" style="max-width: 85%; max-height: 80%; width: auto; height: auto; object-fit: contain; filter: grayscale(100%); transition: filter 0.4s ease, transform 0.4s ease;" onmouseenter="this.style.filter='grayscale(0%)'; this.style.transform='scale(1.05)';" onmouseleave="this.style.filter='grayscale(100%)'; this.style.transform='scale(1)';" />
+            <img src="logo.webp" alt="Sanfaani SaaS Logo" width="256" height="83" loading="lazy" decoding="async" style="max-width: 85%; max-height: 80%; width: auto; height: auto; object-fit: contain; filter: grayscale(100%); transition: filter 0.4s ease, transform 0.4s ease;" onmouseenter="this.style.filter='grayscale(0%)'; this.style.transform='scale(1.05)';" onmouseleave="this.style.filter='grayscale(100%)'; this.style.transform='scale(1)';" />
           </div>
 
           <!-- SVG QR Code for Residence Placement (Qr_placement.svg -> https://www.sanfaani.net) -->
           <div class="qr-block qr-clickable" id="qr-sec2-block" role="button" tabindex="0" title="Click to enlarge QR code">
             <div class="qr-box">
-              <img src="Qr_placement.svg" alt="Sanfaani Placement QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
+              <img src="Qr_placement.svg" alt="Sanfaani Placement QR Code" width="160" height="160" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: contain;" />
             </div>
             <div class="qr-meta">
               <span class="qr-label">SCAN FOR PLACEMENT / RESIDENCE</span>
@@ -2921,7 +2967,7 @@ body,
           <!-- Developer QR Code -->
           <div class="qr-block qr-clickable" id="qr-adept-block" role="button" tabindex="0" title="Click to enlarge QR code" style="width: 100%; margin-top: 24px;">
             <div class="qr-box">
-              <img src="adept'sport.svg" alt="Adept Portfolio QR Code" style="width: 100%; height: 100%; object-fit: contain;" />
+              <img src="adept'sport.svg" alt="Adept Portfolio QR Code" width="160" height="160" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: contain;" />
             </div>
             <div class="qr-meta">
               <span class="qr-label">SCAN TO VIEW DEVELOPER PORTFOLIO</span>
@@ -2950,7 +2996,7 @@ body,
       <div class="gsap-hidden" style="display: flex; align-items: center; gap: 20px; margin-bottom: 24px;">
         <picture>
           <source srcset="ws.webp" type="image/webp">
-          <img src="ws.png" alt="WebStorm Icon" loading="lazy" decoding="async" style="width: 64px; height: 64px; border-radius: 12px; object-fit: contain; background: #ffffff; padding: 6px; box-sizing: border-box;" onerror="this.style.display='none';" />
+          <img src="ws.png" alt="WebStorm Icon" width="64" height="64" loading="lazy" decoding="async" style="width: 64px; height: 64px; border-radius: 12px; object-fit: contain; background: #ffffff; padding: 6px; box-sizing: border-box;" onerror="this.style.display='none';" />
         </picture>
         <div>
           <span class="section-tag" style="margin-bottom: 8px; display: block;">04 | PRIMARY DEVELOPMENT ENVIRONMENT</span>
@@ -3280,7 +3326,7 @@ body,
             <span class="detail-value">Obsidian: Knowledge base and task management</span>
           </div>
           <div style="flex-shrink: 0; margin-right: 8px; width: 32px; height: 32px; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #ffffff;">
-            <img src="obsidian.jpeg" alt="Obsidian Logo" style="width: 100%; height: 100%; object-fit: contain;">
+            <img src="obsidian.jpeg" alt="Obsidian Logo" width="32" height="32" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: contain;">
           </div>
         </div>
       </div>
@@ -3525,6 +3571,33 @@ body,
   const themeToggle = document.getElementById('theme-toggle');
   const themeToggleLabel = document.getElementById('theme-toggle-label');
 
+  function updateHeroBackdropVideo(currentTheme) {
+    const isLight = currentTheme === 'light';
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const vidDark = document.getElementById('hero-video-dark');
+    const vidLight = document.getElementById('hero-video-light');
+
+    if (prefersReduced) {
+      if (vidDark) vidDark.pause();
+      if (vidLight) vidLight.pause();
+      return;
+    }
+
+    if (isLight) {
+      if (vidDark) vidDark.pause();
+      if (vidLight) {
+        const p = vidLight.play();
+        if (p && typeof p.catch === 'function') p.catch(function () {});
+      }
+    } else {
+      if (vidLight) vidLight.pause();
+      if (vidDark) {
+        const p = vidDark.play();
+        if (p && typeof p.catch === 'function') p.catch(function () {});
+      }
+    }
+  }
+
   function setTheme(theme, persist) {
     const nextTheme = theme === 'light' ? 'light' : 'dark';
     const isLight = nextTheme === 'light';
@@ -3540,6 +3613,8 @@ body,
     if (themeToggleLabel) {
       themeToggleLabel.textContent = isLight ? 'DARK' : 'LIGHT';
     }
+
+    updateHeroBackdropVideo(nextTheme);
 
     if (persist !== false) {
       try { localStorage.setItem(THEME_STORAGE_KEY, nextTheme); } catch (error) { /* storage can be unavailable in strict/private contexts */ }
@@ -3911,26 +3986,36 @@ body,
     const panelWidth = window.innerWidth;
     const targetX = -currentIndex * panelWidth;
 
-    isAnimating = true;
-
-    // Direct GSAP Horizontal Track Translation
-    gsap.to(track, {
-      x: targetX,
-      duration: duration,
-      ease: 'power2.out',
-      overwrite: 'auto',
-      onUpdate: function() {
-        const currentX = Math.abs(gsap.getProperty(track, 'x'));
+    if (duration === 0) {
+      isAnimating = false;
+      gsap.set(track, { x: targetX });
+      if (progressBar) {
         const maxDistance = (totalPanels - 1) * panelWidth;
-        const progress = maxDistance > 0 ? (currentX / maxDistance) : 0;
-        if (progressBar) {
-          progressBar.style.transform = 'scaleX(' + progress + ')';
-        }
-      },
-      onComplete: function() {
-        isAnimating = false;
+        const progress = maxDistance > 0 ? (Math.abs(targetX) / maxDistance) : 0;
+        progressBar.style.transform = 'scaleX(' + progress + ')';
       }
-    });
+    } else {
+      isAnimating = true;
+
+      // Direct GSAP Horizontal Track Translation
+      gsap.to(track, {
+        x: targetX,
+        duration: duration,
+        ease: 'power2.out',
+        overwrite: 'auto',
+        onUpdate: function() {
+          const currentX = Math.abs(gsap.getProperty(track, 'x'));
+          const maxDistance = (totalPanels - 1) * panelWidth;
+          const progress = maxDistance > 0 ? (currentX / maxDistance) : 0;
+          if (progressBar) {
+            progressBar.style.transform = 'scaleX(' + progress + ')';
+          }
+        },
+        onComplete: function() {
+          isAnimating = false;
+        }
+      });
+    }
 
     // Update Counter & Active Buttons
     if (sectionCounterText) {
@@ -3948,16 +4033,21 @@ body,
     // Per-Panel Reveal Animation & Radial Circles Trigger
     const activePanel = panels[currentIndex];
     if (activePanel) {
-      const els = activePanel.querySelectorAll('.gsap-hidden');
-      if (els.length) {
-        gsap.to(els, {
-          opacity: 1,
-          y: 0,
-          stagger: 0.06,
-          duration: 0.6,
-          ease: 'power2.out',
-          overwrite: 'auto'
-        });
+      if (activePanel.style.contentVisibility === 'auto') {
+        activePanel.style.contentVisibility = 'visible';
+      }
+      if (currentIndex > 0) {
+        const els = activePanel.querySelectorAll('.gsap-hidden');
+        if (els.length) {
+          gsap.to(els, {
+            opacity: 1,
+            y: 0,
+            stagger: 0.06,
+            duration: 0.6,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        }
       }
       if (activePanel.id === 'panel-03') {
         const gridBefore = document.getElementById('growth-grid-before');
@@ -4143,8 +4233,8 @@ body,
   const mm = gsap.matchMedia();
   mm.add('(prefers-reduced-motion: reduce)', function() {
     gsap.globalTimeline.timeScale(0.01);
-    const heroVid = document.querySelector('.hero-backdrop video');
-    if (heroVid) heroVid.pause();
+    const heroVids = document.querySelectorAll('.hero-backdrop video');
+    heroVids.forEach(function(v) { v.pause(); });
     document.querySelectorAll('.gsap-hidden').forEach(function(el) {
       el.style.opacity = '1';
       el.style.transform = 'none';
